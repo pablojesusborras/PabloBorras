@@ -1,0 +1,33 @@
+# Stack del proyecto
+Stack: Astro + React Islands + Tailwind CSS v4 + Vite + Vercel
+Idioma de respuestas: español rioplatense
+
+# Reglas de componentes
+- Componentes estáticos: .astro
+- Componentes interactivos (useState, eventos del DOM): .jsx con client:load o client:visible
+- No mezclar lógica de React en archivos .astro
+
+# Reglas de estilos
+- Solo Tailwind CSS v4 + variables CSS definidas en src/styles/global.css
+- No usar style inline ni style tags
+- No agregar clases de Tailwind que no existan en v4
+
+# Variables de diseño del proyecto
+--color-primary: #040d4e
+--color-secondary: #183b7f
+--color-accent: #1880c9
+--color-accent-light: #5ba8e0
+--font-display: Playfair Display
+--font-body: DM Sans
+--radius, --shadow (usar las del proyecto)
+
+# Reglas generales
+- No tocar archivos que no se mencionan explícitamente en el prompt
+- No agregar librerías externas sin que Pablo lo pida
+- No reorganizar imports ni estructura de carpetas
+- Mantener el código en JavaScript (no migrar a TypeScript)
+- Deploy target: Vercel — no usar APIs de Node que no funcionen en edge
+
+# Integraciones activas
+- Sanity CMS: variables en .env.local (SANITY_PROJECT_ID, SANITY_DATASET)
+- Web3Forms: variable en .env.local (WEB3FORMS_KEY)
