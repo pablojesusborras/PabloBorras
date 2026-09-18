@@ -1,0 +1,160 @@
+// sanity/ejemplos/uso-en-componentes.astro — Ejemplos de uso del cliente Sanity
+//
+// ⚠️ ARCHIVO DE REFERENCIA — Ejemplos de cómo usar Sanity en componentes
+//
+// Este archivo muestra cómo reemplazar los datos estáticos por datos de Sanity
+
+/* ═══════════════════════════════════════════════════════════════
+   EJEMPLO 1: Reemplazar eventos estáticos en AgendaEventos.astro
+   ═══════════════════════════════════════════════════════════════ */
+
+// ── ANTES (con datos estáticos) ──
+/*
+---
+import { eventos } from '../../data/eventos.js';
+const eventosFuturos = eventos.filter(e => new Date(e.fecha) >= new Date());
+---
+*/
+
+// ── DESPUÉS (con Sanity) ──
+/*
+---
+import { getEventos } from '../../lib/sanity.client.js';
+const eventosFuturos = await getEventos(true); // true = solo eventos futuros
+---
+*/
+
+
+/* ═══════════════════════════════════════════════════════════════
+   EJEMPLO 2: Eventos destacados en la Homepage
+   ═══════════════════════════════════════════════════════════════ */
+
+// ── ANTES ──
+/*
+---
+import { eventos } from '../../data/eventos.js';
+const eventosDestacados = eventos.slice(0, 3);
+---
+*/
+
+// ── DESPUÉS ──
+/*
+---
+import { getEventosDestacados } from '../../lib/sanity.client.js';
+const eventosDestacados = await getEventosDestacados();
+---
+*/
+
+
+/* ═══════════════════════════════════════════════════════════════
+   EJEMPLO 3: Todos los eventos (página /eventos)
+   ═══════════════════════════════════════════════════════════════ */
+
+// ── ANTES ──
+/*
+---
+import { eventos } from '../data/eventos.js';
+---
+*/
+
+// ── DESPUÉS ──
+/*
+---
+import { getEventos } from '../lib/sanity.client.js';
+const eventos = await getEventos(); // todos los eventos
+---
+*/
+
+
+/* ═══════════════════════════════════════════════════════════════
+   EJEMPLO 4: Mostrar imágenes de Sanity
+   ═══════════════════════════════════════════════════════════════ */
+
+/*
+---
+import { getEventos, urlFor } from '../lib/sanity.client.js';
+const eventos = await getEventos();
+---
+
+<div>
+  {eventos.map(evento => (
+    <div>
+      <h2>{evento.nombre}</h2>
+      
+      {evento.imagen && (
+        <img 
+          src={urlFor(evento.imagen).width(400).height(300).url()}
+          alt={evento.imagen.alt || evento.nombre}
+        />
+      )}
+      
+      <p>{evento.descripcion}</p>
+      
+      {evento.enlace && (
+        <a href={evento.enlace} target="_blank">Más información →</a>
+      )}
+    </div>
+  ))}
+</div>
+*/
+
+
+/* ═══════════════════════════════════════════════════════════════
+   EJEMPLO 5: Formateo de fechas
+   ═══════════════════════════════════════════════════════════════ */
+
+/*
+---
+import { getEventos } from '../lib/sanity.client.js';
+const eventos = await getEventos();
+
+// Función helper para formatear fechas
+function formatearFecha(fechaStr) {
+  const fecha = new Date(fechaStr);
+  return new Intl.DateTimeFormat('es-AR', { 
+    year: 'numeric', 
+    month: 'long', 
+    day: 'numeric' 
+  }).format(fecha);
+}
+---
+
+<div>
+  {eventos.map(evento => (
+    <div>
+      <h3>{evento.nombre}</h3>
+      <p>{formatearFecha(evento.fecha)}</p>
+      <p>{evento.ciudad}</p>
+    </div>
+  ))}
+</div>
+*/
+
+
+/* ═══════════════════════════════════════════════════════════════
+   EJEMPLO 6: Filtrado por tipo de evento
+   ═══════════════════════════════════════════════════════════════ */
+
+/*
+---
+import { getEventos } from '../lib/sanity.client.js';
+const todosEventos = await getEventos();
+
+// Filtrar solo congresos
+const congresos = todosEventos.filter(e => e.tipo === 'Congreso');
+
+// Filtrar solo talleres
+const talleres = todosEventos.filter(e => e.tipo === 'Taller');
+---
+*/
+
+
+/* ═══════════════════════════════════════════════════════════════
+   NOTAS IMPORTANTES
+   ═══════════════════════════════════════════════════════════════ */
+
+// 1. Las queries de Sanity son asíncronas (usa await)
+// 2. En componentes Astro, el código dentro de --- es del servidor
+// 3. urlFor() es para construir URLs optimizadas de imágenes
+// 4. Puedes agregar parámetros: .width(800).height(600).quality(90)
+// 5. La estructura del objeto evento es la misma que antes (retrocompatible)
