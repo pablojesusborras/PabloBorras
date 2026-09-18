@@ -1,0 +1,88 @@
+---
+// PruebaSocial.astro — Franja oscura de autoridad con números clave
+const stats = [
+  { numero: 1200, prefix: '+', suffix: '',  display: '+1.200', label: 'Veterinarios formados' },
+  { numero: 20,   prefix: '+', suffix: '',  display: '+20',    label: 'Congresos internacionales' },
+  { numero: 15,   prefix: '+', suffix: '',  display: '+15',    label: 'Años de experiencia' },
+  { numero: 2,    prefix: '',  suffix: '',  display: '2',      label: 'Libros publicados' },
+];
+---
+
+<section class="py-12 md:py-14" style="background: var(--color-primary);">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-y-8 md:gap-y-0 text-center">
+      {stats.map((stat, i) => (
+        <div
+          class={`prueba-stat reveal ${i < stats.length - 1 ? 'prueba-stat--divider' : ''}`}
+          style={`transition-delay: ${i * 0.1}s; padding: 0 1rem;`}
+          data-target={stat.numero}
+          data-prefix={stat.prefix}
+          data-suffix={stat.suffix}
+          data-display={stat.display}
+        >
+          <p
+            class="prueba-number text-4xl md:text-6xl font-bold text-white"
+            style="font-family: var(--font-display); line-height: 1;"
+          >
+            {stat.display}
+          </p>
+          <p
+            class="text-xs mt-3 uppercase tracking-widest"
+            style="color: var(--color-accent-light);"
+          >
+            {stat.label}
+          </p>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<script>
+  (function () {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (!entry.isIntersecting) return;
+          observer.unobserve(entry.target);
+
+          const el     = entry.target.querySelector('.prueba-number');
+          const target = parseInt(entry.target.getAttribute('data-target') || '0', 10);
+          const prefix = entry.target.getAttribute('data-prefix') || '';
+          const suffix = entry.target.getAttribute('data-suffix') || '';
+
+          let current = 0;
+          const steps  = 32;
+          const step   = Math.max(1, Math.ceil(target / steps));
+          const delay  = target >= 100 ? 18 : 35;
+
+          const iv = setInterval(() => {
+            current = Math.min(current + step, target);
+            const formatted =
+              target >= 1000
+                ? prefix + current.toLocaleString('es-AR') + suffix
+                : prefix + current + suffix;
+            if (el) el.textContent = formatted;
+            if (current >= target) clearInterval(iv);
+          }, delay);
+        });
+      },
+      { threshold: 0.4 }
+    );
+
+    document.querySelectorAll('.prueba-stat').forEach((el) => observer.observe(el));
+  })();
+</script>
+
+<style>
+  @media (min-width: 768px) {
+    .prueba-stat--divider {
+      border-right: 1px solid rgba(255,255,255,0.10);
+    }
+  }
+  @media (max-width: 767px) {
+    .prueba-stat:nth-child(odd) {
+      border-right: 1px solid rgba(255,255,255,0.10);
+    }
+  }
+</style>

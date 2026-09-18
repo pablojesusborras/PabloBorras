@@ -1,0 +1,32 @@
+---
+// Badge.astro — Etiqueta visual reutilizable
+interface Props {
+  label: string;
+  color?: 'green' | 'blue' | 'orange' | 'purple' | 'gray';
+  size?: 'sm' | 'md';
+}
+
+const {
+  label,
+  color = 'green',
+  size = 'sm',
+} = Astro.props;
+
+const colorMap = {
+  green:  { bg: '#D1FAE5', text: '#065F46' },
+  blue:   { bg: '#DBEAFE', text: '#1E40AF' },
+  orange: { bg: '#FEF3C7', text: '#92400E' },
+  purple: { bg: '#EDE9FE', text: '#5B21B6' },
+  gray:   { bg: '#F3F4F6', text: '#374151' },
+};
+
+const sizeClass = size === 'md' ? 'px-3 py-1 text-sm' : 'px-2.5 py-0.5 text-xs';
+const { bg, text } = colorMap[color];
+---
+
+<span
+  class={`inline-block font-semibold rounded-full ${sizeClass}`}
+  style={`background: ${bg}; color: ${text};`}
+>
+  {label}
+</span>

@@ -1,0 +1,287 @@
+---
+// AgendaEventos.astro — Agenda completa con timeline vertical y separación por estado
+import { eventos } from '../../data/eventos.js';
+import SectionTitle from '../ui/SectionTitle.astro';
+import Badge from '../ui/Badge.astro';
+import Button from '../ui/Button.astro';
+
+// Colores por tipo de evento
+const tipoColor = {
+  Congreso: 'blue',
+  Jornada:  'orange',
+  Taller: 'green',
+  'Evento corporativo': 'purple',
+};
+
+// Ordenar por fecha ascendente
+const hoy = new Date();
+const sorted = [...eventos].sort((a, b) => new Date(a.fecha) - new Date(b.fecha));
+
+// Separar próximos vs pasados
+const proximos = sorted.filter(e => new Date(e.fecha + 'T12:00:00') >= hoy);
+const pasados  = sorted.filter(e => new Date(e.fecha + 'T12:00:00') < hoy).reverse(); // más reciente primero
+
+// Helper: formatear fecha larga → "15 de agosto de 2025"
+function formatFechaLarga(fechaStr) {
+  const meses = [
+    'enero','febrero','marzo','abril','mayo','junio',
+    'julio','agosto','septiembre','octubre','noviembre','diciembre'
+  ];
+  const d = new Date(fechaStr + 'T12:00:00');
+  return `${d.getDate()} de ${meses[d.getMonth()]} de ${d.getFullYear()}`;
+}
+
+// Helper: día y mes corto
+function diaNum(fechaStr) {
+  return new Date(fechaStr + 'T12:00:00').getDate().toString().padStart(2,'0');
+}
+function mesCorto(fechaStr) {
+  const meses = ['ENE','FEB','MAR','ABR','MAY','JUN','JUL','AGO','SEP','OCT','NOV','DIC'];
+  return meses[new Date(fechaStr + 'T12:00:00').getMonth()];
+}
+---
+
+<section class="py-12 md:py-16 bg-white" id="agenda">
+  <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+
+    <!-- ==================== PRÓXIMOS EVENTOS ==================== -->
+    {proximos.length > 0 && (
+      <>
+        <!-- Título de sección mejorado -->
+        <div class="text-center mb-16">
+          <p class="text-xs font-semibold uppercase tracking-widest mb-3" style="color: var(--color-accent); letter-spacing: 0.12em;">
+            Agenda 2025
+          </p>
+          <h2 class="text-3xl md:text-4xl font-bold mb-4" style="font-family: var(--font-display); color: var(--color-text); line-height: 1.2;">
+            Próximos eventos
+          </h2>
+          <div class="w-20 h-1 mx-auto rounded-full" style="background: linear-gradient(90deg, #1880c9 0%, #4a3d9e 100%);"></div>
+        </div>
+
+        <div class="space-y-8 mb-20 relative">
+          <!-- Línea vertical decorativa mejorada -->
+          <div
+            class="absolute left-16 top-0 bottom-0 w-1 hidden md:block rounded-full"
+            style="background: linear-gradient(to bottom, #1880c9 0%, #4a3d9e 50%, transparent 100%);"
+            aria-hidden="true"
+          ></div>
+
+          {proximos.map((evento, index) => {
+            // Alternar colores entre celeste y violeta
+            const cardColor = index % 2 === 0 ? '#1880c9' : '#4a3d9e';
+            const gradientBg = index % 2 === 0 
+              ? 'linear-gradient(135deg, rgba(24,128,201,0.05) 0%, transparent 100%)'
+              : 'linear-gradient(135deg, rgba(74,61,158,0.05) 0%, transparent 100%)';
+            
+            return (
+              <div class="flex gap-0 md:gap-6 items-start">
+                <!-- Fecha a la izquierda mejorada -->
+                <div
+                  class="hidden md:flex flex-col items-center justify-center shrink-0 w-16 h-16 rounded-xl text-white z-10 relative"
+                  style={`background: ${cardColor};`}
+                >
+                  <!-- Decoración interna -->
+                  <div
+                    style="position: absolute; inset: 0; background: radial-gradient(circle at top right, rgba(255,255,255,0.15), transparent 60%); border-radius: 0.75rem;"
+                    aria-hidden="true"
+                  ></div>
+                  <span class="text-2xl font-bold leading-none relative z-10" style="font-family: var(--font-display);">
+                    {diaNum(evento.fecha)}
+                  </span>
+                  <span class="text-xs font-semibold tracking-widest mt-1 relative z-10" style="color: rgba(255,255,255,0.9);">
+                    {mesCorto(evento.fecha)}
+                  </span>
+                </div>
+
+                <!-- Punto de timeline mejorado -->
+                <div
+                  class="hidden md:flex shrink-0 w-4 h-4 rounded-full mt-6 z-10 items-center justify-center"
+                  style={`background: ${cardColor}; box-shadow: 0 0 0 4px rgba(255,255,255,1), 0 0 0 6px ${cardColor}40;`}
+                  aria-hidden="true"
+                >
+                  <div class="w-1.5 h-1.5 rounded-full" style="background: white;"></div>
+                </div>
+
+                <!-- Contenido del evento mejorado -->
+                <div
+                  class="flex-1 bg-white rounded-2xl p-7 relative overflow-hidden transition-all duration-300"
+                  style={`box-shadow: 0 4px 20px rgba(0,0,0,0.08); border-top: 4px solid ${cardColor};`}
+                  onmouseover={`this.style.transform='translateY(-6px)'; this.style.boxShadow='0 12px 32px rgba(0,0,0,0.12)'`}
+                  onmouseout={`this.style.transform='translateY(0)'; this.style.boxShadow='0 4px 20px rgba(0,0,0,0.08)'`}
+                >
+                  <!-- Gradiente de fondo -->
+                  <div
+                    style={`position: absolute; inset: 0; background: ${gradientBg}; pointer-events: none;`}
+                    aria-hidden="true"
+                  ></div>
+
+                  <div style="position: relative; z-index: 1;">
+                    <!-- Ícono decorativo -->
+                    <div 
+                      class="w-12 h-12 rounded-xl flex items-center justify-center mb-4" 
+                      style={`background: ${index % 2 === 0 ? 'rgba(24,128,201,0.12)' : 'rgba(74,61,158,0.12)'}; border: 2px solid ${index % 2 === 0 ? 'rgba(24,128,201,0.2)' : 'rgba(74,61,158,0.2)'};`}
+                    >
+                      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke={cardColor} stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
+                        <line x1="16" y1="2" x2="16" y2="6"/>
+                        <line x1="8" y1="2" x2="8" y2="6"/>
+                        <line x1="3" y1="10" x2="21" y2="10"/>
+                      </svg>
+                    </div>
+
+                    <div class="flex flex-wrap items-center gap-2.5 mb-4">
+                      <Badge label={evento.tipo} color={tipoColor[evento.tipo] || 'gray'} />
+                      <span class="flex items-center gap-1.5 text-xs font-medium" style="color: var(--color-text-muted);">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                          <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
+                          <circle cx="12" cy="10" r="3"/>
+                        </svg>
+                        {evento.ciudad}
+                      </span>
+                      <span class="flex items-center gap-1.5 text-xs md:hidden font-medium" style="color: var(--color-text-muted);">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                          <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
+                          <line x1="16" y1="2" x2="16" y2="6"/>
+                          <line x1="8" y1="2" x2="8" y2="6"/>
+                          <line x1="3" y1="10" x2="21" y2="10"/>
+                        </svg>
+                        {formatFechaLarga(evento.fecha)}
+                      </span>
+                    </div>
+
+                    <h3
+                      class="text-xl font-bold mb-3"
+                      style="font-family: var(--font-display); color: var(--color-text); line-height: 1.3;"
+                    >
+                      {evento.nombre}
+                    </h3>
+                    <p class="text-sm md:text-base leading-relaxed mb-5" style="color: var(--color-text-muted);">
+                      {evento.descripcion}
+                    </p>
+
+                    <a
+                      href="/contacto?tab=eventos"
+                      class="inline-flex items-center gap-2 text-sm font-bold transition-all hover:gap-3"
+                      style={`color: ${cardColor}; text-decoration: none;`}
+                    >
+                      Quiero invitar a Pablo
+                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                        <line x1="5" y1="12" x2="19" y2="12"/>
+                        <polyline points="12 5 19 12 12 19"/>
+                      </svg>
+                    </a>
+                  </div>
+                </div>
+              </div>
+            );
+          })}
+        </div>
+      </>
+    )}
+
+    <!-- ==================== EVENTOS PASADOS ==================== -->
+    {pasados.length > 0 && (
+      <>
+        <!-- Título de sección mejorado -->
+        <div class={`text-center mb-10 md:mb-12 ${proximos.length > 0 ? 'mt-14 md:mt-16' : ''}`}>
+          <p class="text-xs font-semibold uppercase tracking-widest mb-3" style="color: #6b7280; letter-spacing: 0.12em;">
+            Historial
+          </p>
+          <h2 class="text-2xl md:text-3xl font-bold mb-4" style="font-family: var(--font-display); color: var(--color-text); line-height: 1.2;">
+            Eventos realizados
+          </h2>
+          <div class="w-20 h-1 mx-auto rounded-full" style="background: linear-gradient(90deg, #9ca3af 0%, #d1d5db 100%);"></div>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-4 md:gap-6 mb-10 md:mb-12">
+          {pasados.map((evento, index) => {
+            const cardColor = index % 2 === 0 ? '#1880c9' : '#4a3d9e';
+            
+            return (
+              <div
+                class="flex gap-3 md:gap-4 items-start rounded-2xl p-5 md:p-7 bg-white transition-all duration-300 h-full"
+                style="box-shadow: 0 2px 12px rgba(0,0,0,0.06); border-left: 3px solid #e5e7eb;"
+                onmouseover={`this.style.transform='translateY(-4px)'; this.style.boxShadow='0 8px 24px rgba(0,0,0,0.1)'; this.style.borderLeftColor='${cardColor}'`}
+                onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 2px 12px rgba(0,0,0,0.06)'; this.style.borderLeftColor='#e5e7eb'"
+              >
+                <!-- Fecha pequeña mejorada: visible también en mobile -->
+                <div
+                  class="flex flex-col items-center justify-center shrink-0 w-12 h-12 md:w-14 md:h-14 rounded-xl text-white"
+                  style="background: #9ca3af;"
+                >
+                  <span class="text-base md:text-lg font-bold leading-none">{diaNum(evento.fecha)}</span>
+                  <span class="text-[10px] md:text-xs font-semibold mt-0.5" style="color: rgba(255,255,255,0.85);">{mesCorto(evento.fecha)}</span>
+                </div>
+
+                <!-- Contenido -->
+                <div class="flex-1 min-w-0">
+                  <div class="flex flex-wrap items-center gap-2 mb-2">
+                    <Badge label={evento.tipo} color={tipoColor[evento.tipo] || 'gray'} />
+                    <!-- Badge "Finalizado" -->
+                    <span
+                      class="inline-flex items-center gap-1 text-xs font-semibold px-2.5 py-1 rounded-lg"
+                      style="background: #F3F4F6; color: #6B7280; border: 1px solid #E5E7EB;"
+                    >
+                      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                        <polyline points="20 6 9 17 4 12"/>
+                      </svg>
+                      Finalizado
+                    </span>
+                  </div>
+                  
+                  <h4
+                    class="font-bold text-base mb-1"
+                    style="font-family: var(--font-display); color: var(--color-text); line-height: 1.35;"
+                  >
+                    {evento.nombre}
+                  </h4>
+                  
+                  <div class="flex items-center gap-1.5 text-xs mb-2" style="color: var(--color-text-muted);">
+                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                      <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
+                      <circle cx="12" cy="10" r="3"/>
+                    </svg>
+                    {evento.ciudad}
+                  </div>
+                  
+                  <p class="text-sm leading-relaxed" style="color: var(--color-text-muted);">{evento.descripcion}</p>
+                </div>
+              </div>
+            );
+          })}
+        </div>
+      </>
+    )}
+
+    <!-- CTA quiero invitar a Pablo mejorado -->
+    <div class="text-center px-2 sm:px-0">
+      <div class="inline-block w-full sm:w-auto">
+        <a
+          href="/contacto?tab=eventos"
+          class="w-full sm:w-auto inline-flex items-center justify-center gap-3 px-8 py-4 text-base font-bold rounded-xl transition-all"
+          style="
+            background: linear-gradient(135deg, #1880c9 0%, #4a3d9e 100%);
+            color: white;
+            text-decoration: none;
+            box-shadow: 0 4px 20px rgba(24,128,201,0.3);
+          "
+          onmouseover="this.style.transform='translateY(-3px) scale(1.02)'; this.style.boxShadow='0 12px 32px rgba(24,128,201,0.4)'"
+          onmouseout="this.style.transform='translateY(0) scale(1)'; this.style.boxShadow='0 4px 20px rgba(24,128,201,0.3)'"
+        >
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+          </svg>
+          ¿Querés invitar a Pablo a tu evento?
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="5" y1="12" x2="19" y2="12"/>
+            <polyline points="12 5 19 12 12 19"/>
+          </svg>
+        </a>
+        <p class="text-sm mt-4 max-w-sm mx-auto" style="color: var(--color-text-muted);">
+          Contactanos para coordinar su participación en tu congreso o jornada
+        </p>
+      </div>
+    </div>
+
+  </div>
+</section>

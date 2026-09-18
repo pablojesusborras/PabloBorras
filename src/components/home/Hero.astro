@@ -1,0 +1,452 @@
+---
+// Hero.astro — Sección principal de la homepage con CTAs por audiencia
+---
+
+<section
+  id="hero"
+  class="hero-section relative overflow-hidden"
+  style="
+    background: transparent;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  "
+>
+
+  <!-- Patrón decorativo de puntos -->
+  <div class="dot-pattern absolute inset-0 pointer-events-none" style="opacity: 0.15;" aria-hidden="true"></div>
+
+  <!-- Imagen de fondo del hero — capa más baja (z-index 0) -->
+  <div
+    class="absolute inset-0 pointer-events-none"
+    style="z-index: 0;"
+    aria-hidden="true"
+  >
+    <!-- Desktop -->
+    <img
+      id="hero-bg-pablo"
+      src="/imagenes/heros/heropa.webp"
+      alt=""
+      class="hidden md:block"
+      style="
+        position: absolute;
+        left: 0;
+        top: -12%;
+        height: 115%;
+        width: 100%;
+        object-fit: cover;
+        object-position: left top;
+        opacity: 0.80;
+        filter: blur(0px) saturate(1.2);
+      "
+    />
+    <!-- Mobile: encuadre corrido hacia abajo para que la cara no quede
+         justo detrás del título. Opacidad alta como desktop — el
+         oscurecimiento viene del degradado, no de atenuar la foto -->
+    <img
+      src="/imagenes/heros/heromob2.webp"
+      alt=""
+      class="block md:hidden"
+      fetchpriority="high"
+      style="
+        position: absolute;
+        left: 0;
+        top: 0;
+        height: 100%;
+        width: 100%;
+        object-fit: cover;
+        object-position: center 22%;
+        opacity: 0.90;
+        filter: blur(0px) saturate(1.15);
+      "
+    />
+  </div>
+
+  <!-- Oscurecimiento solo detrás del texto -->
+  <!-- Desktop: solo lado izquierdo -->
+  <div
+    class="hidden md:block absolute top-0 left-0 bottom-0 pointer-events-none"
+    style="
+      width: 60%;
+      background: linear-gradient(to right, rgba(3,13,58,0.62) 0%, rgba(3,13,58,0.38) 45%, rgba(3,13,58,0.12) 75%, rgba(3,13,58,0) 100%);
+      z-index: 0;
+    "
+    aria-hidden="true"
+  ></div>
+
+  <!-- Mobile: degradado INVERTIDO — transparente arriba (foto nítida),
+       oscuro abajo (zona de texto). Igual que desktop: foto primero,
+       oscuro solo donde hace falta contraste. -->
+  <div
+    class="block md:hidden absolute inset-0 pointer-events-none"
+    style="
+      background: linear-gradient(to bottom, rgba(3,13,58,0) 0%, rgba(3,13,58,0) 25%, rgba(3,13,58,0.55) 45%, rgba(3,13,58,0.82) 70%, rgba(3,13,58,0.90) 100%);
+      z-index: 1;
+    "
+    aria-hidden="true"
+  ></div>
+
+  <!-- Blob acento superior derecha (desktop) -->
+  <div
+    class="blob-float hidden md:block absolute top-0 right-0 w-96 h-96 rounded-full opacity-[0.05] pointer-events-none"
+    style="background: linear-gradient(135deg, #1880c9, #2d2e6f); filter: blur(80px); transform: translate(30%, -30%);"
+    aria-hidden="true"
+  ></div>
+
+  <!-- Blob inferior izquierda (desktop) -->
+  <div
+    class="hidden md:block absolute bottom-0 left-0 w-72 h-72 rounded-full pointer-events-none"
+    style="background: #1a367c; filter: blur(100px); transform: translate(-30%, 30%); opacity: 0.03;"
+    aria-hidden="true"
+  ></div>
+
+  <!-- ═══════════════════════════════════════════════
+       CONTENIDO — compartido; se adapta via CSS
+       ═══════════════════════════════════════════════ -->
+  <div
+    class="hero-content max-w-7xl ml-0 px-4 sm:px-6 md:px-12 lg:px-20 pt-6 pb-8 md:py-10 w-full"
+    style="position: relative; z-index: 2;"
+  >
+    <div class="flex items-center">
+
+      <!-- Columna de texto -->
+      <div class="hero-text w-full md:w-3/5 lg:w-7/12 relative">
+
+        <!-- Degradado radial negro detrás del texto (solo desktop) -->
+        <div
+          class="hidden md:block absolute pointer-events-none"
+          style="
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 140%;
+            height: 140%;
+            background: radial-gradient(ellipse 80% 85% at 40% 50%, rgba(0,0,0,0.55) 0%, rgba(0,0,0,0.32) 40%, rgba(0,0,0,0.12) 65%, transparent 82%);
+            z-index: -1;
+            filter: blur(8px);
+          "
+          aria-hidden="true"
+        ></div>
+
+        <!-- Línea decorativa + nombre -->
+        <!-- drop-shadow permite sombra en h1 con -webkit-text-fill-color: transparent -->
+        <div class="hero-name-block flex items-start gap-4 mb-4" style="filter: drop-shadow(0 2px 8px rgba(0,0,0,0.45));">
+          <div
+            class="hero-bar-grow w-1 self-stretch rounded-full mt-1 shrink-0"
+            style="background: linear-gradient(to bottom, #1880c9, #5ba8e0); min-height: 48px;"
+            aria-hidden="true"
+          ></div>
+          <div>
+            <h1
+              class="animate-fade-in-up delay-100 text-[2.35rem] sm:text-5xl md:text-6xl font-bold leading-[1.12]"
+              style="
+                font-family: var(--font-display);
+                background: linear-gradient(135deg, #ffffff 0%, #ffffff 55%, #5ba8e0 100%);
+                -webkit-background-clip: text;
+                -webkit-text-fill-color: transparent;
+                background-clip: text;
+              "
+            >
+              Pablo Borrás
+            </h1>
+            <p
+              class="animate-fade-in-up delay-200 mt-2"
+              style="
+                color: var(--color-accent-light);
+                font-family: var(--font-body);
+                letter-spacing: 0.12em;
+                text-transform: uppercase;
+                font-size: 0.8rem;
+                font-weight: 600;
+                opacity: 0.9;
+              "
+            >
+              VET. ESPECIALISTA · SPEAKER · AUTOR
+            </p>
+          </div>
+        </div>
+
+        <!-- Descripción — la clase .hero-bio__long se oculta en mobile -->
+        <p
+          class="hero-bio text-white text-sm sm:text-base md:text-[1.05rem] leading-relaxed mb-4 max-w-lg animate-fade-in-up delay-300"
+          style="font-family: var(--font-body); letter-spacing: 0.01em; line-height: 1.75; text-shadow: 0 2px 12px rgba(0,0,0,0.6);"
+        >
+          Referente clínico, formador de veterinarios y divulgador científico. Especialista en Medicina Interna con foco en Enfermedades Infecciosas y Parasitarias de perros y gatos.<!--
+          --><span class="hero-bio__long"> Más de 15 años acompañando a mascotas, profesionales e instituciones.</span>
+        </p>
+
+        <!-- Stats de autoridad — desktop -->
+        <div
+          class="hidden md:flex items-center gap-6 mb-5 animate-fade-in-up delay-400"
+          style="
+            border-top: 1px solid rgba(255,255,255,0.15);
+            border-bottom: 1px solid rgba(255,255,255,0.15);
+            padding: 10px 0;
+          "
+        >
+          <div class="hero-stat text-center flex-shrink-0">
+            <p class="text-xl font-bold text-white leading-none" style="font-family: var(--font-display);" data-hero-count="15" data-hero-prefix="+" data-hero-suffix="">+15</p>
+            <p style="font-size: 0.68rem; color: rgba(255,255,255,0.5); margin-top: 4px; font-family: var(--font-body); letter-spacing: 0.06em; text-transform: uppercase;">años</p>
+          </div>
+          <div style="width: 1px; height: 28px; background: rgba(255,255,255,0.12); flex-shrink: 0;"></div>
+          <div class="hero-stat text-center flex-shrink-0">
+            <p class="text-xl font-bold text-white leading-none" style="font-family: var(--font-display);" data-hero-count="15" data-hero-prefix="+" data-hero-suffix="">+15</p>
+            <p style="font-size: 0.68rem; color: rgba(255,255,255,0.5); margin-top: 4px; font-family: var(--font-body); letter-spacing: 0.06em; text-transform: uppercase;">publicaciones internacionales</p>
+          </div>
+          <div style="width: 1px; height: 28px; background: rgba(255,255,255,0.12); flex-shrink: 0;"></div>
+          <div class="hero-stat text-center flex-shrink-0">
+            <p class="text-xl font-bold text-white leading-none" style="font-family: var(--font-display);" data-hero-count="32" data-hero-prefix="" data-hero-suffix="K+">32K+</p>
+            <p style="font-size: 0.68rem; color: rgba(255,255,255,0.5); margin-top: 4px; font-family: var(--font-body); letter-spacing: 0.06em; text-transform: uppercase;">seguidores</p>
+          </div>
+          <div style="width: 1px; height: 28px; background: rgba(255,255,255,0.12); flex-shrink: 0;"></div>
+          <div class="hero-stat text-center flex-shrink-0">
+            <p class="text-xl font-bold text-white leading-none" style="font-family: var(--font-display);" data-hero-count="8" data-hero-prefix="+" data-hero-suffix="">+8</p>
+            <p style="font-size: 0.68rem; color: rgba(255,255,255,0.5); margin-top: 4px; font-family: var(--font-body); letter-spacing: 0.06em; text-transform: uppercase;">países</p>
+          </div>
+          <div style="width: 1px; height: 28px; background: rgba(255,255,255,0.12); flex-shrink: 0;"></div>
+          <div class="hero-stat text-center flex-shrink-0">
+            <p class="text-xl font-bold text-white leading-none" style="font-family: var(--font-display);" data-hero-count="2" data-hero-prefix="" data-hero-suffix="">2</p>
+            <p style="font-size: 0.68rem; color: rgba(255,255,255,0.5); margin-top: 4px; font-family: var(--font-body); letter-spacing: 0.06em; text-transform: uppercase;">libros</p>
+          </div>
+        </div>
+
+        <!-- CTAs por audiencia — desktop -->
+        <div class="hidden md:flex flex-col gap-2 max-w-md animate-fade-in-up delay-400">
+
+          <a
+            href="/tutores"
+            class="hero-cta hero-cta--tutor flex items-center gap-3.5 transition-all duration-200"
+            style="border-radius: 12px; background: #ffffff; color: #040d4e; text-decoration: none; padding: 11px 16px; box-shadow: 0 2px 12px rgba(255,255,255,0.12);"
+            onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 8px 24px rgba(255,255,255,0.25)';"
+            onmouseout="this.style.transform=''; this.style.boxShadow='0 2px 12px rgba(255,255,255,0.12)';"
+          >
+            <div style="width:36px;height:36px;border-radius:8px;background:rgba(24,128,201,0.12);display:flex;align-items:center;justify-content:center;flex-shrink:0;">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#1880c9" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
+              </svg>
+            </div>
+            <div style="flex:1;">
+              <p style="font-family:var(--font-body);font-size:0.9rem;font-weight:700;color:#040d4e;margin:0;line-height:1.3;">Soy tutor de mascotas</p>
+              <p style="font-family:var(--font-body);font-size:0.75rem;color:#5b7a9e;margin:2px 0 0;line-height:1.3;">Información y consejos para cuidar a tu compañero</p>
+            </div>
+          </a>
+
+          <a
+            href="/veterinarios"
+            class="hero-cta hero-cta--vet flex items-center gap-3.5 transition-all duration-200"
+            style="border-radius:12px;background:#1880c9;color:#ffffff;text-decoration:none;padding:11px 16px;box-shadow:0 2px 12px rgba(24,128,201,0.3);"
+            onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 8px 24px rgba(24,128,201,0.5)';"
+            onmouseout="this.style.transform=''; this.style.boxShadow='0 2px 12px rgba(24,128,201,0.3)';"
+          >
+            <div style="width:36px;height:36px;border-radius:8px;background:rgba(255,255,255,0.18);display:flex;align-items:center;justify-content:center;flex-shrink:0;">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M22 12h-4l-3 9L9 3l-3 9H2"/>
+              </svg>
+            </div>
+            <div style="flex:1;">
+              <p style="font-family:var(--font-body);font-size:0.9rem;font-weight:700;color:#ffffff;margin:0;line-height:1.3;">Soy veterinario</p>
+              <p style="font-family:var(--font-body);font-size:0.75rem;color:rgba(255,255,255,0.75);margin:2px 0 0;line-height:1.3;">Interconsultas, formación y libro técnico</p>
+            </div>
+          </a>
+
+          <a
+            href="/empresas"
+            class="hero-cta hero-cta--empresa flex items-center gap-3.5 transition-all duration-200"
+            style="border-radius:12px;background:#4a3d9e;color:#ffffff;text-decoration:none;padding:11px 16px;box-shadow:0 2px 12px rgba(74,61,158,0.3);"
+            onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 8px 24px rgba(74,61,158,0.5)';"
+            onmouseout="this.style.transform=''; this.style.boxShadow='0 2px 12px rgba(74,61,158,0.3)';"
+          >
+            <div style="width:36px;height:36px;border-radius:8px;background:rgba(255,255,255,0.18);display:flex;align-items:center;justify-content:center;flex-shrink:0;">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <rect x="2" y="7" width="20" height="14" rx="2"/>
+                <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/>
+              </svg>
+            </div>
+            <div style="flex:1;">
+              <p style="font-family:var(--font-body);font-size:0.9rem;font-weight:700;color:#ffffff;margin:0;line-height:1.3;">Represento una empresa</p>
+              <p style="font-family:var(--font-body);font-size:0.75rem;color:rgba(255,255,255,0.75);margin:2px 0 0;line-height:1.3;">Charlas, capacitaciones y proyectos</p>
+            </div>
+          </a>
+
+        </div>
+
+        <!-- Stats de autoridad — mobile -->
+        <div
+          class="hero-stats-mobile grid md:hidden grid-cols-5 mb-4 mt-3 animate-fade-in-up delay-400"
+        >
+          <div class="hero-stat text-center">
+            <p class="text-base font-bold text-white leading-none" style="font-family:var(--font-display);" data-hero-count="15" data-hero-prefix="+" data-hero-suffix="">+15</p>
+            <p class="hero-stat-label">años</p>
+          </div>
+          <div class="hero-stat text-center">
+            <p class="text-base font-bold text-white leading-none" style="font-family:var(--font-display);" data-hero-count="15" data-hero-prefix="+" data-hero-suffix="">+15</p>
+            <p class="hero-stat-label">publ. int.</p>
+          </div>
+          <div class="hero-stat text-center">
+            <p class="text-base font-bold text-white leading-none" style="font-family:var(--font-display);" data-hero-count="32" data-hero-prefix="" data-hero-suffix="K+">32K+</p>
+            <p class="hero-stat-label">seguidores</p>
+          </div>
+          <div class="hero-stat text-center">
+            <p class="text-base font-bold text-white leading-none" style="font-family:var(--font-display);" data-hero-count="8" data-hero-prefix="+" data-hero-suffix="">+8</p>
+            <p class="hero-stat-label">países</p>
+          </div>
+          <div class="hero-stat text-center">
+            <p class="text-base font-bold text-white leading-none" style="font-family:var(--font-display);" data-hero-count="2" data-hero-prefix="" data-hero-suffix="">2</p>
+            <p class="hero-stat-label">libros</p>
+          </div>
+        </div>
+
+        <!-- CTAs por audiencia — mobile -->
+        <div class="flex md:hidden flex-col gap-2 mb-2 animate-fade-in-up delay-500">
+          <a href="/tutores" class="hero-cta hero-cta--tutor flex items-center gap-3 transition-all duration-200" style="border-radius:12px;background:#ffffff;color:#040d4e;text-decoration:none;padding:11px 14px;box-shadow:0 2px 12px rgba(255,255,255,0.12);">
+            <div style="width:32px;height:32px;border-radius:8px;background:rgba(24,128,201,0.12);display:flex;align-items:center;justify-content:center;flex-shrink:0;">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#1880c9" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
+              </svg>
+            </div>
+            <div style="flex:1;">
+              <p style="font-family:var(--font-body);font-size:0.85rem;font-weight:700;color:#040d4e;margin:0;line-height:1.3;">Soy tutor de mascotas</p>
+              <p class="hero-cta-desc" style="font-family:var(--font-body);font-size:0.7rem;color:#5b7a9e;margin:2px 0 0;line-height:1.3;">Información y consejos para cuidar a tu compañero</p>
+            </div>
+          </a>
+          <a href="/veterinarios" class="hero-cta hero-cta--vet flex items-center gap-3 transition-all duration-200" style="border-radius:12px;background:#1880c9;color:#ffffff;text-decoration:none;padding:11px 14px;box-shadow:0 2px 12px rgba(24,128,201,0.3);">
+            <div style="width:32px;height:32px;border-radius:8px;background:rgba(255,255,255,0.18);display:flex;align-items:center;justify-content:center;flex-shrink:0;">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M22 12h-4l-3 9L9 3l-3 9H2"/>
+              </svg>
+            </div>
+            <div style="flex:1;">
+              <p style="font-family:var(--font-body);font-size:0.85rem;font-weight:700;color:#ffffff;margin:0;line-height:1.3;">Soy veterinario</p>
+              <p class="hero-cta-desc" style="font-family:var(--font-body);font-size:0.7rem;color:rgba(255,255,255,0.75);margin:2px 0 0;line-height:1.3;">Interconsultas, formación y libro técnico</p>
+            </div>
+          </a>
+          <a href="/empresas" class="hero-cta hero-cta--empresa flex items-center gap-3 transition-all duration-200" style="border-radius:12px;background:#4a3d9e;color:#ffffff;text-decoration:none;padding:11px 14px;box-shadow:0 2px 12px rgba(74,61,158,0.3);">
+            <div style="width:32px;height:32px;border-radius:8px;background:rgba(255,255,255,0.18);display:flex;align-items:center;justify-content:center;flex-shrink:0;">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <rect x="2" y="7" width="20" height="14" rx="2"/>
+                <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/>
+              </svg>
+            </div>
+            <div style="flex:1;">
+              <p style="font-family:var(--font-body);font-size:0.85rem;font-weight:700;color:#ffffff;margin:0;line-height:1.3;">Represento una empresa</p>
+              <p class="hero-cta-desc" style="font-family:var(--font-body);font-size:0.7rem;color:rgba(255,255,255,0.75);margin:2px 0 0;line-height:1.3;">Charlas, capacitaciones y proyectos</p>
+            </div>
+          </a>
+        </div>
+
+        <!-- Indicador de disponibilidad — solo desktop -->
+        <div class="hidden xl:flex items-center gap-2 mt-3 animate-fade-in-up delay-700">
+          <span class="avail-dot" aria-hidden="true"></span>
+          <span style="font-size:0.68rem;color:rgba(255,255,255,0.38);font-family:var(--font-body);letter-spacing:0.04em;">
+            Recibiendo Consultas
+          </span>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      document.querySelectorAll('[data-hero-count]').forEach((el) => {
+        const target = parseInt(el.getAttribute('data-hero-count') || '0', 10);
+        const prefix = el.getAttribute('data-hero-prefix') || '';
+        const suffix = el.getAttribute('data-hero-suffix') || '';
+        let cur = 0;
+        const step = Math.max(1, Math.ceil(target / 28));
+        const iv = setInterval(() => {
+          cur = Math.min(cur + step, target);
+          el.textContent = prefix + cur + suffix;
+          if (cur >= target) clearInterval(iv);
+        }, 45);
+      });
+    });
+  </script>
+
+</section>
+
+<style>
+  /* ═══════════════════════════════════════════════════════════
+     MOBILE (<768px): foto arriba, contenido anclado abajo
+     ═══════════════════════════════════════════════════════════ */
+  @media (max-width: 767px) {
+    .hero-section {
+      justify-content: flex-end !important;
+    }
+
+    .hero-bio__long {
+      display: none;
+    }
+
+    .hero-name-block {
+      filter:
+        drop-shadow(0 1px 3px rgba(0,0,0,0.9))
+        drop-shadow(0 2px 14px rgba(0,0,0,0.75)) !important;
+      margin-bottom: 0.75rem;
+    }
+
+    .hero-bio {
+      text-shadow:
+        0 1px 3px rgba(0,0,0,0.85),
+        0 2px 14px rgba(0,0,0,0.6) !important;
+      margin-bottom: 0.65rem !important;
+      font-size: 0.875rem !important;
+      line-height: 1.6 !important;
+    }
+
+    .hero-stats-mobile {
+      border-top: 1px solid rgba(255,255,255,0.14);
+      border-bottom: 1px solid rgba(255,255,255,0.14);
+      padding: 10px 0;
+      column-gap: 0.25rem;
+    }
+
+    .hero-stat-label {
+      font-size: 0.55rem;
+      color: rgba(255,255,255,0.58);
+      margin-top: 4px;
+      font-family: var(--font-body);
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      line-height: 1.2;
+    }
+
+    .hero-stats-mobile .hero-stat p {
+      text-shadow:
+        0 1px 3px rgba(0,0,0,0.85),
+        0 2px 10px rgba(0,0,0,0.55);
+    }
+
+    .hero-cta {
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+    }
+  }
+
+  @media (max-width: 390px) {
+    .hero-stats-mobile .hero-stat p:first-child {
+      font-size: 0.9rem !important;
+    }
+    .hero-stat-label {
+      font-size: 0.5rem;
+    }
+    .hero-cta-desc {
+      display: none;
+    }
+  }
+
+  /* Fade suave hacia la siguiente sección (desktop) */
+  @media (min-width: 768px) {
+    .hero-section::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 32px;
+      background: linear-gradient(to bottom, transparent, var(--color-neutral-light));
+      z-index: 3;
+      pointer-events: none;
+    }
+  }
+</style>

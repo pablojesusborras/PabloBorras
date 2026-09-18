@@ -1,0 +1,120 @@
+﻿---
+// PodcastsMNV.astro — Episodios de podcast en Mi Negocio Veterinario
+import SectionTitle from '../ui/SectionTitle.astro';
+
+const episodios = [
+  {
+    titulo: 'Leptospirosis canina: consideraciones de alto valor',
+    href: 'https://www.minegocioveterinario.com/2022/10/leptospirosis-canina-consideraciones-de-alto-valor-2/',
+    año: '2022',
+    tema: 'Enfermedades bacterianas',
+  },
+  {
+    titulo: 'El verano y la prevención de enfermedades, ¿qué hacer?',
+    href: 'https://www.minegocioveterinario.com/2022/11/el-verano-y-la-prevencion-de-enfermedades-que-hacer-2/',
+    año: '2022',
+    tema: 'Prevención estacional',
+  },
+  {
+    titulo: 'Parásitos internos y cachorros: 5 claves en la consulta veterinaria',
+    href: 'https://www.minegocioveterinario.com/2022/08/parasitos-internos-y-cachorros-5-claves-en-la-consulta-veterinaria-2/',
+    año: '2022',
+    tema: 'Parasitología clínica',
+  },
+  {
+    titulo: 'Tos de las perreras: ¿un problema estacional?',
+    href: 'https://www.minegocioveterinario.com/2022/07/tos-de-las-perreras-un-problema-estacional/',
+    año: '2022',
+    tema: 'Enfermedades respiratorias',
+  },
+  {
+    titulo: 'Zoonosis y especies no tradicionales, claves para los veterinarios',
+    href: 'https://www.minegocioveterinario.com/2021/04/zoonosis-y-especies-no-tradicionales-claves-para-los-veterinarios/',
+    año: '2021',
+    tema: 'Zoonosis',
+  },
+];
+---
+
+<section class="py-12 md:py-16 bg-white">
+  <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+
+    <SectionTitle
+      title="Podcasts y columnas de audio"
+      subtitle="Mi Negocio Veterinario"
+    />
+
+    <p class="text-sm mb-2 md:mb-3" style="color: var(--color-text-muted);">
+      Episodios de la plataforma <strong>Mi Negocio Veterinario</strong>, dirigidos a profesionales veterinarios.
+    </p>
+    <a
+      href="https://open.spotify.com/search/Mi%20Negocio%20Veterinario"
+      target="_blank"
+      rel="noopener noreferrer"
+      class="inline-flex items-center justify-center sm:justify-start gap-3 px-5 py-3 rounded-xl mb-5 md:mb-6 w-full sm:w-auto transition-opacity hover:opacity-90"
+      style="background: #1DB954; color: #fff; text-decoration: none;"
+    >
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" class="shrink-0">
+        <path d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.66 0 12 0zm5.521 17.34c-.24.359-.66.48-1.021.24-2.82-1.74-6.36-2.101-10.561-1.141-.418.122-.779-.179-.899-.539-.12-.421.18-.78.54-.9 4.56-1.021 8.52-.6 11.64 1.32.42.18.479.659.301 1.02zm1.44-3.3c-.301.42-.841.6-1.262.3-3.239-1.98-8.159-2.58-11.939-1.38-.479.12-1.02-.12-1.14-.6-.12-.48.12-1.021.6-1.141C9.6 9.9 15 10.561 18.72 12.84c.361.181.54.78.241 1.2zm.12-3.36C15.24 8.4 8.82 8.16 5.16 9.301c-.6.179-1.2-.181-1.38-.721-.18-.601.18-1.2.72-1.381 4.26-1.26 11.28-1.02 15.721 1.621.539.3.719 1.02.419 1.56-.299.421-1.02.599-1.559.3z"/>
+      </svg>
+      <span class="text-sm font-semibold">Escuchar en Spotify — buscar "Mi Negocio Veterinario"</span>
+    </a>
+
+    <div class="divide-y podcast-list" style="border-radius: var(--radius); overflow: hidden; box-shadow: var(--shadow); background: #fff;">
+      {episodios.map((ep, i) => (
+        <a
+          href={ep.href}
+          target="_blank"
+          rel="noopener noreferrer"
+          class="podcast-episode flex items-center justify-between gap-4 p-4 sm:p-5 transition-colors hover:bg-neutral-50 no-underline group"
+          style="text-decoration: none;"
+        >
+          <div class="flex items-center gap-4 min-w-0">
+            <div
+              class="shrink-0 w-10 h-10 flex items-center justify-center rounded-full"
+              style="background: var(--color-accent);"
+              aria-hidden="true"
+            >
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/>
+                <path d="M19 10v2a7 7 0 0 1-14 0v-2"/>
+                <line x1="12" y1="19" x2="12" y2="23"/>
+                <line x1="8" y1="23" x2="16" y2="23"/>
+              </svg>
+            </div>
+            <div class="min-w-0">
+              <p class="text-sm font-semibold group-hover:underline" style="color: var(--color-text);">
+                {ep.titulo}
+              </p>
+              <span
+                class="inline-block mt-1 text-xs px-2 py-0.5 rounded-full font-medium"
+                style="background: rgba(24,128,201,0.10); color: var(--color-accent);"
+              >
+                {ep.tema}
+              </span>
+            </div>
+          </div>
+          <span
+            class="shrink-0 text-xs font-semibold px-2.5 py-1 rounded-full"
+            style="background: rgba(4,13,78,0.05); color: var(--color-text-muted);"
+          >{ep.año}</span>
+        </a>
+      ))}
+    </div>
+
+
+  </div>
+</section>
+
+<style>
+  @media (max-width: 767px) {
+    .podcast-episode {
+      padding: 1rem !important;
+      gap: 0.75rem !important;
+    }
+    
+    .podcast-episode p {
+      font-size: 0.9rem !important;
+    }
+  }
+</style>

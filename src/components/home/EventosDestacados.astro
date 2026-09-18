@@ -1,0 +1,187 @@
+﻿---
+// EventosDestacados.astro — Próximos 2 eventos más cercanos destacados en home
+import { eventos } from '../../data/eventos.js';
+import SectionTitle from '../ui/SectionTitle.astro';
+import Badge from '../ui/Badge.astro';
+import Button from '../ui/Button.astro';
+
+// Ordenar por fecha y tomar los 2 próximos eventos futuros (o más recientes si todos son pasados)
+const hoy = new Date();
+const sorted = [...eventos].sort((a, b) => new Date(a.fecha) - new Date(b.fecha));
+const proximos = sorted.filter(e => new Date(e.fecha) >= hoy).slice(0, 2);
+const hayFuturos = proximos.length > 0;
+const destacados = hayFuturos ? proximos : [...eventos].sort((a, b) => new Date(b.fecha) - new Date(a.fecha)).slice(0, 2);
+const tituloSeccion = 'Próximos eventos';
+const subtituloSeccion = 'Próximos eventos';
+
+// Colores de badge por tipo de evento
+const tipoColor = {
+  Congreso: 'blue',
+  Jornada:  'orange',
+  Workshop: 'green',
+  Simposio: 'purple',
+};
+
+const tipoAccentColor = {
+  Congreso: '#3B82F6',
+  Jornada:  '#F97316',
+  Workshop: '#1880c9',
+  Simposio: '#8B5CF6',
+};
+
+// Formatear fecha → "15 AGO 2025"
+function formatFecha(fechaStr) {
+  const meses = ['ENE','FEB','MAR','ABR','MAY','JUN','JUL','AGO','SEP','OCT','NOV','DIC'];
+  const d = new Date(fechaStr + 'T12:00:00');
+  return `${String(d.getDate()).padStart(2,'0')} ${meses[d.getMonth()]} ${d.getFullYear()}`;
+}
+---
+
+<section class="py-16 md:py-20" style="position: relative; background: #060b1e; overflow: hidden;">
+
+  <!-- Desktop (lg+): pablob3.png 1920×1080, landscape, cubre toda la sección -->
+  <img
+    src="/imagenes/heros/paraempresas1.webp"
+    alt=""
+    aria-hidden="true"
+    class="hidden lg:block eventos-bg-zoom"
+    style="
+      position: absolute;
+      top: -15px;
+      right: 0;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: calc(100% + 15px);
+      object-fit: cover;
+      object-position: center top;
+      opacity: 0.28;
+      pointer-events: none;
+      user-select: none;
+    "
+  />
+
+  <!-- Mobile (<lg): pablob2.png 1080×1920 portrait, cubre toda la sección -->
+  <img
+    src="/imagenes/heros/heromobilen.webp"
+    alt=""
+    aria-hidden="true"
+    class="lg:hidden"
+    style="
+      position: absolute;
+      top: -280px;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      width: 100%;
+      height: calc(100% + 280px);
+      object-fit: cover;
+      object-position: center top;
+      opacity: 0.22;
+      pointer-events: none;
+      user-select: none;
+    "
+  />
+
+  <!-- Overlay gradiente para contraste del contenido -->
+  <div
+    aria-hidden="true"
+    style="
+      position: absolute;
+      inset: 0;
+      z-index: 0;
+      pointer-events: none;
+      background:
+        linear-gradient(to bottom, rgba(2,6,35,0.54) 0%, rgba(2,6,35,0.22) 45%, rgba(2,6,35,0.46) 100%),
+        linear-gradient(to right, rgba(2,6,35,0.58) 0%, rgba(2,6,35,0.18) 42%, transparent 65%);
+    "
+  ></div>
+
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8" style="position: relative; z-index: 1;">
+
+    <SectionTitle
+      title={tituloSeccion}
+      subtitle={subtituloSeccion}
+      light={true}
+    />
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mt-2">
+      {destacados.map((evento, index) => (
+        <div
+          class="reveal evento-card rounded-2xl overflow-hidden flex flex-col md:flex-row"
+          style={`
+            background: rgba(255,255,255,0.93);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-radius: var(--radius);
+            box-shadow: 0 8px 32px rgba(0,0,0,0.22);
+            border: 1px solid rgba(255,255,255,0.55);
+            border-top: 3px solid ${tipoAccentColor[evento.tipo] || '#1880c9'};
+            transition: transform 0.25s ease, box-shadow 0.25s ease;
+            transition-delay: ${index * 0.15}s;
+          `}
+        >
+          <!-- Bloque de fecha -->
+          <div
+            class="flex flex-row md:flex-col items-center justify-center gap-3 md:gap-0 px-6 py-4 md:px-8 md:py-6 text-white shrink-0"
+            style="background: var(--color-primary); min-width: 0;"
+          >
+            <span class="text-4xl font-bold" style="font-family: var(--font-display); line-height: 1;">
+              {String(new Date(evento.fecha + 'T12:00:00').getDate()).padStart(2,'0')}
+            </span>
+            <span class="text-xs font-semibold tracking-widest mt-1 uppercase" style="color: var(--color-accent-light);">
+              {['ENE','FEB','MAR','ABR','MAY','JUN','JUL','AGO','SEP','OCT','NOV','DIC'][new Date(evento.fecha + 'T12:00:00').getMonth()]}
+            </span>
+            <span class="text-sm mt-0.5 opacity-70">
+              {new Date(evento.fecha + 'T12:00:00').getFullYear()}
+            </span>
+          </div>
+
+          <!-- Contenido del evento -->
+          <div class="p-6 flex flex-col justify-between gap-3">
+            <div>
+              <div class="flex items-center gap-2 mb-2">
+                <Badge label={evento.tipo} color={tipoColor[evento.tipo] || 'gray'} />
+                <span class="text-xs" style="color: var(--color-text-muted);">📍 {evento.ciudad}</span>
+              </div>
+              <h3
+                class="text-lg font-bold mb-2"
+                style="font-family: var(--font-display); color: var(--color-text);"
+              >
+                {evento.nombre}
+              </h3>
+              <p class="text-sm leading-relaxed" style="color: var(--color-text-muted);">
+                {evento.descripcion}
+              </p>
+            </div>
+          </div>
+        </div>
+      ))}
+    </div>
+
+    <!-- Botón a toda la agenda -->
+    <div class="mt-10 flex justify-center">
+      <Button href="/eventos" variant="primary" size="md">
+        Ver agenda completa →
+      </Button>
+    </div>
+
+  </div>
+</section>
+
+<style>
+  /* Zoom-in suave en la imagen de fondo al entrar en viewport */
+  @keyframes eventoBgZoom {
+    from { transform: scale(1.06); }
+    to   { transform: scale(1);    }
+  }
+  .eventos-bg-zoom {
+    animation: eventoBgZoom 1.6s cubic-bezier(0.22, 1, 0.36, 1) both;
+  }
+
+  /* Hover lift en las cards */
+  .evento-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 20px 48px rgba(0, 0, 0, 0.28) !important;
+  }
+</style>

@@ -1,0 +1,365 @@
+﻿---
+// Interconsultas.astro — Servicio de interconsultas clínicas profesional
+import SectionTitle from '../ui/SectionTitle.astro';
+import Button from '../ui/Button.astro';
+
+const beneficios = [
+  'Respuesta de un especialista con más de 15 años de experiencia clínica.',
+  'Análisis detallado del caso: historial, síntomas, diagnósticos diferenciales.',
+  'Protocolo de diagnóstico y manejo terapéutico sugerido.',
+  'Seguimiento del paciente.',
+  'Discusión de casos complejos con enfoque evidence-based.',
+];
+
+const especialidadesAgrupadas = [
+  {
+    categoria: 'Enfermedades vectoriales',
+    detalle: 'Ehrlichia, Babesia, Anaplasma, Dirofilaria, Leishmania',
+  },
+  {
+    categoria: 'Infectología canina y felina',
+    detalle: 'moquillo, leptospirosis, parvovirus, panleucopenia, calicivirus, herpesvirus, VIF/VLFe',
+  },
+  {
+    categoria: 'Zoonosis',
+    detalle: 'brucelosis canina, tuberculosis bovina en gatos, Strongyloides',
+  },
+  {
+    categoria: 'Parasitología y protozoos',
+    detalle: 'diagnóstico molecular, toxoplasmosis y otras infecciones por protozoos',
+  },
+  {
+    categoria: 'Casos complejos',
+    detalle: 'síndromes febriles o infecciosos sin diagnóstico, sospecha de causa infecciosa o parasitaria',
+  },
+];
+---
+
+<section class="ic-service">
+  <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+
+    <div class="text-center ic-service-heading">
+      <p class="text-xs font-semibold uppercase tracking-widest mb-3" style="color: var(--color-accent); letter-spacing: 0.12em;">
+        Servicio para profesionales veterinarios
+      </p>
+      <h2 class="text-3xl md:text-4xl font-bold mb-4" style="font-family: var(--font-display); color: var(--color-text); line-height: 1.2;">
+        ¿Cómo funciona el servicio?
+      </h2>
+      <div class="w-20 h-1 mx-auto rounded-full" style="background: linear-gradient(90deg, #1880c9 0%, #0d9488 100%);"></div>
+    </div>
+
+    <div class="ic-explain max-w-4xl mx-auto">
+      <div class="ic-explain-block rounded-2xl">
+        <p class="text-base md:text-lg leading-relaxed" style="color: var(--color-text);">
+          El servicio de interconsulta está diseñado para veterinarios que enfrentan casos clínicos desafiantes y necesitan una <strong>segunda opinión especializada</strong>. Pablo Borrás analiza el caso, el historial clínico del paciente y propone un enfoque diagnóstico y terapéutico detallado basado en evidencia científica actualizada.
+        </p>
+      </div>
+    </div>
+
+    <div class="ic-alert-wrap max-w-4xl mx-auto">
+      <div class="ic-alert flex items-start gap-3 md:gap-4 rounded-xl relative overflow-hidden" role="alert">
+        <div class="ic-alert-deco absolute top-0 right-0" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="currentColor">
+            <path d="M1 21h22L12 2 1 21zm12-3h-2v-2h2v2zm0-4h-2v-4h2v4z"/>
+          </svg>
+        </div>
+        <span class="ic-alert-icon shrink-0" aria-hidden="true">⚠️</span>
+        <div class="relative z-10 min-w-0">
+          <p class="font-bold text-base mb-1.5" style="color: #92400E;">Aviso importante para profesionales</p>
+          <p class="text-sm leading-relaxed" style="color: #78350F;">
+            La interconsulta profesional <strong>no reemplaza al veterinario tratante</strong> del paciente. Es un complemento de apoyo clínico exclusivo para médicos veterinarios. El diagnóstico y tratamiento definitivo corresponde únicamente al profesional a cargo del caso.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <div class="ic-cards grid grid-cols-1 lg:grid-cols-2 gap-6 md:gap-8 items-stretch">
+
+      <div class="ic-card ic-card-blue bg-white rounded-2xl relative overflow-hidden h-full">
+        <div class="ic-card-wash ic-card-wash-blue pointer-events-none" aria-hidden="true"></div>
+        <div class="ic-card-body relative z-10">
+          <div class="ic-card-icon w-14 h-14 rounded-xl flex items-center justify-center">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#1880c9" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+              <polyline points="22 4 12 14.01 9 11.01"/>
+            </svg>
+          </div>
+          <h3 class="ic-card-title text-2xl font-bold" style="font-family: var(--font-display); color: var(--color-text);">
+            ¿Qué incluye la interconsulta?
+          </h3>
+          <ul class="ic-benefit-list">
+            {beneficios.map(b => (
+              <li class="flex items-start gap-2.5 text-sm md:text-base" style="color: var(--color-text-muted);">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#1880c9" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="shrink-0 mt-0.5">
+                  <polyline points="20 6 9 17 4 12"/>
+                </svg>
+                <span class="leading-relaxed">{b}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </div>
+
+      <div class="ic-card ic-card-teal bg-white rounded-2xl relative overflow-hidden h-full">
+        <div class="ic-card-wash ic-card-wash-teal pointer-events-none" aria-hidden="true"></div>
+        <div class="ic-card-body relative z-10">
+          <div class="ic-card-icon ic-card-icon-teal w-14 h-14 rounded-xl flex items-center justify-center">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#0d9488" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+              <polyline points="14 2 14 8 20 8"/>
+              <line x1="16" y1="13" x2="8" y2="13"/>
+              <line x1="16" y1="17" x2="8" y2="17"/>
+              <polyline points="10 9 9 9 8 9"/>
+            </svg>
+          </div>
+          <h3 class="ic-card-title text-2xl font-bold" style="font-family: var(--font-display); color: var(--color-text);">
+            Especialidades consultadas
+          </h3>
+          <div class="ic-spec-list">
+            {especialidadesAgrupadas.map((item, index) => (
+              <div class:list={['ic-spec-item', index < especialidadesAgrupadas.length - 1 && 'ic-spec-item-divider']}>
+                <h4 class="text-sm font-bold mb-1" style="color: var(--color-text); font-family: var(--font-body);">
+                  {item.categoria}
+                </h4>
+                <p class="text-xs leading-relaxed" style="color: var(--color-text-muted);">
+                  {item.detalle}
+                </p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="text-center ic-cta">
+      <div class="ic-cta-inner">
+        <button
+          id="btn-solicitar-interconsulta"
+          class="ic-cta-btn inline-flex items-center justify-center gap-3 text-base font-bold rounded-xl transition-all cursor-pointer"
+        >
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+          </svg>
+          Solicitar interconsulta
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="5" y1="12" x2="19" y2="12"/>
+            <polyline points="12 5 19 12 12 19"/>
+          </svg>
+        </button>
+        <p class="ic-cta-note text-sm" style="color: var(--color-text-muted);">
+          Respuesta en menos de 48 horas hábiles
+        </p>
+      </div>
+    </div>
+
+    <script>
+      document.getElementById('btn-solicitar-interconsulta')?.addEventListener('click', () => {
+        const formulario = document.getElementById('formulario-contacto');
+        if (formulario) {
+          formulario.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      });
+    </script>
+
+  </div>
+</section>
+
+<style>
+  .ic-service {
+    background: #fff;
+    padding: 2.75rem 0 3rem;
+  }
+
+  .ic-service-heading {
+    margin-bottom: 1.75rem;
+  }
+
+  .ic-explain {
+    margin-bottom: 1.25rem;
+  }
+
+  .ic-explain-block {
+    background: linear-gradient(135deg, #f0f9ff 0%, #f8fafc 100%);
+    border-left: 4px solid #1880c9;
+    box-shadow: 0 2px 12px rgba(24,128,201,0.08);
+    padding: 1.25rem 1.35rem;
+  }
+
+  .ic-alert-wrap {
+    margin-bottom: 2rem;
+  }
+
+  .ic-alert {
+    background: linear-gradient(135deg, #FFFBEB 0%, #FEF3C7 100%);
+    border-left: 4px solid #D97706;
+    box-shadow: 0 2px 10px rgba(217,119,6,0.1);
+    padding: 1rem 1.15rem;
+  }
+
+  .ic-alert-icon {
+    font-size: 1.25rem;
+    line-height: 1.4;
+  }
+
+  .ic-alert-deco {
+    width: 5.5rem;
+    height: 5.5rem;
+    opacity: 0.035;
+    color: #D97706;
+  }
+
+  .ic-cards {
+    margin-bottom: 2rem;
+  }
+
+  .ic-card {
+    box-shadow: 0 3px 18px rgba(0,0,0,0.06);
+  }
+
+  .ic-card-blue {
+    border-top: 4px solid #1880c9;
+  }
+
+  .ic-card-teal {
+    border-top: 4px solid #0d9488;
+  }
+
+  .ic-card-wash {
+    position: absolute;
+    inset: 0;
+  }
+
+  .ic-card-wash-blue {
+    background: linear-gradient(135deg, rgba(24,128,201,0.05) 0%, transparent 100%);
+  }
+
+  .ic-card-wash-teal {
+    background: linear-gradient(135deg, rgba(13,148,136,0.05) 0%, transparent 100%);
+  }
+
+  .ic-card-body {
+    padding: 1.5rem;
+  }
+
+  .ic-card-icon {
+    background: rgba(24,128,201,0.12);
+    border: 2px solid rgba(24,128,201,0.2);
+    margin-bottom: 1rem;
+  }
+
+  .ic-card-icon-teal {
+    background: rgba(13,148,136,0.12);
+    border-color: rgba(13,148,136,0.2);
+  }
+
+  .ic-card-title {
+    margin-bottom: 1rem;
+  }
+
+  .ic-benefit-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .ic-spec-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+
+  .ic-spec-item {
+    padding-bottom: 0.85rem;
+    margin-bottom: 0.85rem;
+  }
+
+  .ic-spec-item-divider {
+    border-bottom: 1px solid rgba(0,0,0,0.06);
+  }
+
+  .ic-spec-item:last-child {
+    padding-bottom: 0;
+    margin-bottom: 0;
+  }
+
+  .ic-cta-inner {
+    display: inline-block;
+    width: 100%;
+    max-width: 28rem;
+  }
+
+  .ic-cta-btn {
+    background: linear-gradient(135deg, #1880c9 0%, #0d9488 100%);
+    color: white;
+    border: none;
+    box-shadow: 0 4px 16px rgba(24,128,201,0.28);
+    padding: 0.9rem 1.75rem;
+    width: 100%;
+  }
+
+  .ic-cta-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 24px rgba(24,128,201,0.35);
+  }
+
+  .ic-cta-note {
+    margin-top: 0.75rem;
+  }
+
+  @media (min-width: 768px) {
+    .ic-service {
+      padding: 3.25rem 0 3.5rem;
+    }
+
+    .ic-service-heading {
+      margin-bottom: 2rem;
+    }
+
+    .ic-explain {
+      margin-bottom: 1.5rem;
+    }
+
+    .ic-explain-block {
+      padding: 1.75rem 2rem;
+    }
+
+    .ic-alert-wrap {
+      margin-bottom: 2.25rem;
+    }
+
+    .ic-alert {
+      padding: 1.25rem 1.5rem;
+    }
+
+    .ic-cards {
+      margin-bottom: 2.25rem;
+    }
+
+    .ic-card-body {
+      padding: 2rem 2.25rem;
+    }
+
+    .ic-card-icon {
+      margin-bottom: 1.25rem;
+    }
+
+    .ic-card-title {
+      margin-bottom: 1.25rem;
+    }
+
+    .ic-benefit-list {
+      gap: 1rem;
+    }
+
+    .ic-cta-inner {
+      width: auto;
+      max-width: none;
+    }
+
+    .ic-cta-btn {
+      width: auto;
+      padding: 1rem 2rem;
+    }
+  }
+</style>

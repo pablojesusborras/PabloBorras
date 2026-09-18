@@ -1,0 +1,43 @@
+---
+// SectionTitle.astro — Título de sección reutilizable con línea decorativa
+interface Props {
+  title: string;
+  subtitle?: string;
+  centered?: boolean;
+  light?: boolean;
+}
+
+const {
+  title,
+  subtitle,
+  centered = false,
+  light = false,
+} = Astro.props;
+
+const textAlign = centered ? 'text-center' : 'text-left';
+const titleColor = light ? 'text-white' : 'text-[var(--color-text)]';
+const subtitleColor = light ? 'text-[var(--color-accent-light)]' : 'text-[var(--color-text-muted)]';
+const lineMargin = centered ? 'mx-auto' : '';
+---
+
+<div class={`mb-8 md:mb-10 ${textAlign}`}>
+  {subtitle && (
+    <p
+      class={`text-sm font-semibold uppercase tracking-widest mb-2 ${subtitleColor}`}
+      style="font-family: var(--font-body);"
+    >
+      {subtitle}
+    </p>
+  )}
+  <h2
+    class={`text-3xl md:text-4xl font-bold ${titleColor}`}
+    style="font-family: var(--font-display);"
+  >
+    {title}
+  </h2>
+  <!-- Línea decorativa en acento -->
+  <div
+    class={`mt-4 h-1 w-12 rounded-full ${lineMargin}`}
+    style="background: var(--color-accent);"
+  ></div>
+</div>

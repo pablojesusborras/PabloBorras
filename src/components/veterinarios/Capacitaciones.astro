@@ -1,0 +1,352 @@
+---
+// Capacitaciones.astro — Cards de capacitaciones para veterinarios
+import { capacitaciones } from '../../data/capacitaciones.js';
+import Badge from '../ui/Badge.astro';
+
+type BadgeColor = 'blue' | 'green' | 'purple' | 'orange' | 'gray';
+
+const modalidadColor: Record<string, BadgeColor> = {
+  Presencial: 'blue',
+  Online:     'green',
+  Híbrido:    'purple',
+};
+
+const nivelColor: Record<string, BadgeColor> = {
+  'Avanzado':          'orange',
+  'Intermedio':        'blue',
+  'Básico-Intermedio': 'green',
+};
+
+const cardAccents = [
+  { color: '#1880c9', wash: 'rgba(24,128,201,0.05)', iconBg: 'rgba(24,128,201,0.12)', iconBorder: 'rgba(24,128,201,0.2)', chipBg: 'rgba(24,128,201,0.1)', chipBorder: 'rgba(24,128,201,0.25)' },
+  { color: '#183b7f', wash: 'rgba(24,59,127,0.05)', iconBg: 'rgba(24,59,127,0.12)', iconBorder: 'rgba(24,59,127,0.2)', chipBg: 'rgba(24,59,127,0.1)', chipBorder: 'rgba(24,59,127,0.25)' },
+  { color: '#0d9488', wash: 'rgba(13,148,136,0.05)', iconBg: 'rgba(13,148,136,0.12)', iconBorder: 'rgba(13,148,136,0.2)', chipBg: 'rgba(13,148,136,0.1)', chipBorder: 'rgba(13,148,136,0.25)' },
+];
+---
+
+<section class="cap-programs">
+  <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+
+    <div class="text-center cap-programs-heading">
+      <p class="text-xs font-semibold uppercase tracking-widest mb-3" style="color: var(--color-accent); letter-spacing: 0.12em;">
+        Formación continua
+      </p>
+      <h2 class="text-3xl md:text-4xl font-bold mb-4" style="font-family: var(--font-display); color: var(--color-text); line-height: 1.2;">
+        Programas de capacitación
+      </h2>
+      <div class="w-20 h-1 mx-auto rounded-full" style="background: linear-gradient(90deg, #1880c9 0%, #0d9488 100%);"></div>
+      <p class="text-base leading-relaxed mt-5 max-w-3xl mx-auto" style="color: var(--color-text-muted);">
+        Diseñados para veterinarios en ejercicio que buscan actualización clínica, nuevas herramientas diagnósticas y protocolos terapéuticos basados en evidencia. Modalidades presencial, online e híbrida según la propuesta.
+      </p>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8 items-stretch">
+      {capacitaciones.map((cap, index) => {
+        const accent = cardAccents[index] || cardAccents[0];
+
+        return (
+          <div
+            class="cap-card bg-white rounded-2xl flex flex-col relative overflow-hidden h-full"
+            style={`border-top: 4px solid ${accent.color};`}
+          >
+            <div
+              class="absolute inset-0 pointer-events-none"
+              style={`background: linear-gradient(135deg, ${accent.wash} 0%, transparent 100%);`}
+              aria-hidden="true"
+            ></div>
+
+            <div class="cap-card-body relative z-10 flex flex-col flex-1">
+              <div
+                class="w-12 h-12 rounded-xl flex items-center justify-center cap-card-icon"
+                style={`background: ${accent.iconBg}; border: 2px solid ${accent.iconBorder};`}
+              >
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke={accent.color} stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/>
+                  <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/>
+                </svg>
+              </div>
+
+              <div class="flex flex-wrap gap-2 cap-card-badges">
+                <Badge label={cap.modalidad} color={modalidadColor[cap.modalidad] || 'gray'} />
+                <Badge label={cap.nivel} color={nivelColor[cap.nivel] || 'gray'} />
+              </div>
+
+              <h3
+                class="text-lg font-bold cap-card-title"
+                style="font-family: var(--font-display); color: var(--color-text); line-height: 1.3;"
+              >
+                {cap.titulo}
+              </h3>
+
+              <div class="flex items-center gap-2 cap-card-duration">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke={accent.color} stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <circle cx="12" cy="12" r="10"/>
+                  <polyline points="12 6 12 12 16 14"/>
+                </svg>
+                <p class="text-xs font-semibold" style={`color: ${accent.color};`}>
+                  {cap.duracion}
+                </p>
+              </div>
+
+              <p class="text-sm leading-relaxed cap-card-desc" style="color: var(--color-text-muted);">
+                {cap.descripcion}
+              </p>
+
+              <div class="flex flex-wrap gap-2 cap-card-chips">
+                {cap.temas.map(tema => (
+                  <span
+                    class="text-xs font-medium px-3 py-1.5 rounded-lg"
+                    style={`background: ${accent.chipBg}; color: ${accent.color}; border: 1.5px solid ${accent.chipBorder};`}
+                  >
+                    {tema}
+                  </span>
+                ))}
+              </div>
+
+              <a
+                href="/contacto?tab=capacitaciones"
+                class="cap-card-cta inline-flex items-center justify-center gap-2 text-sm font-bold rounded-xl mt-auto"
+                style={`background: ${accent.color}; color: #fff; text-decoration: none;`}
+              >
+                Consultar disponibilidad
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                  <line x1="5" y1="12" x2="19" y2="12"/>
+                  <polyline points="12 5 19 12 12 19"/>
+                </svg>
+              </a>
+            </div>
+          </div>
+        );
+      })}
+    </div>
+
+    <div class="cap-agenda">
+      <div class="text-center cap-agenda-heading">
+        <p class="text-xs font-semibold uppercase tracking-widest mb-3" style="color: var(--color-accent); letter-spacing: 0.12em;">
+          Agenda
+        </p>
+        <h3 class="text-2xl md:text-3xl font-bold" style="font-family: var(--font-display); color: var(--color-text);">
+          Próximas capacitaciones
+        </h3>
+      </div>
+
+      <div class="max-w-3xl mx-auto cap-agenda-stack">
+        <div class="cap-agenda-card bg-white rounded-2xl flex flex-col md:flex-row md:items-center md:justify-between gap-4 md:gap-5 relative overflow-hidden">
+          <div class="cap-agenda-wash absolute inset-0 pointer-events-none" aria-hidden="true"></div>
+
+          <div class="relative z-10 min-w-0">
+            <p class="text-xs font-semibold uppercase tracking-wider mb-2" style="color: #1880c9;">
+              SinapsisVet
+            </p>
+            <p class="text-lg font-bold" style="font-family: var(--font-display); color: var(--color-text); line-height: 1.3;">
+              Capacitación online - Próxima edición
+            </p>
+          </div>
+
+          <a
+            href="https://sinapsisvet.com/course/45/detail"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="cap-agenda-cta inline-flex items-center justify-center gap-2 text-sm font-bold rounded-xl shrink-0 relative z-10"
+          >
+            Ver curso en SinapsisVet →
+          </a>
+        </div>
+
+        <div class="cap-waitlist">
+          <button type="button" class="cap-waitlist-title inline-flex items-center justify-center gap-3 text-base font-bold rounded-xl">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+            </svg>
+            Próximamente — Dejá tus datos
+          </button>
+          <p class="text-sm cap-waitlist-copy" style="color: var(--color-text-muted);">
+            Estamos preparando nuevas capacitaciones. Dejá tu email y te avisamos cuando estén disponibles.
+          </p>
+          <form class="cap-waitlist-form flex flex-col sm:flex-row gap-3 items-stretch sm:items-center">
+            <input
+              type="email"
+              placeholder="Tu email profesional"
+              class="cap-waitlist-input px-4 py-3 rounded-xl text-sm"
+              required
+            />
+            <button type="submit" class="cap-waitlist-submit px-5 py-3 text-sm font-bold rounded-xl">
+              Enviar
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<style>
+  .cap-programs {
+    background: #fff;
+    padding: 2.75rem 0 3rem;
+  }
+
+  .cap-programs-heading {
+    margin-bottom: 1.75rem;
+  }
+
+  .cap-card {
+    box-shadow: 0 3px 18px rgba(0,0,0,0.06);
+  }
+
+  .cap-card-body {
+    padding: 1.5rem;
+    min-height: 0;
+  }
+
+  .cap-card-icon {
+    margin-bottom: 0.85rem;
+  }
+
+  .cap-card-badges {
+    margin-bottom: 0.75rem;
+  }
+
+  .cap-card-title {
+    margin-bottom: 0.5rem;
+  }
+
+  .cap-card-duration {
+    margin-bottom: 0.75rem;
+  }
+
+  .cap-card-desc {
+    margin-bottom: 0.9rem;
+    flex: 1 1 auto;
+  }
+
+  .cap-card-chips {
+    margin-bottom: 1rem;
+  }
+
+  .cap-card-cta {
+    width: 100%;
+    padding: 0.75rem 1rem;
+  }
+
+  .cap-agenda {
+    margin-top: 2.5rem;
+  }
+
+  .cap-agenda-heading {
+    margin-bottom: 1.25rem;
+  }
+
+  .cap-agenda-stack {
+    display: flex;
+    flex-direction: column;
+    gap: 1.15rem;
+  }
+
+  .cap-agenda-card {
+    box-shadow: 0 3px 18px rgba(0,0,0,0.06);
+    border-top: 4px solid #1880c9;
+    padding: 1.35rem 1.5rem;
+  }
+
+  .cap-agenda-wash {
+    background: linear-gradient(135deg, rgba(24,128,201,0.05) 0%, transparent 100%);
+  }
+
+  .cap-agenda-cta {
+    background: #1880c9;
+    color: #fff;
+    text-decoration: none;
+    padding: 0.75rem 1.35rem;
+    width: 100%;
+  }
+
+  .cap-waitlist {
+    text-align: center;
+    padding: 1.25rem 1.15rem 0.15rem;
+  }
+
+  .cap-waitlist-title {
+    background: linear-gradient(135deg, #1880c9 0%, #0d9488 100%);
+    color: white;
+    border: none;
+    box-shadow: 0 4px 16px rgba(24,128,201,0.28);
+    padding: 0.9rem 1.5rem;
+    width: 100%;
+    cursor: pointer;
+  }
+
+  .cap-waitlist-copy {
+    margin-top: 0.75rem;
+  }
+
+  .cap-waitlist-form {
+    margin-top: 0.85rem;
+    justify-content: center;
+  }
+
+  .cap-waitlist-input {
+    border: 1.5px solid #cbd5e1;
+    color: var(--color-text);
+    background: #ffffff;
+    width: 100%;
+    min-height: 44px;
+  }
+
+  .cap-waitlist-submit {
+    background: #1880c9;
+    color: #fff;
+    border: none;
+    min-height: 44px;
+    width: 100%;
+    cursor: pointer;
+  }
+
+  @media (min-width: 640px) {
+    .cap-waitlist-input {
+      min-width: 260px;
+      width: auto;
+      flex: 1 1 260px;
+      max-width: 22rem;
+    }
+
+    .cap-waitlist-submit {
+      width: auto;
+    }
+  }
+
+  @media (min-width: 768px) {
+    .cap-programs {
+      padding: 3.25rem 0 3.5rem;
+    }
+
+    .cap-programs-heading {
+      margin-bottom: 2rem;
+    }
+
+    .cap-card-body {
+      padding: 1.75rem;
+    }
+
+    .cap-agenda {
+      margin-top: 2.75rem;
+    }
+
+    .cap-agenda-heading {
+      margin-bottom: 1.35rem;
+    }
+
+    .cap-agenda-cta {
+      width: auto;
+    }
+
+    .cap-waitlist {
+      padding: 0.35rem 0 0;
+    }
+
+    .cap-waitlist-title {
+      width: auto;
+    }
+  }
+</style>

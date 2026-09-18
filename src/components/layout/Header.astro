@@ -1,0 +1,141 @@
+---
+// Header.astro — Navegación principal sticky con glassmorphism al scroll
+import MobileMenu from './MobileMenu.jsx';
+
+const navLinks = [
+  { label: 'Inicio', href: '/' },
+  { label: 'Sobre Pablo', href: '/sobre-pablo' },
+  { label: 'Para tutores', href: '/tutores' },
+  { label: 'Para veterinarios', href: '/veterinarios' },
+  { label: 'Para empresas', href: '/empresas' },
+  { label: 'Eventos', href: '/eventos' },
+  { label: 'Contacto', href: '/contacto' },
+];
+
+// En desktop el "Contacto" se muestra como CTA separado, no como pill
+const desktopNavLinks = navLinks.filter(l => l.href !== '/contacto');
+---
+
+<header
+  id="site-header"
+  class="sticky top-0 z-50 w-full header-entry"
+  style="transition: background 0.35s ease, backdrop-filter 0.35s ease, box-shadow 0.35s ease, border-color 0.35s ease;"
+>
+  <!-- Línea de acento verde en el top -->
+  <div
+    class="accent-line"
+    aria-hidden="true"
+    style="
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, #040d4e 0%, #1880c9 50%, #5ba8e0 100%);
+      z-index: 1;
+    "
+  ></div>
+
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8" style="position: relative; z-index: 1;">
+    <div class="flex items-center justify-between" style="height: var(--header-height);">
+
+      <!-- ── LOGO ── -->
+      <a href="/" class="logo-group" aria-label="Pablo Borrás – Inicio">
+        <!-- Logo imagen -->
+        <img
+          src="/imagenes/logo/log2.webp"
+          alt="Pablo Borrás"
+          class="logo-img"
+          loading="eager"
+        />
+
+        <!-- Separador: solo con el texto del logo -->
+        <div class="logo-separator hidden sm:block lg:hidden xl:block" aria-hidden="true"></div>
+
+        <!-- Texto del logo: en mobile sí; se oculta en lg–xl para que entre la nav -->
+        <div class="flex flex-col lg:hidden xl:flex" style="gap: 2px; line-height: 1;">
+          <span
+            class="logo-name"
+            style="
+              font-family: var(--font-display);
+              font-size: 1.05rem;
+              font-weight: 700;
+              letter-spacing: -0.01em;
+            "
+          >Pablo Borrás</span>
+          <span
+            class="logo-subtitle"
+            style="
+              font-family: var(--font-body);
+              font-size: 0.6rem;
+              font-weight: 500;
+              letter-spacing: 0.07em;
+              text-transform: uppercase;
+            "
+          >Vet. Especialista · Speaker · Autor</span>
+        </div>
+      </a>
+
+      <!-- ── NAV DESKTOP (desde lg para evitar overflow en tablet) ── -->
+      <nav class="hidden lg:flex items-center gap-0.5" aria-label="Navegación principal">
+        {desktopNavLinks.map(link => (
+          <a
+            href={link.href}
+            class="nav-pill"
+            data-nav-href={link.href}
+            style="letter-spacing: 0.01em;"
+          >
+            {link.label}
+          </a>
+        ))}
+
+        <div class="nav-cta-separator" aria-hidden="true"></div>
+
+        <a href="/contacto" class="nav-cta-btn" data-nav-href="/contacto">
+          <span>Contactar</span>
+          <span class="nav-cta-arrow" aria-hidden="true">→</span>
+        </a>
+      </nav>
+
+      <!-- ── MENÚ MÓVIL / TABLET ── -->
+      <div class="lg:hidden">
+        <MobileMenu links={navLinks} client:load />
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Línea decorativa con degradé en el bottom -->
+  <div
+    class="bottom-accent-line"
+    aria-hidden="true"
+    style="
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, transparent 0%, #1880c9 50%, transparent 100%);
+      z-index: 1;
+    "
+  ></div>
+</header>
+
+<script>
+  // ── Glassmorphism al scroll ──────────────────────────────
+  const header = document.getElementById('site-header');
+  window.addEventListener('scroll', () => {
+    if (window.scrollY > 40) {
+      header?.classList.add('header-glass');
+    } else {
+      header?.classList.remove('header-glass');
+    }
+  }, { passive: true });
+
+  // ── Marcar enlace activo según pathname ──────────────────
+  const path = window.location.pathname.replace(/\/$/, '') || '/';
+  document.querySelectorAll<HTMLAnchorElement>('[data-nav-href]').forEach(link => {
+    const href = link.getAttribute('data-nav-href')?.replace(/\/$/, '') || '/';
+    const isHome = href === '' || href === '/';
+    const matches = isHome ? path === '/' : path === href || path.startsWith(href + '/');
+    if (matches) {
+      link.classList.add('active');
+    }
+  });
+</script>

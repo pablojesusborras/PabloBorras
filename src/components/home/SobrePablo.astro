@@ -1,0 +1,342 @@
+---
+// SobrePablo.astro — Bloque de presentación y autoridad profesional del home
+import Button from '../ui/Button.astro';
+---
+
+<section class="py-16 md:py-20 bg-white">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-start">
+
+      <!-- ── Columna izquierda: Grid de fotos + Caption ── -->
+      <div class="reveal hidden lg:flex flex-col gap-4" style="transition-delay: 0.1s;">
+
+        <!-- Grid de fotos -->
+        <div
+          class="hidden lg:grid"
+          style="
+            grid-template-columns: 1.4fr 1fr;
+            grid-template-rows: 1fr 1fr;
+            gap: 12px;
+            height: clamp(520px, 65vw, 720px);
+          "
+        >
+          <!-- Celda 1: Foto + Tarjeta de marca — ocupa las 2 filas -->
+          <div class="sp-cell1" style="grid-row: 1 / 3;">
+
+            <!-- Pieza superior: foto principal -->
+            <div class="sp-cell1__photo sobrepablo-card" style="border-radius: 14px; overflow: hidden; box-shadow: var(--shadow-lg);">
+              <img
+                src="/imagenes/perfil/pablo4.webp"
+                alt="Pablo Borrás — Médico Veterinario, Speaker y Autor"
+                width="320"
+                height="420"
+              />
+            </div>
+
+            <!-- Pieza inferior: tarjeta de marca -->
+            <div class="sp-brand-card">
+              <img
+                src="/imagenes/logo/logoyfuncion.webp"
+                alt="Vet Pablo Borrás MSc — Veterinario especialista, speaker y autor"
+                class="sp-brand-card__logo"
+                width="240"
+                height="80"
+                loading="lazy"
+              />
+            </div>
+
+          </div>
+
+          <!-- Celda 2: Foto congreso (arriba derecha) -->
+          <!-- FIX: ruta corregida — faltaba el / inicial -->
+          <div class="sobrepablo-card" style="border-radius: 12px; overflow: hidden; box-shadow: var(--shadow);">
+            <img
+              src="/imagenes/heros/homesobrepablo.png"
+              alt="Pablo Borrás en congreso internacional"
+              class="w-full h-full object-cover"
+              style="border-radius: 12px; object-fit: cover; object-position: center 30%;"
+              loading="lazy"
+              width="200"
+              height="175"
+            />
+          </div>
+
+          <!-- Celda 3: Foto Pablo con el libro (abajo derecha) -->
+          <div class="sobrepablo-card" style="border-radius: 12px; overflow: hidden; box-shadow: var(--shadow);">
+            <img
+              src="/imagenes/perfil/pablomobileperf.webp"
+              alt="Pablo Borrás con el libro Manual Práctico de Enfermedades Infecciosas y Parasitarias"
+              class="w-full h-full object-cover"
+              style="border-radius: 12px;"
+              loading="lazy"
+              width="200"
+              height="175"
+            />
+          </div>
+        </div>
+
+        <!-- Strip de credencial inferior -->
+        <div
+          style="
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            background: var(--color-neutral-light);
+            border: 1px solid #c8d8f0;
+            border-radius: 10px;
+            padding: 10px 14px;
+          "
+        >
+          <span
+            style="width: 7px; height: 7px; border-radius: 50%; background: #4ade80; flex-shrink: 0; display: inline-block;"
+            aria-hidden="true"
+          ></span>
+          <p
+            style="font-family: var(--font-body); font-size: 0.75rem; color: var(--color-text-muted); margin: 0; line-height: 1.4;"
+          >
+            Editor asociado · <em>Parasites &amp; Vectors</em> — Springer Nature
+          </p>
+        </div>
+
+      </div>
+
+      <!-- ── Columna derecha: Texto ── -->
+      <div style="position: relative;">
+
+        <!-- Watermark libro de fondo -->
+        <img
+          class="sp-watermark"
+          src="/imagenes/libro/libroport2.webp"
+          alt=""
+          style="
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            width: 90%;
+            max-width: none;
+            opacity: 0.13;
+            object-fit: contain;
+            pointer-events: none;
+            z-index: 0;
+          "
+          aria-hidden="true"
+        />
+
+        <!-- Badge -->
+        <div class="reveal" style="transition-delay: 0.1s; position: relative; z-index: 1;">
+          <span
+            class="inline-block text-xs font-semibold uppercase tracking-widest px-3 py-1 rounded-full mb-5"
+            style="background: rgba(24,128,201,0.12); color: var(--color-accent); border: 1px solid rgba(24,128,201,0.28);"
+          >
+            Médico Veterinario · Speaker · Autor
+          </span>
+        </div>
+
+        <!-- Título -->
+        <div class="reveal" style="transition-delay: 0.15s; position: relative; z-index: 1;">
+          <h2
+            class="text-3xl md:text-4xl font-bold mb-6 leading-tight"
+            style="font-family: var(--font-display); color: var(--color-text);"
+          >
+            Más de <span style="color: var(--color-accent);">15 años</span> transformando la medicina veterinaria
+          </h2>
+        </div>
+
+        <!-- Párrafo bio — LEAD -->
+        <div class="reveal" style="transition-delay: 0.2s; position: relative; z-index: 1;">
+          <p
+            class="text-base leading-relaxed mb-4"
+            style="color: #111827; font-weight: 600; font-family: var(--font-body);"
+          >
+            Médico Veterinario egresado de la Universidad de Buenos Aires. Especialista
+            en Enfermedades Infecciosas y Parasitarias (CPHV) y Magíster en Prevención y
+            Control de Zoonosis (UNNOBA–ANLIS). Editor asociado de <em>Parasites and Vectors</em>
+            (Springer Nature).
+          </p>
+        </div>
+
+        <!-- Párrafo bio — DETALLE -->
+        <!-- FIX: color más oscuro #1f2937 y font-weight 500 para mejorar legibilidad -->
+        <div class="reveal" style="transition-delay: 0.25s; position: relative; z-index: 1;">
+          <p
+            class="text-sm leading-relaxed mb-8"
+            style="color: #1f2937; font-weight: 500; font-family: var(--font-body);"
+          >
+            Miembro del TroCCAP Council e ISCAID. Colaborador del
+            servicio de Zoopatología del Hospital Francisco J. Muñiz. Actualmente
+            cursando el Máster en Medicina Interna de Pequeños Animales en la
+            Universidad Autónoma de Barcelona (España). Docente, investigador y speaker
+            internacional con presencia en congresos en Argentina, Ecuador, Colombia,
+            Uruguay, Brasil, Paraguay, España y Países Bajos.
+          </p>
+        </div>
+
+        <!-- Imágenes — solo mobile -->
+        <div class="lg:hidden flex flex-col gap-3 mb-8">
+          <div style="border-radius: 16px; overflow: hidden; box-shadow: var(--shadow-lg); max-height: 340px;">
+            <img
+              src="/imagenes/perfil/pablo4.webp"
+              alt="Pablo Borrás — Médico Veterinario, Speaker y Autor"
+              class="w-full object-cover object-top"
+              style="border-radius: 16px; max-height: 340px;"
+              width="480"
+              height="340"
+            />
+          </div>
+          <div class="grid grid-cols-2 gap-3" style="height: 160px;">
+            <div style="border-radius: 12px; overflow: hidden; box-shadow: var(--shadow);">
+              <img
+                src="/imagenes/heros/homesobrepablo.png"
+                alt="Pablo Borrás en congreso internacional"
+                class="w-full h-full object-cover object-center"
+                style="border-radius: 12px;"
+                loading="lazy"
+                width="200"
+                height="160"
+              />
+            </div>
+            <div style="border-radius: 12px; overflow: hidden; box-shadow: var(--shadow);">
+              <img
+                src="/imagenes/perfil/pablomobileperf.webp"
+                alt="Pablo Borrás con el libro Manual Práctico de Enfermedades Infecciosas y Parasitarias"
+                class="w-full h-full object-cover object-center"
+                style="border-radius: 12px;"
+                width="200"
+                height="160"
+              />
+            </div>
+          </div>
+          <div
+            style="display: flex; align-items: center; gap: 8px; background: var(--color-neutral-light); border: 1px solid #c8d8f0; border-radius: 10px; padding: 10px 14px;"
+          >
+            <span style="width: 7px; height: 7px; border-radius: 50%; background: #4ade80; flex-shrink: 0; display: inline-block;" aria-hidden="true"></span>
+            <p style="font-family: var(--font-body); font-size: 0.75rem; color: var(--color-text-muted); margin: 0; line-height: 1.4;">
+              Editor asociado · <em>Parasites &amp; Vectors</em> — Springer Nature
+            </p>
+          </div>
+        </div>
+
+        <!-- CTA outline -->
+        <div class="reveal" style="transition-delay: 0.3s; position: relative; z-index: 1;">
+          <a
+            href="/sobre-pablo"
+            class="inline-flex items-center gap-2 px-6 py-3 font-semibold text-sm transition-all duration-200 rounded-lg"
+            style="border: 2px solid var(--color-accent); color: var(--color-accent); border-radius: var(--radius); text-decoration: none; background: transparent;"
+            onmouseover="this.style.background='var(--color-accent)'; this.style.color='#fff'; this.querySelector('.cta-arrow').style.transform='translateX(4px)';"
+            onmouseout="this.style.background='transparent'; this.style.color='var(--color-accent)'; this.querySelector('.cta-arrow').style.transform='translateX(0)';"
+          >
+            Conocé más sobre Pablo
+            <svg
+              class="cta-arrow"
+              style="transition: transform 0.2s ease; flex-shrink: 0;"
+              width="15" height="15" viewBox="0 0 24 24" fill="none"
+              stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"
+              aria-hidden="true"
+            >
+              <line x1="5" y1="12" x2="19" y2="12"/>
+              <polyline points="12 5 19 12 12 19"/>
+            </svg>
+          </a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<script>
+  const counters = document.querySelectorAll('[data-count]');
+  if (counters.length) {
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (!entry.isIntersecting) return;
+        const el = entry.target;
+        const original = el.textContent.trim();
+        const prefix = original.startsWith('+') ? '+' : '';
+        const target = parseInt(original.replace(/[^0-9]/g, ''), 10);
+        const useThousands = target >= 1000;
+        const duration = 1400;
+        const start = performance.now();
+        function format(n) {
+          return useThousands ? prefix + n.toLocaleString('de-DE') : prefix + n;
+        }
+        function step(ts) {
+          const elapsed = ts - start;
+          const progress = Math.min(elapsed / duration, 1);
+          const eased = 1 - Math.pow(1 - progress, 3);
+          el.textContent = format(Math.round(eased * target));
+          if (progress < 1) requestAnimationFrame(step);
+        }
+        requestAnimationFrame(step);
+        observer.unobserve(el);
+      });
+    }, { threshold: 0.6 });
+    counters.forEach(el => observer.observe(el));
+  }
+</script>
+
+<style>
+  .sobrepablo-card {
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+  }
+  .sobrepablo-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 16px 40px rgba(24, 128, 201, 0.15) !important;
+  }
+
+  /* ── Celda 1: sub-layout foto + tarjeta de marca ──────────── */
+  .sp-cell1 {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;  /* igual al gap del grid padre */
+  }
+
+  /* La foto llena todo el espacio disponible menos lo que ocupa la tarjeta */
+  .sp-cell1__photo {
+    flex: 1;
+    min-height: 0;  /* necesario para que flex-shrink funcione correctamente */
+  }
+
+  .sp-cell1__photo img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: top;
+    display: block;
+  }
+
+  /* Tarjeta de marca: alto fijo, sin border-radius, borde de acento arriba */
+  .sp-brand-card {
+    height: 138px;
+    flex-shrink: 0;
+    background: #ffffff;
+    border-top: 3px solid #1880c9;
+    border-left: 1px solid #c8d8f0;
+    border-right: 1px solid #c8d8f0;
+    border-bottom: 1px solid #c8d8f0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 0.75rem;
+  }
+
+  /* Logo: entra completo sin deformarse, escala al contenedor */
+  .sp-brand-card__logo {
+    max-width: 100%;
+    max-height: 112px;
+    width: auto;
+    height: auto;
+    object-fit: contain;
+    display: block;
+  }
+
+  /* ── Mobile: watermark más acotado y posicionado en zona de texto ── */
+  @media (max-width: 767px) {
+    .sp-watermark {
+      width: 80% !important;
+      top: 30% !important;
+      opacity: 0.22 !important;
+    }
+  }
+</style>

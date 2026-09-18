@@ -1,0 +1,397 @@
+---
+// pages/veterinarios/capacitaciones.astro — Página de capacitaciones con formulario
+import Layout from '../../layouts/Layout.astro';
+import Capacitaciones from '../../components/veterinarios/Capacitaciones.astro';
+import FormularioContacto from '../../components/contacto/FormularioContacto.jsx';
+
+// Foto provisoria: Pablo en conferencia. Reemplazar solo estas dos rutas cuando exista la imagen definitiva de capacitación.
+const heroDesktop = '/imagenes/heros/congreso-hero-desktop.png';
+const heroMobile = '/imagenes/heros/congreso-hero-mobile.png';
+---
+
+<Layout
+  title="Capacitaciones veterinarias — Enfermedades Vectoriales e Infectología | Pablo Borrás"
+  description="Capacitaciones presenciales y online para veterinarios en enfermedades vectoriales, infectología canina y felina, parasitología y zoonosis. Charlas, workshops y jornadas."
+>
+  <link slot="head" rel="preload" as="image" href={heroDesktop} media="(min-width: 768px)" fetchpriority="high" />
+  <link slot="head" rel="preload" as="image" href={heroMobile} media="(max-width: 767px)" fetchpriority="high" />
+
+  <section class="page-hero cap-hero relative overflow-hidden">
+    <div class="absolute inset-0 pointer-events-none" aria-hidden="true">
+      <img
+        src={heroDesktop}
+        alt=""
+        class="cap-hero-img hidden md:block"
+        loading="eager"
+        fetchpriority="high"
+        aria-hidden="true"
+      />
+      <img
+        src={heroMobile}
+        alt=""
+        class="cap-hero-img-mobile block md:hidden"
+        loading="eager"
+        aria-hidden="true"
+      />
+    </div>
+
+    <div class="cap-hero-overlay-desktop hidden md:block absolute top-0 left-0 bottom-0 pointer-events-none" aria-hidden="true"></div>
+    <div class="cap-hero-overlay-mobile block md:hidden absolute inset-0 pointer-events-none" aria-hidden="true"></div>
+    <div class="dot-pattern absolute inset-0 pointer-events-none cap-hero-dots" aria-hidden="true"></div>
+
+    <div class="cap-hero-inner max-w-7xl ml-0 px-4 sm:px-6 md:px-12 lg:px-20 w-full relative z-10">
+      <div class="max-w-2xl relative">
+        <div class="cap-hero-radial hidden md:block absolute pointer-events-none" aria-hidden="true"></div>
+
+        <nav class="cap-hero-breadcrumb flex items-center gap-2 whitespace-nowrap" aria-label="Breadcrumb">
+          <a href="/veterinarios" class="inline-flex items-center gap-1 transition-colors cap-hero-crumb-link">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M19 12H5M12 19l-7-7 7-7"/>
+            </svg>
+            Para veterinarios
+          </a>
+          <span class="text-white/40">/</span>
+          <span class="text-white/80 font-medium">Capacitaciones</span>
+        </nav>
+
+        <div class="hero-badge inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-widest px-5 py-2.5 rounded-full">
+          🎓 Formación continua
+        </div>
+
+        <div class="flex items-start gap-4 mb-6 cap-hero-title-wrap">
+          <div class="w-1 self-stretch rounded-full mt-1 shrink-0 cap-hero-bar" aria-hidden="true"></div>
+          <h1 class="hero-title text-4xl md:text-5xl font-bold text-white">
+            Capacitaciones<br/>
+            <span class="hero-title-highlight">veterinarias</span>
+          </h1>
+        </div>
+
+        <p class="hero-description text-white/90 text-lg md:text-xl max-w-2xl leading-relaxed mb-6">
+          Programas de formación continua basados en evidencia para profesionales en ejercicio. Modalidades presencial, online e híbrida.
+        </p>
+
+        <div class="hero-chips flex flex-wrap gap-3 items-stretch">
+          <span class="hero-chip inline-flex items-center gap-2 px-3 py-1.5 rounded-full">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
+              <circle cx="9" cy="7" r="4"/>
+              <path d="M23 21v-2a4 4 0 0 0-3-3.87"/>
+              <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+            </svg>
+            <span>
+              <span class="hero-chip-label">Modalidades</span>
+              <span class="hero-chip-value">Presencial, Online, Híbrido</span>
+            </span>
+          </span>
+          <span class="hero-chip inline-flex items-center gap-2 px-3 py-1.5 rounded-full">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/>
+              <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/>
+            </svg>
+            <span>
+              <span class="hero-chip-label">Enfoque</span>
+              <span class="hero-chip-value">Basado en evidencia</span>
+            </span>
+          </span>
+          <span class="hero-chip inline-flex items-center gap-2 px-3 py-1.5 rounded-full">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="10"/>
+              <polyline points="12 6 12 12 16 14"/>
+            </svg>
+            <span>
+              <span class="hero-chip-label">Actualización</span>
+              <span class="hero-chip-value">Continua y práctica</span>
+            </span>
+          </span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <Capacitaciones />
+
+  <section class="cap-form-section">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center cap-form-heading">
+        <p class="text-xs font-semibold uppercase tracking-widest mb-3" style="color: var(--color-accent); letter-spacing: 0.12em;">
+          Próximo paso
+        </p>
+        <h2
+          class="text-3xl md:text-4xl font-bold mb-4"
+          style="font-family: var(--font-display); color: var(--color-text); line-height: 1.2;"
+        >
+          Consultá disponibilidad
+        </h2>
+        <div class="w-20 h-1 mx-auto rounded-full mb-4" style="background: linear-gradient(90deg, #1880c9 0%, #0d9488 100%);"></div>
+        <p class="text-base" style="color: var(--color-text-muted);">
+          Completá el formulario y coordinamos los detalles de la capacitación.
+        </p>
+      </div>
+      <div class="cap-form-shell bg-white rounded-2xl">
+        <FormularioContacto client:load initialTab="capacitaciones" />
+      </div>
+    </div>
+  </section>
+
+</Layout>
+
+<style>
+  .cap-hero {
+    background: transparent;
+    display: flex;
+    align-items: center;
+    min-height: 58vh;
+  }
+
+  .cap-hero-img {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center 48%;
+  }
+
+  .cap-hero-img-mobile {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    height: 118%;
+    object-fit: cover;
+    object-position: center 55%;
+  }
+
+  .cap-hero-overlay-desktop {
+    width: 62%;
+    background: linear-gradient(to right, rgba(3,13,58,0.72) 0%, rgba(3,13,58,0.48) 45%, rgba(3,13,58,0.18) 75%, rgba(3,13,58,0) 100%);
+    z-index: 1;
+  }
+
+  .cap-hero-overlay-mobile {
+    background: linear-gradient(to bottom, rgba(3,13,58,0) 0%, rgba(3,13,58,0) 26%, rgba(3,13,58,0.50) 50%, rgba(3,13,58,0.80) 75%, rgba(3,13,58,0.90) 100%);
+    z-index: 1;
+  }
+
+  .cap-hero-dots {
+    opacity: 0.12;
+    z-index: 2;
+  }
+
+  .cap-hero-radial {
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 135%;
+    height: 135%;
+    background: radial-gradient(ellipse 78% 82% at 40% 50%, rgba(0,0,0,0.55) 0%, rgba(0,0,0,0.32) 40%, rgba(0,0,0,0.12) 65%, transparent 82%);
+    z-index: -1;
+    filter: blur(9px);
+  }
+
+  .cap-hero-inner {
+    padding-top: 3.5rem;
+    padding-bottom: 3.5rem;
+  }
+
+  .cap-hero-breadcrumb {
+    margin-bottom: 1rem;
+    font-size: 0.8rem;
+  }
+
+  .cap-hero-crumb-link {
+    color: #a8d8f0;
+    text-decoration: none;
+    font-weight: 500;
+  }
+
+  .hero-badge {
+    background: rgba(255,255,255,0.12);
+    color: #a8d8f0;
+    border: 1px solid rgba(255,255,255,0.25);
+    letter-spacing: 0.12em;
+    backdrop-filter: blur(10px);
+    text-shadow: 0 2px 12px rgba(0,0,0,0.65);
+    margin-bottom: 1.25rem;
+  }
+
+  .cap-hero-bar {
+    background: linear-gradient(to bottom, #1880c9, #5ba8e0);
+    min-height: 56px;
+  }
+
+  .cap-hero-title-wrap {
+    filter: drop-shadow(0 2px 10px rgba(0,0,0,0.55));
+  }
+
+  .hero-title {
+    font-family: var(--font-display);
+    line-height: 1.15;
+    text-align: left;
+  }
+
+  .hero-title-highlight {
+    background: linear-gradient(135deg, #ffffff 0%, #5ba8e0 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  .hero-description {
+    text-shadow: 0 2px 12px rgba(0,0,0,0.65);
+    text-align: left;
+  }
+
+  .hero-chip {
+    background: rgba(255,255,255,0.15);
+    color: white;
+    border: 1px solid rgba(255,255,255,0.3);
+    backdrop-filter: blur(10px);
+    text-shadow: 0 2px 12px rgba(0,0,0,0.65);
+  }
+
+  .hero-chip-label {
+    display: block;
+    font-size: 0.62rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.72);
+    line-height: 1.2;
+  }
+
+  .hero-chip-value {
+    display: block;
+    font-size: 0.78rem;
+    font-weight: 700;
+    line-height: 1.25;
+  }
+
+  .cap-form-section {
+    background: linear-gradient(135deg, #f0f9ff 0%, #f8fafc 100%);
+    padding: 3.5rem 0;
+  }
+
+  .cap-form-heading {
+    margin-bottom: 2rem;
+  }
+
+  .cap-form-shell {
+    box-shadow: 0 4px 24px rgba(0,0,0,0.08);
+    border-top: 4px solid #1880c9;
+    padding: 1.25rem;
+  }
+
+  @media (min-width: 768px) {
+    .page-hero::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 32px;
+      background: linear-gradient(to bottom, transparent, #ffffff);
+      z-index: 11;
+      pointer-events: none;
+    }
+
+    .cap-form-section {
+      padding: 4rem 0;
+    }
+
+    .cap-form-heading {
+      margin-bottom: 2.5rem;
+    }
+
+    .cap-form-shell {
+      padding: 2.5rem;
+    }
+  }
+
+  @media (max-width: 767px) {
+    .cap-hero {
+      align-items: flex-end;
+      min-height: 0;
+      height: auto;
+      padding-bottom: 2rem;
+    }
+
+    .cap-hero-inner {
+      margin-left: 0;
+      margin-right: auto;
+      padding-top: 5rem;
+      padding-bottom: 0.5rem;
+    }
+
+    .cap-hero-breadcrumb {
+      font-size: 0.72rem;
+      margin-bottom: 0.75rem;
+    }
+
+    .hero-badge,
+    .hero-title,
+    .hero-description {
+      text-align: left;
+    }
+
+    .hero-title {
+      font-size: clamp(1.65rem, 8vw, 2.1rem);
+      line-height: 1.24;
+    }
+
+    .hero-description {
+      font-size: clamp(0.9rem, 3.8vw, 1rem);
+      line-height: 1.6;
+      margin-bottom: 1.15rem;
+    }
+
+    .hero-badge {
+      font-size: 0.65rem;
+      padding: 0.4rem 0.85rem;
+      letter-spacing: 0.08em;
+      margin-bottom: 0.9rem;
+    }
+
+    .hero-chips {
+      flex-direction: column;
+      align-items: stretch;
+      gap: 0.6rem;
+      margin-bottom: 0.25rem;
+    }
+
+    .hero-chip {
+      width: 100%;
+    }
+
+    .hero-title,
+    .hero-description,
+    .hero-badge {
+      text-shadow: 0 1px 3px rgba(0,0,0,0.85), 0 2px 14px rgba(0,0,0,0.6);
+    }
+
+    .cap-hero-title-wrap {
+      filter: drop-shadow(0 2px 12px rgba(0,0,0,0.70));
+    }
+
+    .hero-title-highlight {
+      background: none;
+      -webkit-background-clip: initial;
+      background-clip: initial;
+      -webkit-text-fill-color: white;
+      text-shadow: 0 1px 3px rgba(0,0,0,0.85), 0 2px 14px rgba(0,0,0,0.6);
+    }
+
+    .cap-form-section {
+      padding: 2.75rem 0 3rem;
+    }
+
+    .cap-form-heading {
+      margin-bottom: 1.5rem;
+    }
+
+    .cap-form-shell {
+      padding: 1rem;
+    }
+  }
+</style>

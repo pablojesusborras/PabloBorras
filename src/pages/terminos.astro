@@ -1,0 +1,139 @@
+---
+// pages/terminos.astro — Términos y Condiciones de Uso
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout
+  title="Términos y Condiciones | Pablo Borrás"
+  description="Términos y condiciones de uso del sitio web de Pablo Borrás - Médico Veterinario."
+>
+  <section class="py-20" style="background: var(--color-neutral-light);">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+      <h1 
+        class="text-4xl md:text-5xl font-bold mb-6" 
+        style="font-family: var(--font-display); color: var(--color-text);"
+      >
+        Términos y Condiciones de Uso
+      </h1>
+      
+      <p class="text-sm mb-12" style="color: var(--color-text-muted);">
+        Última actualización: {new Date().toLocaleDateString('es-AR', { year: 'numeric', month: 'long', day: 'numeric' })}
+      </p>
+
+      <div class="prose prose-lg max-w-none" style="color: var(--color-text);">
+        
+        <section class="mb-10">
+          <h2 class="text-2xl font-bold mb-4" style="font-family: var(--font-display); color: var(--color-primary);">
+            1. Aceptación de los términos
+          </h2>
+          <p class="mb-4" style="color: var(--color-text-muted); line-height: 1.8;">
+            Al acceder y utilizar este sitio web, usted acepta estar sujeto a estos Términos y Condiciones de Uso, así como a todas las leyes y regulaciones aplicables. Si no está de acuerdo con alguno de estos términos, le rogamos que no utilice este sitio.
+          </p>
+        </section>
+
+        <section class="mb-10">
+          <h2 class="text-2xl font-bold mb-4" style="font-family: var(--font-display); color: var(--color-primary);">
+            2. Uso del sitio web
+          </h2>
+          <p class="mb-4" style="color: var(--color-text-muted); line-height: 1.8;">
+            Este sitio web tiene fines informativos y educativos relacionados con servicios veterinarios profesionales, capacitaciones, interconsultas y contenido divulgativo. Usted se compromete a:
+          </p>
+          <ul class="list-disc pl-6 mb-4 space-y-2" style="color: var(--color-text-muted);">
+            <li>Utilizar el sitio de manera legal y respetuosa.</li>
+            <li>No intentar obtener acceso no autorizado a ninguna parte del sitio.</li>
+            <li>No utilizar el sitio para distribuir contenido ilegal, difamatorio, obsceno o inapropiado.</li>
+            <li>No copiar, modificar o distribuir el contenido del sitio sin autorización previa por escrito.</li>
+          </ul>
+        </section>
+
+        <section class="mb-10">
+          <h2 class="text-2xl font-bold mb-4" style="font-family: var(--font-display); color: var(--color-primary);">
+            3. Propiedad intelectual
+          </h2>
+          <p class="mb-4" style="color: var(--color-text-muted); line-height: 1.8;">
+            Todo el contenido de este sitio web, incluidos textos, gráficos, logotipos, imágenes, videos, audio y software, es propiedad de Pablo Borrás o de sus licenciantes y está protegido por las leyes de propiedad intelectual de Argentina y tratados internacionales.
+          </p>
+          <p class="mb-4" style="color: var(--color-text-muted); line-height: 1.8;">
+            Queda prohibida la reproducción, distribución, modificación o uso comercial del contenido sin autorización expresa.
+          </p>
+        </section>
+
+        <section class="mb-10">
+          <h2 class="text-2xl font-bold mb-4" style="font-family: var(--font-display); color: var(--color-primary);">
+            4. Limitación de responsabilidad
+          </h2>
+          <p class="mb-4" style="color: var(--color-text-muted); line-height: 1.8;">
+            El contenido de este sitio se proporciona "tal cual" y con fines informativos únicamente. Pablo Borrás no garantiza la exactitud, integridad o actualidad de la información presentada.
+          </p>
+          <p class="mb-4" style="color: var(--color-text-muted); line-height: 1.8;">
+            <strong>Importante:</strong> La información proporcionada en este sitio no reemplaza la consulta veterinaria profesional. Siempre consulte a un veterinario habilitado antes de tomar decisiones sobre la salud de su mascota.
+          </p>
+          <p class="mb-4" style="color: var(--color-text-muted); line-height: 1.8;">
+            En ningún caso Pablo Borrás será responsable por daños directos, indirectos, incidentales, especiales o consecuentes derivados del uso o la imposibilidad de uso de este sitio.
+          </p>
+        </section>
+
+        <section class="mb-10">
+          <h2 class="text-2xl font-bold mb-4" style="font-family: var(--font-display); color: var(--color-primary);">
+            5. Enlaces a sitios de terceros
+          </h2>
+          <p class="mb-4" style="color: var(--color-text-muted); line-height: 1.8;">
+            Este sitio puede contener enlaces a sitios web de terceros. No somos responsables del contenido, políticas de privacidad o prácticas de dichos sitios. El acceso a enlaces externos es bajo su propio riesgo.
+          </p>
+        </section>
+
+        <section class="mb-10">
+          <h2 class="text-2xl font-bold mb-4" style="font-family: var(--font-display); color: var(--color-primary);">
+            6. Servicios profesionales
+          </h2>
+          <p class="mb-4" style="color: var(--color-text-muted); line-height: 1.8;">
+            Los servicios de interconsulta veterinaria, capacitaciones y charlas están sujetos a disponibilidad y acuerdos específicos que se establecerán de manera individual con cada cliente.
+          </p>
+          <p class="mb-4" style="color: var(--color-text-muted); line-height: 1.8;">
+            Las interconsultas clínicas están dirigidas exclusivamente a profesionales veterinarios habilitados y no constituyen atención directa a pacientes.
+          </p>
+        </section>
+
+        <section class="mb-10">
+          <h2 class="text-2xl font-bold mb-4" style="font-family: var(--font-display); color: var(--color-primary);">
+            7. Privacidad de datos
+          </h2>
+          <p class="mb-4" style="color: var(--color-text-muted); line-height: 1.8;">
+            El tratamiento de datos personales se rige por nuestra <a href="/privacidad" class="font-semibold" style="color: var(--color-accent);">Política de Privacidad</a>, que forma parte integral de estos Términos y Condiciones.
+          </p>
+        </section>
+
+        <section class="mb-10">
+          <h2 class="text-2xl font-bold mb-4" style="font-family: var(--font-display); color: var(--color-primary);">
+            8. Modificaciones
+          </h2>
+          <p class="mb-4" style="color: var(--color-text-muted); line-height: 1.8;">
+            Nos reservamos el derecho de modificar estos Términos y Condiciones en cualquier momento. Los cambios se publicarán en esta página con la fecha de actualización correspondiente. El uso continuado del sitio después de dichos cambios constituye su aceptación de los nuevos términos.
+          </p>
+        </section>
+
+        <section class="mb-10">
+          <h2 class="text-2xl font-bold mb-4" style="font-family: var(--font-display); color: var(--color-primary);">
+            9. Ley aplicable y jurisdicción
+          </h2>
+          <p class="mb-4" style="color: var(--color-text-muted); line-height: 1.8;">
+            Estos Términos y Condiciones se rigen por las leyes de la República Argentina. Cualquier disputa derivada del uso de este sitio será sometida a la jurisdicción de los tribunales competentes de la Ciudad Autónoma de Buenos Aires, Argentina.
+          </p>
+        </section>
+
+        <section class="mb-10">
+          <h2 class="text-2xl font-bold mb-4" style="font-family: var(--font-display); color: var(--color-primary);">
+            10. Contacto
+          </h2>
+          <p class="mb-4" style="color: var(--color-text-muted); line-height: 1.8;">
+            Si tiene preguntas sobre estos Términos y Condiciones, puede contactarnos en:
+          </p>
+          <p class="mb-2" style="color: var(--color-text-muted);">
+            <strong>Email:</strong> <a href="mailto:consultas.borras@gmail.com" class="font-semibold" style="color: var(--color-accent);">consultas.borras@gmail.com</a>
+          </p>
+        </section>
+
+      </div>
+    </div>
+  </section>
+</Layout>

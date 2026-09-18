@@ -1,0 +1,788 @@
+﻿---
+// pages/veterinarios/index.astro — Hub para veterinarios con 3 subsecciones y datos de autoridad
+import Layout from '../../layouts/Layout.astro';
+import SectionTitle from '../../components/ui/SectionTitle.astro';
+import Button from '../../components/ui/Button.astro';
+import PodcastsMNV from '../../components/veterinarios/PodcastsMNV.astro';
+import VideosPreview from '../../components/home/VideosPreview.astro';
+
+const subsecciones = [
+  {
+    href: '/veterinarios/interconsultas',
+    icon: `<svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M22 12h-4l-3 9L9 3l-3 9H2"/>
+    </svg>`,
+    titulo: 'Veterinarios derivantes',
+    descripcion: 'Pablo Borrás junto al veterinario consultante analiza el caso, el historial clínico del paciente y propone un enfoque diagnóstico y terapéutico detallado basado en evidencia científica actualizada.',
+    cta: 'Ver interconsultas',
+  },
+  {
+    href: '/veterinarios/capacitaciones',
+    icon: `<svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/>
+      <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/>
+    </svg>`,
+    titulo: 'Capacitaciones',
+    descripcion: 'Enfermedades vectoriales, infectología canina y felina, zoonosis y parasitología. Presenciales, online e híbridas. Charlas, workshops, jornadas y congresos.',
+    cta: 'Ver capacitaciones',
+  },
+  {
+    href: '/veterinarios/libro',
+    icon: `<svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/>
+      <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/>
+    </svg>`,
+    titulo: 'Libro técnico',
+    descripcion: 'Manual Práctico de Enfermedades Infecciosas y Parasitarias en el Perro. Publicado por Multimedica Ediciones Veterinarias. Herramienta de referencia clínica basada en evidencia científica.',
+    cta: 'Ver el libro',
+  },
+];
+
+const stats = [
+  { numero: '+15',  label: 'Años de experiencia clínica' },
+  { numero: '+32K', label: 'Seguidores en Instagram' },
+  { numero: '+8',   label: 'Países donde disertó' },
+  { numero: '+15',  label: 'Publicaciones internacionales' },
+];
+---
+
+<Layout
+  title="Para veterinarios — Interconsultas, Capacitaciones y Libro | Pablo Borrás"
+  description="Interconsultas clínicas especializadas en infectología, capacitaciones en enfermedades vectoriales y libro técnico para médicos veterinarios. Por Pablo Borrás MSc."
+  heroImage="/imagenes/heros/paravet1.webp"
+>
+  <!-- Preload imágenes hero responsive -->
+  <link slot="head" rel="preload" as="image" href="/imagenes/heros/paravet2deskt.webp" media="(min-width: 768px)" fetchpriority="high" />
+  <link slot="head" rel="preload" as="image" href="/imagenes/heros/paravet2mob.webp" media="(max-width: 767px)" fetchpriority="high" />
+
+  <!-- Hero secundario mejorado -->
+  <section
+    class="page-hero py-24 md:py-28 relative overflow-hidden"
+    style="display: flex; align-items: center;"
+  >
+    <!-- Imagen de fondo responsive -->
+    <div
+      class="absolute inset-0 pointer-events-none"
+      style="z-index: 0;"
+      aria-hidden="true"
+    >
+      <!-- Desktop -->
+      <img
+        src="/imagenes/heros/paravet2deskt.webp"
+        alt=""
+        class="hidden md:block w-full h-full object-cover"
+        style="object-position: center top; opacity: 0.88;"
+        loading="eager"
+        fetchpriority="high"
+        aria-hidden="true"
+      />
+      <!-- Mobile -->
+      <img
+        src="/imagenes/heros/paravet2mob.webp"
+        alt=""
+        class="block md:hidden object-cover"
+        style="
+          position: absolute;
+          left: 0;
+          bottom: 0;
+          width: 100%;
+          height: 112%;
+          object-position: center bottom;
+          opacity: 0.80;
+        "
+        loading="eager"
+        aria-hidden="true"
+      />
+    </div>
+
+    <!-- Oscurecimiento solo detrás del texto — Desktop: solo lado izquierdo (más intenso que home por fondo ruidoso) -->
+    <div
+      class="hidden md:block absolute top-0 left-0 bottom-0 pointer-events-none"
+      style="
+        width: 60%;
+        background: linear-gradient(to right, rgba(3,13,58,0.72) 0%, rgba(3,13,58,0.48) 45%, rgba(3,13,58,0.18) 75%, rgba(3,13,58,0) 100%);
+        z-index: 1;
+      "
+      aria-hidden="true"
+    ></div>
+
+    <!-- Mobile: degradado vertical — transparente arriba, oscuro abajo (reajustado para mayor claridad arriba) -->
+    <div
+      class="block md:hidden absolute inset-0 pointer-events-none"
+      style="
+        background: linear-gradient(to bottom, rgba(3,13,58,0) 0%, rgba(3,13,58,0) 30%, rgba(3,13,58,0.50) 50%, rgba(3,13,58,0.80) 75%, rgba(3,13,58,0.90) 100%);
+        z-index: 1;
+      "
+      aria-hidden="true"
+    ></div>
+
+    <!-- Patrón de puntos sutil -->
+    <div
+      class="dot-pattern absolute inset-0 pointer-events-none"
+      style="opacity: 0.12; z-index: 2;"
+      aria-hidden="true"
+    ></div>
+
+    <div class="max-w-7xl ml-0 px-4 sm:px-6 md:px-12 lg:px-20 py-10 w-full relative z-10">
+      <div class="max-w-2xl relative">
+        <!-- Degradado radial negro detrás del texto (solo desktop, más intenso que home) -->
+        <div
+          class="hidden md:block absolute pointer-events-none"
+          style="
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 135%;
+            height: 135%;
+            background: radial-gradient(ellipse 78% 82% at 40% 50%, rgba(0,0,0,0.55) 0%, rgba(0,0,0,0.32) 40%, rgba(0,0,0,0.12) 65%, transparent 82%);
+            z-index: -1;
+            filter: blur(9px);
+          "
+          aria-hidden="true"
+        ></div>
+
+        <div class="inline-block mb-6">
+          <span
+            class="hero-badge inline-flex items-center gap-2 text-xs font-bold uppercase px-5 py-2.5 rounded-xl backdrop-blur-md"
+            style="background: rgba(255,255,255,0.15); color: white; letter-spacing: 0.1em; border: 1px solid rgba(255,255,255,0.25); text-shadow: 0 2px 12px rgba(0,0,0,0.65);"
+          >
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M22 12h-4l-3 9L9 3l-3 9H2"/>
+            </svg>
+            <span class="hidden md:inline">Espacio exclusivo para profesionales</span>
+            <span class="md:hidden">Para profesionales</span>
+          </span>
+        </div>
+
+        <!-- Título con barra vertical -->
+        <div class="flex items-start gap-4 mb-6" style="filter: drop-shadow(0 2px 10px rgba(0,0,0,0.55));">
+          <div
+            class="w-1 self-stretch rounded-full mt-1 shrink-0"
+            style="background: linear-gradient(to bottom, #1880c9, #5ba8e0); min-height: 56px;"
+            aria-hidden="true"
+          ></div>
+          <h1
+            class="hero-title text-4xl md:text-6xl font-bold text-white"
+            style="font-family: var(--font-display); line-height: 1.15; text-align: left;"
+          >
+            Para veterinarios y<br/><span class="hero-title-highlight" style="background: linear-gradient(135deg, #ffffff 0%, #5ba8e0 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">profesionales de la salud animal</span>
+          </h1>
+        </div>
+
+        <p class="hero-description text-white/90 text-lg md:text-xl max-w-2xl leading-relaxed mb-6" style="text-shadow: 0 2px 12px rgba(0,0,0,0.65); text-align: left;">
+          Herramientas diseñadas para elevar el estándar de tu ejercicio profesional: interconsultas, formación continua y material de referencia clínica.
+        </p>
+
+        <!-- Badges de credenciales -->
+        <div class="hero-chips flex flex-wrap gap-3 items-center mt-1">
+          <span class="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold rounded-full" style="background: rgba(255,255,255,0.15); color: white; border: 1px solid rgba(255,255,255,0.3); backdrop-filter: blur(10px); text-shadow: 0 2px 12px rgba(0,0,0,0.65);">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M22 12h-4l-3 9L9 3l-3 9H2"/>
+            </svg>
+            Esp. Enf. Infecciosas
+          </span>
+          <span class="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold rounded-full" style="background: rgba(255,255,255,0.15); color: white; border: 1px solid rgba(255,255,255,0.3); backdrop-filter: blur(10px); text-shadow: 0 2px 12px rgba(0,0,0,0.65);">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="12" cy="12" r="10"/>
+            </svg>
+            MSc Zoonosis
+          </span>
+          <span class="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold rounded-full" style="background: rgba(255,255,255,0.15); color: white; border: 1px solid rgba(255,255,255,0.3); backdrop-filter: blur(10px); text-shadow: 0 2px 12px rgba(0,0,0,0.65);">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/>
+              <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/>
+            </svg>
+            Editor P&V
+          </span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 3 Cards de subsecciones mejoradas -->
+  <section style="background: linear-gradient(135deg, #f0f9ff 0%, #f8fafc 100%);" class="py-16 md:py-22">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+
+      <div class="text-center mb-10 md:mb-12">
+        <p class="text-xs font-semibold uppercase tracking-widest mb-3" style="color: var(--color-accent); letter-spacing: 0.12em;">
+          Servicios para colegas
+        </p>
+        <h2 class="text-3xl md:text-4xl font-bold mb-4" style="font-family: var(--font-display); color: var(--color-text); line-height: 1.2;">
+          ¿Cómo puedo ayudarte?
+        </h2>
+        <div class="w-20 h-1 mx-auto rounded-full" style="background: linear-gradient(90deg, #1880c9 0%, #183b7f 100%);"></div>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-10">
+        {[
+          { ...subsecciones[0], color: '#1880c9', bgGradient: 'linear-gradient(135deg, rgba(24,128,201,0.08) 0%, transparent 100%)', shadowColor: '24,128,201' },
+          { ...subsecciones[1], color: '#183b7f', bgGradient: 'linear-gradient(135deg, rgba(24,59,127,0.08) 0%, transparent 100%)', shadowColor: '24,59,127' },
+          { ...subsecciones[2], color: '#1880c9', bgGradient: 'linear-gradient(135deg, rgba(24,128,201,0.08) 0%, transparent 100%)', shadowColor: '24,128,201' },
+        ].map((sub, index) => (
+          <a
+            href={sub.href}
+            class="card-lift service-card group block bg-white rounded-2xl p-6 md:p-10 no-underline relative overflow-hidden"
+            style={`
+              border-radius: 18px;
+              box-shadow: 0 4px 24px rgba(0,0,0,0.08);
+              text-decoration: none;
+              border-top: 4px solid ${sub.color};
+              transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+              transform-origin: center;
+            `}
+            onmouseover={`this.style.transform='translateY(-6px)'; this.style.boxShadow='0 14px 30px rgba(${sub.shadowColor},0.18)'`}
+            onmouseout={`this.style.transform='translateY(0)'; this.style.boxShadow='0 4px 24px rgba(0,0,0,0.08)'`}
+          >
+            <!-- Gradiente de fondo -->
+            <div
+              style={`
+                position: absolute;
+                inset: 0;
+                background: ${sub.bgGradient};
+                pointer-events: none;
+                opacity: 1;
+                transition: opacity 0.3s ease;
+              `}
+              aria-hidden="true"
+            ></div>
+            
+            <!-- Contenido -->
+            <div style="position: relative; z-index: 1;">
+              <div
+                class="service-icon mb-5 md:mb-6 w-16 h-16 flex items-center justify-center rounded-xl transition-all duration-300"
+                style={`color: ${sub.color}; background: ${sub.color === '#1880c9' ? 'rgba(24,128,201,0.12)' : 'rgba(24,59,127,0.12)'}; border: 1.5px solid ${sub.color === '#1880c9' ? 'rgba(24,128,201,0.2)' : 'rgba(24,59,127,0.2)'};`}
+                set:html={sub.icon}
+              />
+              <h2
+                class="service-title text-2xl font-bold mb-3 md:mb-4"
+                style="font-family: var(--font-display); color: var(--color-text); line-height: 1.3;"
+              >
+                {sub.titulo}
+              </h2>
+              <p class="service-desc text-base leading-relaxed mb-5 md:mb-6" style="color: var(--color-text-muted); line-height: 1.7;">
+                {sub.descripcion}
+              </p>
+              <span class="text-sm font-bold group-hover:underline inline-flex items-center gap-2 transition-all" style={`color: ${sub.color};`}>
+                {sub.cta}
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="transition-transform group-hover:translate-x-2">
+                  <line x1="5" y1="12" x2="19" y2="12"/>
+                  <polyline points="12 5 19 12 12 19"/>
+                </svg>
+              </span>
+            </div>
+          </a>
+        ))}
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Bloque de autoridad con stats -->
+  <section class="py-14 md:py-20 bg-white">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-12 items-center">
+
+        <!-- Texto de autoridad -->
+        <div class="order-2 lg:order-1">
+          <div class="mb-8">
+            <p class="text-xs font-semibold uppercase tracking-widest mb-3" style="color: var(--color-accent); letter-spacing: 0.12em;">
+              Autoridad clínica
+            </p>
+            <h2 class="text-3xl md:text-4xl font-bold mb-2" style="font-family: var(--font-display); color: var(--color-text); line-height: 1.2;">
+              Trayectoria que respalda
+            </h2>
+            <div class="w-16 h-1 rounded-full" style="background: linear-gradient(90deg, #1880c9 0%, #183b7f 100%);"></div>
+          </div>
+          <p class="text-base md:text-lg leading-relaxed mb-4 md:mb-5 trayectoria-intro" style="color: var(--color-text-muted); line-height: 1.7;">
+            Médico Veterinario egresado de la Universidad de Buenos Aires. Especialista
+            en Enfermedades Infecciosas y Parasitarias (CPHV) y Magíster en Prevención y
+            Control de Zoonosis (UNNOBA–ANLIS). Editor asociado de <em>Parasites and Vectors</em>
+            (Springer Nature). Miembro del TroCCAP Council e ISCAID. Colaborador del
+            servicio de Zoopatología del Hospital Francisco J. Muñiz. Actualmente
+            cursando el Máster en Medicina Interna de Pequeños Animales en la
+            Universidad Autónoma de Barcelona (España). Docente, investigador y speaker
+            internacional con presencia en congresos en Argentina, Ecuador, Colombia,
+            Uruguay, Brasil, Paraguay, España y Países Bajos.
+          </p>
+          <ul class="space-y-2 text-sm md:text-base mb-5 md:mb-6 trayectoria-bullets" style="color: var(--color-text-muted);">
+            <li class="flex items-start gap-2.5"><span style="color: var(--color-accent); font-weight: 700; font-size: 1.1em;">&#9656;</span> Editor asociado de <em>Parasites &amp; Vectors</em> — Springer Nature</li>
+            <li class="flex items-start gap-2.5"><span style="color: var(--color-accent); font-weight: 700; font-size: 1.1em;">&#9656;</span> Colaborador del servicio de Zoopatología, Hospital Francisco J. Muñiz</li>
+            <li class="flex items-start gap-2.5"><span style="color: var(--color-accent); font-weight: 700; font-size: 1.1em;">&#9656;</span> Actualmente cursando el Máster en Medicina Interna — Fac. Veterinaria, UAB (España)</li>
+            <li class="flex items-start gap-2.5"><span style="color: var(--color-accent); font-weight: 700; font-size: 1.1em;">&#9656;</span> Miembro de TroCCAP e ISCAID</li>
+          </ul>
+        </div>
+
+        <!-- Imagen de Pablo -->
+        <div class="order-1 lg:order-2 flex flex-col gap-6">
+          <!-- Imagen con stats superpuestos abajo -->
+          <div class="img-desktop-rounded overflow-hidden relative" style="box-shadow: var(--shadow-lg);">
+            <img
+              src="/imagenes/perfil/pablo2.webp"
+              alt="Pablo Borrás — Médico Veterinario"
+              class="w-full object-cover object-top img-desktop-rounded"
+            />
+
+            <!-- Stats overlay translúcido en la parte inferior -->
+            <div
+              class="absolute bottom-0 left-0 right-0"
+              style="
+                background: linear-gradient(to top, rgba(4,13,78,0.82) 0%, rgba(4,13,78,0.55) 60%, transparent 100%);
+                backdrop-filter: blur(6px);
+                -webkit-backdrop-filter: blur(6px);
+                padding: 2rem 1.5rem 1.5rem;
+              "
+            >
+              <div class="grid grid-cols-2 gap-4">
+                {stats.map(stat => (
+                <div class="stat-card text-center">
+                  <p class="stat-number text-3xl md:text-4xl font-bold text-white" style="font-family: var(--font-display);">
+                    {stat.numero}
+                  </p>
+                  <p class="text-xs md:text-sm text-white/80 leading-tight mt-1">
+                    {stat.label}
+                  </p>
+                </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+  <!-- Sección: Publicaciones científicas -->
+  <section style="background: linear-gradient(135deg, #f0f9ff 0%, #f8fafc 100%);" class="py-14 md:py-20">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+
+      <div class="text-center mb-10 md:mb-12">
+        <p class="text-xs font-semibold uppercase tracking-widest mb-3" style="color: var(--color-accent); letter-spacing: 0.12em;">
+          Investigación y ciencia
+        </p>
+        <h2 class="text-3xl md:text-4xl font-bold mb-4" style="font-family: var(--font-display); color: var(--color-text); line-height: 1.2;">
+          Algunas publicaciones científicas
+        </h2>
+        <div class="w-20 h-1 mx-auto rounded-full" style="background: linear-gradient(90deg, #1880c9 0%, #183b7f 100%);"></div>
+      </div>
+
+      <div class="divide-y" style="border-radius: 18px; overflow: hidden; box-shadow: 0 4px 24px rgba(0,0,0,0.08); background: #fff;">
+        {[
+          {
+            titulo: 'Heartworm adulticide treatment: a tropical perspective',
+            revista: 'Parasites &amp; Vectors — Springer Nature',
+            año: '2023',
+            href: 'https://pmc.ncbi.nlm.nih.gov/articles/PMC10141906/',
+            pdf: 'https://pmc.ncbi.nlm.nih.gov/articles/PMC10141906/pdf/13071_2023_Article_5690.pdf',
+          },
+          {
+            titulo: 'First report of phaeohyphomycosis caused by Phialophora americana in a domestic cat from Argentina',
+            revista: 'Journal of Feline Medicine and Surgery — SAGE Journals',
+            año: '2022',
+            href: 'https://pmc.ncbi.nlm.nih.gov/articles/PMC8908401/',
+            pdf: 'https://pmc.ncbi.nlm.nih.gov/articles/PMC8908401/pdf/10.1177_20551169221077611.pdf',
+          },
+          {
+            titulo: 'First identification of Strongyloides stercoralis infection in a pet dog in Argentina, using integrated diagnostic approaches',
+            revista: 'Parasites &amp; Vectors — Springer Nature',
+            año: '2023',
+            href: 'https://pmc.ncbi.nlm.nih.gov/articles/PMC10605978/',
+            pdf: 'https://pmc.ncbi.nlm.nih.gov/articles/PMC10605978/pdf/13071_2023_Article_6022.pdf',
+          },
+          {
+            titulo: 'Feline tuberculosis due to Mycobacterium bovis: case series with clinical course, genotyping and therapeutic outcomes from Buenos Aires, Argentina',
+            revista: 'Journal of Feline Medicine and Surgery — SAGE Journals',
+            año: '2026',
+            href: 'https://pmc.ncbi.nlm.nih.gov/articles/PMC13009748/',
+            pdf: 'https://pmc.ncbi.nlm.nih.gov/articles/PMC13009748/pdf/10.1177_20551169261427980.pdf',
+          },
+        ].map((pub, i) => (
+          <div
+            class="reveal publication-item transition-all"
+            style={`transition-delay: ${i * 0.1}s;`}
+            onmouseover="this.style.background='rgba(24,128,201,0.03)'"
+            onmouseout="this.style.background='transparent'"
+          >
+            <div class="flex gap-4">
+              <div
+                class="shrink-0 mt-0.5 w-10 h-10 rounded-lg flex items-center justify-center"
+                style="background: rgba(24,128,201,0.10);"
+                aria-hidden="true"
+              >
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--color-accent)" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+                  <polyline points="14 2 14 8 20 8"/>
+                  <line x1="16" y1="13" x2="8" y2="13"/>
+                  <line x1="16" y1="17" x2="8" y2="17"/>
+                </svg>
+              </div>
+              <div class="flex-1 min-w-0">
+                <a
+                  href={pub.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="publication-title text-base md:text-lg font-bold leading-snug transition-colors hover:underline"
+                  style="color: var(--color-primary); text-decoration: none; display: block; line-height: 1.4;"
+                  onmouseover="this.style.color='var(--color-accent)'"
+                  onmouseout="this.style.color='var(--color-primary)'"
+                >
+                  {pub.titulo}
+                </a>
+                <div class="flex items-center gap-2 mt-2 flex-wrap">
+                  <p class="text-sm" style="color: var(--color-text-muted);" set:html={pub.revista} />
+                  <span
+                    class="inline-block px-3 py-1.5 rounded-full text-xs font-bold"
+                    style="background: rgba(24,128,201,0.12); color: var(--color-accent); border: 1.5px solid rgba(24,128,201,0.25);"
+                  >
+                    {pub.año}
+                  </span>
+                </div>
+                <div class="publication-actions flex items-center gap-3 mt-3">
+                  <a
+                    href={pub.pdf}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="inline-flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-bold transition-all hover:scale-105 hover:shadow-lg"
+                    style="background: linear-gradient(135deg, #FEF2F2 0%, #FEE2E2 100%); color: #DC2626; border: 1.5px solid rgba(220,38,38,0.3); text-decoration: none; white-space: nowrap;"
+                    title="Descargar PDF"
+                  >
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                      <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+                      <polyline points="7 10 12 15 17 10"/>
+                      <line x1="12" y1="15" x2="12" y2="3"/>
+                    </svg>
+                    PDF
+                  </a>
+                  <a
+                    href={pub.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="inline-flex items-center justify-center w-9 h-9 rounded-lg shrink-0 transition-colors"
+                    style="color: var(--color-accent); background: rgba(24,128,201,0.08);"
+                    title="Ver publicación completa"
+                    aria-label="Ver publicación completa"
+                  >
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                      <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/>
+                      <polyline points="15 3 21 3 21 9"/>
+                      <line x1="10" y1="14" x2="21" y2="3"/>
+                    </svg>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+
+    </div>
+  </section>
+
+  <VideosPreview />
+
+  <PodcastsMNV />
+
+  <!-- Sección: Recursos y organizaciones de referencia -->
+  <section class="py-12 md:py-16" style="background: linear-gradient(135deg, #f0f9ff 0%, #f8fafc 100%);">
+    <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-8">
+        <p class="text-xs font-semibold uppercase tracking-widest mb-3" style="color: var(--color-accent); letter-spacing: 0.12em;">Enlaces útiles</p>
+        <h3 class="text-2xl md:text-3xl font-bold" style="font-family: var(--font-display); color: var(--color-text);">Recursos y organizaciones de referencia</h3>
+      </div>
+      <div class="flex flex-wrap justify-center gap-3 md:gap-4">
+        {[
+          { label: 'TroCCAP', href: 'https://www.troccap.com', color: '#1880c9' },
+          { label: 'ABCD cats &amp; vets', href: 'https://www.abcdcatsvets.org', color: '#183b7f' },
+          { label: 'CAPC', href: 'https://capcvet.org', color: '#1880c9' },
+          { label: 'ESCCAP', href: 'https://www.esccap.org', color: '#183b7f' },
+          { label: 'ISCAID', href: 'https://www.iscaid.org', color: '#1880c9' },
+          { label: 'Parasites &amp; Vectors', href: 'https://link.springer.com/journal/13071', color: '#183b7f' },
+          { label: 'JVIM', href: 'https://academic.oup.com/jvim', color: '#1880c9' },
+        ].map((r, index) => (
+          <a
+            href={r.href}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="inline-flex items-center px-6 py-3.5 text-sm font-semibold transition-all hover:scale-105 hover:shadow-lg"
+            style={`border-radius: 12px; border: 2px solid ${r.color}; color: ${r.color}; text-decoration: none; background: ${r.color === '#1880c9' ? 'rgba(24,128,201,0.05)' : 'rgba(24,59,127,0.05)'};`}
+            set:html={r.label}
+          />
+        ))}
+      </div>
+    </div>
+  </section>
+
+</Layout>
+
+<style>
+  .img-desktop-rounded {
+    border-radius: 1rem;
+  }
+
+  @media (min-width: 768px) {
+    .img-desktop-rounded {
+      border-radius: 2rem;
+    }
+  }
+
+  .stat-card {
+    padding: 0.75rem;
+    border-radius: 1rem;
+    cursor: default;
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), background 0.3s ease;
+  }
+
+  .stat-card:hover {
+    transform: translateY(-5px) scale(1.08);
+    background: rgba(255, 255, 255, 0.12);
+  }
+
+  .stat-card:hover .stat-number {
+    color: #a8d8f0;
+    transition: color 0.3s ease;
+  }
+
+  .stat-number {
+    transition: color 0.3s ease;
+  }
+
+  /* Mejoras de hover para cards con gradiente */
+  .card-lift {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .card-lift::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+    transition: left 0.5s ease;
+    pointer-events: none;
+  }
+
+  .card-lift:hover::after {
+    left: 100%;
+  }
+
+  /* Animaciones reveal mejoradas */
+  @media (prefers-reduced-motion: no-preference) {
+    .reveal {
+      opacity: 0;
+      animation: fadeUpIn 0.6s ease-out forwards;
+    }
+  }
+
+  @keyframes fadeUpIn {
+    from {
+      opacity: 0;
+      transform: translateY(30px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  /* Scroll suave para navegación */
+  html {
+    scroll-behavior: smooth;
+  }
+
+  /* Mejoras en badges con hover */
+  a[class*="inline-flex"]:hover {
+    transform: translateY(-2px);
+  }
+
+  /* Efecto de pulso en elementos importantes */
+  @keyframes pulse-glow {
+    0%, 100% {
+      box-shadow: 0 0 0 0 rgba(24, 128, 201, 0.4);
+    }
+    50% {
+      box-shadow: 0 0 0 8px rgba(24, 128, 201, 0);
+    }
+  }
+
+  /* Gradiente animado en bordes */
+  @keyframes gradient-shift {
+    0% {
+      background-position: 0% 50%;
+    }
+    50% {
+      background-position: 100% 50%;
+    }
+    100% {
+      background-position: 0% 50%;
+    }
+  }
+
+  /* Fade suave hacia la siguiente sección (desktop) */
+  @media (min-width: 768px) {
+    .page-hero::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 32px;
+      background: linear-gradient(to bottom, transparent, var(--color-neutral-light));
+      z-index: 11;
+      pointer-events: none;
+    }
+  }
+
+  /* Mobile: anclar abajo y alinear a izquierda */
+  @media (max-width: 767px) {
+    .page-hero {
+      align-items: flex-end !important;
+      padding-bottom: 2rem !important;
+    }
+    
+    .page-hero .max-w-7xl {
+      margin-left: 0 !important;
+      margin-right: auto !important;
+    }
+    
+    .page-hero .hero-title,
+    .page-hero .hero-description,
+    .page-hero .hero-badge {
+      text-align: left !important;
+    }
+    
+    /* Pills alineadas a la izquierda, con aire respecto del párrafo */
+    .page-hero .hero-chips {
+      justify-content: flex-start !important;
+      margin-top: 0.5rem !important;
+    }
+    
+    /* Título: escalado continuo, sin saltos entre breakpoints */
+    .page-hero .hero-title {
+      font-size: clamp(1.65rem, 8vw, 2.1rem) !important;
+      line-height: 1.24 !important;
+    }
+    
+    /* Descripción: escalado continuo, legible desde 370px */
+    .page-hero .hero-description {
+      font-size: clamp(0.9rem, 3.8vw, 1rem) !important;
+      line-height: 1.6 !important;
+      margin-bottom: 1.25rem !important;
+    }
+    
+    /* Badge más pequeño */
+    .page-hero .hero-badge {
+      font-size: 0.65rem !important;
+      padding: 0.4rem 0.85rem !important;
+      letter-spacing: 0.08em !important;
+    }
+    
+    /* Pills más pequeñas */
+    .page-hero .hero-chips span {
+      font-size: 0.7rem !important;
+      padding: 0.5rem 0.75rem !important;
+    }
+    
+    /* Sombras más fuertes para contraste */
+    .page-hero .hero-title,
+    .page-hero .hero-description,
+    .page-hero .hero-badge {
+      text-shadow: 0 1px 3px rgba(0,0,0,0.85), 0 2px 14px rgba(0,0,0,0.6) !important;
+    }
+    
+    /* Drop-shadow más fuerte en el contenedor del título */
+    .page-hero .flex.items-start {
+      filter: drop-shadow(0 2px 12px rgba(0,0,0,0.70)) !important;
+    }
+    
+    /* Segundo renglón del título en blanco sólido (sin gradiente) */
+    .hero-title-highlight {
+      background: none !important;
+      -webkit-background-clip: initial !important;
+      background-clip: initial !important;
+      -webkit-text-fill-color: white !important;
+      text-shadow: 0 1px 3px rgba(0,0,0,0.85), 0 2px 14px rgba(0,0,0,0.6) !important;
+    }
+  }
+  
+  /* Credenciales: siempre apiladas en mobile para consistencia */
+  @media (max-width: 767px) {
+    .page-hero .hero-chips {
+      flex-direction: column !important;
+      align-items: flex-start !important;
+      gap: 0.6rem !important;
+    }
+    
+    .page-hero .hero-chips span {
+      width: auto !important;
+    }
+  }
+  
+  /* Publicaciones científicas: layout mobile optimizado */
+  @media (max-width: 767px) {
+    .publication-item {
+      padding: 1.25rem 1rem !important;
+    }
+    
+    .publication-title {
+      font-size: 0.95rem !important;
+      line-height: 1.45 !important;
+    }
+    
+    .publication-actions {
+      display: flex !important;
+      margin-top: 0.75rem !important;
+    }
+  }
+  
+  /* Trayectoria: mejorar ritmo en mobile */
+  @media (max-width: 767px) {
+    .trayectoria-intro {
+      line-height: 1.65 !important;
+      margin-bottom: 1rem !important;
+    }
+    
+    .trayectoria-bullets {
+      margin-bottom: 1.25rem !important;
+    }
+    
+    .trayectoria-bullets li {
+      margin-bottom: 0.5rem !important;
+      line-height: 1.5 !important;
+    }
+  }
+  
+  /* Services cards: compactar en mobile */
+  @media (max-width: 767px) {
+    .service-card {
+      padding: 1.5rem !important;
+    }
+    
+    .service-icon {
+      margin-bottom: 1rem !important;
+    }
+    
+    .service-title {
+      margin-bottom: 0.75rem !important;
+    }
+    
+    .service-desc {
+      margin-bottom: 1.25rem !important;
+      font-size: 0.95rem !important;
+    }
+  }
+  
+  /* Ajustar imagen con stats en mobile para mejor ritmo */
+  @media (max-width: 1023px) {
+    .order-1.lg\\:order-2 {
+      margin-bottom: 1.5rem;
+    }
+  }  
+  /* Aire adicional abajo en pantallas de 380px o menos */
+  @media (max-width: 380px) {
+    .page-hero {
+      padding-bottom: 3rem !important;
+    }
+  }
+</style>

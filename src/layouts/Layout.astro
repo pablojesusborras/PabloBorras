@@ -1,0 +1,227 @@
+---
+// Layout.astro — Plantilla base para todas las páginas
+import Header from '../components/layout/Header.astro';
+import Footer from '../components/layout/Footer.astro';
+import '../styles/global.css';
+
+interface Props {
+  title: string;
+  description?: string;
+  image?: string;
+  type?: string;
+  noindex?: boolean;
+  heroImage?: string;
+}
+
+const {
+  title,
+  description = 'Pablo Borrás — Médico Veterinario MSc, especialista en enfermedades infecciosas y parasitarias de perros y gatos. Speaker internacional, autor y docente. Buenos Aires, Argentina.',
+  image = '/og-image.jpg',
+  type = 'website',
+  noindex = false,
+  heroImage,
+} = Astro.props;
+
+const SITE_URL = 'https://demo-pablo-borras.vercel.app';
+const canonicalURL = new URL(Astro.url.pathname, SITE_URL).href;
+const ogImage = new URL(image, SITE_URL).href;
+const fullTitle = title.includes('Pablo Borrás') ? title : `${title} | Pablo Borrás`;
+
+// Solo precargar imágenes del Hero en páginas que lo usan
+const currentPath = Astro.url.pathname;
+const hasHero = currentPath === '/';
+const hasSobrePabloHero = currentPath === '/sobre-pablo';
+---
+
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- SEO básico -->
+    <title>{fullTitle}</title>
+    <meta name="description" content={description} />
+    <meta name="author" content="Pablo Jesús Borrás" />
+    <meta name="robots" content={noindex ? 'noindex, nofollow' : 'index, follow'} />
+    <link rel="canonical" href={canonicalURL} />
+
+    <!-- Keywords -->
+    <meta name="keywords" content="pablo borras veterinario, infectologia canina, enfermedades parasitarias perros, speaker veterinario argentina, interconsultas veterinarias, capacitaciones veterinarias, enfermedades vectoriales perros, pablo borras infectologo" />
+
+    <!-- Open Graph — Facebook, WhatsApp, LinkedIn -->
+    <meta property="og:type" content={type} />
+    <meta property="og:site_name" content="Pablo Borrás — Veterinario" />
+    <meta property="og:title" content={fullTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonicalURL} />
+    <meta property="og:image" content={ogImage} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Pablo Borrás — Médico Veterinario, Speaker y Autor" />
+    <meta property="og:locale" content="es_AR" />
+    <meta property="og:locale:alternate" content="es_ES" />
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:site" content="@pablojborras" />
+    <meta name="twitter:creator" content="@pablojborras" />
+    <meta name="twitter:title" content={fullTitle} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImage} />
+    <meta name="twitter:image:alt" content="Pablo Borrás — Médico Veterinario, Speaker y Autor" />
+
+    <!-- Favicon -->
+    <link rel="icon" href="/favicon.ico" sizes="any" />
+    <link rel="icon" type="image/png" sizes="96x96" href="/favicon-96x96.png" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <link rel="manifest" href="/site.webmanifest" />
+
+    <!-- Geo / Local SEO -->
+    <meta name="geo.region" content="AR-C" />
+    <meta name="geo.placename" content="Buenos Aires, Argentina" />
+    <meta name="language" content="Spanish" />
+
+    <!-- Preconnects para performance -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=DM+Sans:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Preload imágenes críticas del hero (LCP) — solo en páginas con Hero -->
+    {hasHero && (
+      <>
+        <link rel="preload" as="image" href="/imagenes/heros/heropa.webp" media="(min-width: 768px)" fetchpriority="high" />
+        <link rel="preload" as="image" href="/imagenes/heros/heromob2.webp" media="(max-width: 767px)" fetchpriority="high" />
+      </>
+    )}
+    {hasSobrePabloHero && (
+      <link rel="preload" as="image" href="/imagenes/perfil/pablo3.webp" fetchpriority="high" />
+    )}
+    {heroImage && <link rel="preload" as="image" href={heroImage} fetchpriority="high" />}
+
+    {/* TODO: crear imagen OG 1200x630px en /public/og/og-pablo-borras.jpg
+        Debe incluir: foto de Pablo + nombre + título profesional + fondo oscuro con acento verde.
+        Herramienta sugerida: Canva o cualquier editor de imágenes. */}
+
+    <!-- Google Analytics 4 — TODO: reemplazar G-XXXXXXXXXX con el ID real -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-XXXXXXXXXX');
+    </script>
+
+    <!-- JSON-LD — Schema.org Person -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Person",
+      "name": "Pablo Jesús Borrás",
+      "alternateName": "Pablo Borrás",
+      "jobTitle": "Médico Veterinario, Especialista en Enfermedades Infecciosas y Parasitarias",
+      "description": "Especialista en enfermedades infecciosas y parasitarias de perros y gatos. Magíster en Prevención y Control de Zoonosis (UNNOBA-ANLIS). Editor asociado de Parasites and Vectors (Springer Nature). Speaker internacional y autor. Buenos Aires, Argentina.",
+      "url": "https://www.pabloborras.com",
+      "image": "https://www.pabloborras.com/imagenes/perfil/pablo1.jpg",
+      "sameAs": [
+        "https://www.instagram.com/pablojborras",
+        "https://www.linkedin.com/in/pablojborras",
+        "https://www.youtube.com",
+        "https://www.troccap.com",
+        "https://www.abcdcatsvets.org",
+        "https://www.iscaid.org",
+        "https://link.springer.com/journal/13071"
+      ],
+      "address": {
+        "@type": "PostalAddress",
+        "addressLocality": "Buenos Aires",
+        "addressCountry": "AR"
+      },
+      "alumniOf": [
+        {
+          "@type": "CollegeOrUniversity",
+          "name": "Universidad de Buenos Aires",
+          "address": { "@type": "PostalAddress", "addressCountry": "AR" }
+        },
+        {
+          "@type": "CollegeOrUniversity",
+          "name": "UNNOBA - ANLIS",
+          "address": { "@type": "PostalAddress", "addressCountry": "AR" }
+        },
+        {
+          "@type": "CollegeOrUniversity",
+          "name": "Universidad Autónoma de Barcelona",
+          "address": { "@type": "PostalAddress", "addressCountry": "ES" }
+        }
+      ],
+      "memberOf": [
+        { "@type": "Organization", "name": "TroCCAP", "url": "https://www.troccap.com" },
+        { "@type": "Organization", "name": "ISCAID", "url": "https://www.iscaid.org" },
+        { "@type": "Organization", "name": "ABCD cats & vets Europe", "url": "https://www.abcdcatsvets.org" }
+      ],
+      "knowsAbout": [
+        "Enfermedades infecciosas en perros y gatos",
+        "Parasitología veterinaria",
+        "Infectología canina y felina",
+        "Enfermedades vectoriales",
+        "Zoonosis",
+        "Medicina interna veterinaria"
+      ],
+      "hasOccupation": {
+        "@type": "Occupation",
+        "name": "Médico Veterinario Especialista",
+        "occupationLocation": {
+          "@type": "Country",
+          "name": "Argentina"
+        }
+      },
+      "author": {
+        "@type": "Book",
+        "name": "Manual Práctico de Enfermedades Infecciosas y Parasitarias en el Perro",
+        "url": "https://libros-veterinaria.multimedica.es/parasitologia/472-manual-practico-de-enfermedades-infecciosas-y-parasitarias-del-perro.html",
+        "publisher": {
+          "@type": "Organization",
+          "name": "Multimedica Ediciones Veterinarias"
+        }
+      }
+    }
+    </script>
+
+    <!-- Slot para preloads y meta tags adicionales desde páginas específicas -->
+    <slot name="head" />
+  </head>
+  <body>
+    <!-- Encabezado de navegación global -->
+    <Header />
+
+    <!-- Contenido principal de cada página -->
+    <main>
+      <slot />
+    </main>
+
+    <!-- Pie de página global -->
+    <Footer />
+
+    <!-- Reveal on scroll — activa la clase .visible en elementos .reveal al aparecer en viewport -->
+    <script>
+      (function () {
+        const observer = new IntersectionObserver(
+          (entries) => {
+            entries.forEach((entry) => {
+              if (entry.isIntersecting) {
+                entry.target.classList.add('visible');
+                observer.unobserve(entry.target);
+              }
+            });
+          },
+          { threshold: 0.12 }
+        );
+        document.querySelectorAll('.reveal').forEach((el) => observer.observe(el));
+      })();
+    </script>
+  </body>
+</html>

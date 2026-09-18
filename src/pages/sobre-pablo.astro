@@ -1,0 +1,1454 @@
+---
+// pages/sobre-pablo.astro — Página completa "Acerca de Pablo Borrás"
+import Layout from '../layouts/Layout.astro';
+import Button from '../components/ui/Button.astro';
+
+const formacion = [
+  {
+    año: '2005–2011',
+    titulo: 'Médico Veterinario',
+    institucion: 'Universidad de Buenos Aires (UBA)',
+    descripcion: 'Facultad de Ciencias Veterinarias. Formación de grado con orientación en clínica de pequeños animales.',
+  },
+  {
+    año: '2013–2016',
+    titulo: 'Especialista en Enfermedades Infecciosas y Parasitarias',
+    institucion: 'CPHV — Centro Profesional de Herrmienta Veterinaria',
+    descripcion: 'Especialización con foco en infectología y parasitología clínica canina y felina.',
+  },
+  {
+    año: '2017–2020',
+    titulo: 'Magíster en Prevención y Control de Zoonosis',
+    institucion: 'UNNOBA – ANLIS',
+    descripcion: 'Maestría conjunta entre la Universidad Nacional del Noroeste de la Provincia de Buenos Aires y el ANLIS. Enfoque en epidemiología, salud pública veterinaria y enfermedades zoonóticas.',
+  },
+  {
+    año: '2024–Actualidad',
+    titulo: 'Máster en Medicina Interna de Pequeños Animales',
+    institucion: 'Universidad Autónoma de Barcelona (España)',
+    descripcion: 'Formación de posgrado en medicina interna avanzada. Cursando actualmente con modalidad internacional.',
+  },
+];
+
+const ciencia = [
+  {
+    icono: `<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>`,
+    titulo: 'Editor asociado',
+    detalle: 'Parasites & Vectors — Springer Nature',
+    descripcion: 'Revista científica internacional de referencia en parasitología y enfermedades vectoriales.',
+  },
+  {
+    icono: `<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>`,
+    titulo: 'ABCD Cats & Vets Europe',
+    detalle: 'Colaborador científico',
+    descripcion: 'Plataforma europea de guías de vacunación y manejo de enfermedades infecciosas felinas basadas en evidencia.',
+  },
+  {
+    icono: `<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M9 9h6"/><path d="M9 12h6"/><path d="M9 15h4"/></svg>`,
+    titulo: 'ISCAID',
+    detalle: 'Miembro activo',
+    descripcion: 'International Society for Companion Animal Infectious Diseases. Red internacional de infectólogos de pequeños animales.',
+  },
+  {
+    icono: `<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>`,
+    titulo: 'Hospital Francisco J. Muñiz',
+    detalle: 'Colaborador — Servicio de Zoopatología',
+    descripcion: 'Colaboración activa con el principal hospital de enfermedades infecto-contagiosas de Argentina.',
+  },
+  {
+    icono: `<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M8.21 13.89L7 23l5-3 5 3-1.21-9.12"/><path d="M15 7a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"/><path d="M12 22v-3"/></svg>`,
+    titulo: '2° Premio AVEACA 2025',
+    detalle: 'Mejor caso clínico — Buenos Aires',
+    descripcion: 'Primer reporte de Schizophyllum commune en perro en América Latina. Caso de osteomielitis micótica diseminada.',
+  },
+];
+
+const congresos = [
+  { pais: 'Argentina',       foto: '/imagenes/congresos/aveaca-buenos-aires-2025.webp',    nombre: 'AVEACA 2025 — Buenos Aires' },
+  { pais: 'Colombia',        foto: '/imagenes/congresos/medellin-colombia-2025.webp',       nombre: 'Congreso Internacional — Medellín' },
+  { pais: 'Ecuador',         foto: '/imagenes/congresos/cvdl-guayaquil-2025.webp',          nombre: 'CVDL — Guayaquil' },
+  { pais: 'Paraguay',        foto: '/imagenes/congresos/idexx-asuncion-2025.webp',          nombre: 'IDEXX Speaker — Asunción' },
+  { pais: 'Brasil',          foto: '/imagenes/congresos/waavp-curitiba-2025.webp',          nombre: 'WAAVP — Curitiba' },
+  { pais: 'Países Bajos',    foto: '/imagenes/congresos/ecvim-maastricht-2025.webp',        nombre: 'ECVIM-CA — Maastricht' },
+  { pais: 'Argentina',       foto: '/imagenes/congresos/civi-iguazu-2025.webp',             nombre: 'CIVI — Puerto Iguazú' },
+  { pais: 'Argentina',       foto: '/imagenes/congresos/mendoza-2025.webp',                 nombre: 'Congreso Regional — Mendoza' },
+];
+
+const tematicas = [
+  'Enfermedades vectoriales (Ehrlichia, Babesia, Anaplasma, Dirofilaria, Leishmania, Hepatozoon)',
+  'Infectología canina y felina',
+  'Zoonosis: brucelosis canina, TBC bovina en gatos, Strongyloides stercoralis',
+  'Parasitología con diagnóstico molecular',
+  'Moquillo canino y leptospirosis',
+  'Panleucopenia felina y toxoplasmosis',
+  'Dirofilariosis canina (incluyendo heat treatment)',
+  'Vacunación en caninos: protocolos basados en evidencia',
+];
+---
+
+<Layout
+  title="Sobre Pablo Borrás — Veterinario, Speaker y Autor"
+  description="Conocé en profundidad a Pablo Borrás: su trayectoria académica, actividad científica internacional, congresos en 8 países y especialización en enfermedades infecciosas y parasitarias."
+>
+  <!-- Preload imágenes hero responsive -->
+  <link slot="head" rel="preload" as="image" href="/imagenes/heros/sobrepabl1.webp" media="(min-width: 768px)" fetchpriority="high" />
+  <link slot="head" rel="preload" as="image" href="/imagenes/heros/sobrepabl1mobiel.webp" media="(max-width: 767px)" fetchpriority="high" />
+
+  <!-- ── HERO ── -->
+  <section
+    class="page-hero"
+    style="
+      position: relative;
+      display: flex;
+      align-items: center;
+      overflow: hidden;
+      background: transparent;
+    "
+  >
+    <!-- Imagen de fondo responsive -->
+    <div
+      class="absolute inset-0 pointer-events-none"
+      style="z-index: 0;"
+      aria-hidden="true"
+    >
+      <!-- Desktop -->
+      <img
+        src="/imagenes/heros/sobrepabl1.webp"
+        alt=""
+        class="hidden md:block w-full h-full object-cover"
+        style="object-position: center 20%; opacity: 0.85;"
+      />
+      <!-- Mobile -->
+      <img
+        src="/imagenes/heros/sobrepabl1mobiel.webp"
+        alt=""
+        class="block md:hidden w-full h-full object-cover"
+        style="object-position: center 20%; opacity: 0.75;"
+      />
+    </div>
+
+    <!-- Oscurecimiento solo detrás del texto — Desktop: solo lado izquierdo -->
+    <div
+      class="hidden md:block absolute top-0 left-0 bottom-0 pointer-events-none"
+      style="
+        width: 60%;
+        background: linear-gradient(to right, rgba(3,13,58,0.50) 0%, rgba(3,13,58,0.30) 45%, rgba(3,13,58,0.10) 75%, rgba(3,13,58,0) 100%);
+        z-index: 1;
+      "
+      aria-hidden="true"
+    ></div>
+
+    <!-- Mobile: gradiente vertical invertido — transparente arriba (foto nítida), oscuro abajo (texto) -->
+    <div
+      class="block md:hidden absolute inset-0 pointer-events-none"
+      style="
+        background: linear-gradient(to bottom, rgba(3,13,58,0) 0%, rgba(3,13,58,0) 25%, rgba(3,13,58,0.55) 45%, rgba(3,13,58,0.82) 70%, rgba(3,13,58,0.90) 100%);
+        z-index: 1;
+      "
+      aria-hidden="true"
+    ></div>
+
+    <!-- Patrón de puntos sutil -->
+    <div
+      class="dot-pattern absolute inset-0 pointer-events-none"
+      style="opacity: 0.15; z-index: 2;"
+      aria-hidden="true"
+    ></div>
+
+    <div
+      class="max-w-7xl ml-0 px-4 sm:px-6 md:px-12 lg:px-20 py-10 w-full"
+      style="position: relative; z-index: 10;"
+    >
+      <div class="max-w-3xl relative">
+        
+        <!-- Degradado radial negro detrás del texto (solo desktop) -->
+        <div
+          class="hidden md:block absolute pointer-events-none"
+          style="
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 140%;
+            height: 140%;
+            background: radial-gradient(ellipse 80% 85% at 40% 50%, rgba(0,0,0,0.55) 0%, rgba(0,0,0,0.32) 40%, rgba(0,0,0,0.12) 65%, transparent 82%);
+            z-index: -1;
+            filter: blur(8px);
+          "
+          aria-hidden="true"
+        ></div>
+
+        <!-- Línea decorativa + nombre -->
+        <div class="flex items-start gap-4 mb-4" style="filter: drop-shadow(0 2px 8px rgba(0,0,0,0.45));">
+          <div
+            class="w-1 self-stretch rounded-full mt-1 shrink-0"
+            style="background: linear-gradient(to bottom, #1880c9, #5ba8e0); min-height: 48px;"
+            aria-hidden="true"
+          ></div>
+          <div>
+            <h1
+              class="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold leading-[1.12] hero-name"
+              style="
+                font-family: var(--font-display);
+                background: linear-gradient(135deg, #ffffff 0%, #ffffff 55%, #5ba8e0 100%);
+                -webkit-background-clip: text;
+                -webkit-text-fill-color: transparent;
+                background-clip: text;
+              "
+            >
+              Pablo Borrás
+            </h1>
+            <p
+              class="mt-2"
+              style="
+                color: var(--color-accent-light);
+                font-family: var(--font-body);
+                letter-spacing: 0.12em;
+                text-transform: uppercase;
+                font-size: 0.8rem;
+                font-weight: 600;
+                opacity: 0.9;
+              "
+            >
+              VET. ESPECIALISTA · SPEAKER · AUTOR
+            </p>
+          </div>
+        </div>
+
+        <!-- Descripción -->
+        <p class="text-white text-sm sm:text-base md:text-[1.05rem] leading-relaxed mb-4 max-w-lg hero-description" style="font-family: var(--font-body); letter-spacing: 0.01em; line-height: 1.75; text-shadow: 0 2px 12px rgba(0,0,0,0.65);">
+          Especialista en enfermedades infecciosas y parasitarias de perros y gatos.
+          Docente, investigador y voz de referencia en infectología veterinaria de habla hispana.
+        </p>
+
+        <!-- Stats inline — desktop -->
+        <div
+          class="hidden md:flex items-center gap-6 hero-stats"
+          style="
+            border-top: 1px solid rgba(255,255,255,0.15);
+            border-bottom: 1px solid rgba(255,255,255,0.15);
+            padding: 10px 0;
+          "
+        >
+          <div class="text-center shrink-0">
+            <p class="text-xl font-bold text-white leading-none" style="font-family: var(--font-display); text-shadow: 0 2px 12px rgba(0,0,0,0.65);">+15</p>
+            <p style="font-size: 0.68rem; color: rgba(255,255,255,0.5); margin-top: 4px; font-family: var(--font-body); letter-spacing: 0.06em; text-transform: uppercase; text-shadow: 0 2px 12px rgba(0,0,0,0.65);">años</p>
+          </div>
+          <div style="width: 1px; height: 28px; background: rgba(255,255,255,0.12); flex-shrink: 0;"></div>
+          <div class="text-center shrink-0">
+            <p class="text-xl font-bold text-white leading-none" style="font-family: var(--font-display); text-shadow: 0 2px 12px rgba(0,0,0,0.65);">+15</p>
+            <p style="font-size: 0.68rem; color: rgba(255,255,255,0.5); margin-top: 4px; font-family: var(--font-body); letter-spacing: 0.06em; text-transform: uppercase; text-shadow: 0 2px 12px rgba(0,0,0,0.65);">publicaciones internacionales</p>
+          </div>
+          <div style="width: 1px; height: 28px; background: rgba(255,255,255,0.12); flex-shrink: 0;"></div>
+          <div class="text-center shrink-0">
+            <p class="text-xl font-bold text-white leading-none" style="font-family: var(--font-display); text-shadow: 0 2px 12px rgba(0,0,0,0.65);">32K+</p>
+            <p style="font-size: 0.68rem; color: rgba(255,255,255,0.5); margin-top: 4px; font-family: var(--font-body); letter-spacing: 0.06em; text-transform: uppercase; text-shadow: 0 2px 12px rgba(0,0,0,0.65);">seguidores</p>
+          </div>
+          <div style="width: 1px; height: 28px; background: rgba(255,255,255,0.12); flex-shrink: 0;"></div>
+          <div class="text-center shrink-0">
+            <p class="text-xl font-bold text-white leading-none" style="font-family: var(--font-display); text-shadow: 0 2px 12px rgba(0,0,0,0.65);">+8</p>
+            <p style="font-size: 0.68rem; color: rgba(255,255,255,0.5); margin-top: 4px; font-family: var(--font-body); letter-spacing: 0.06em; text-transform: uppercase; text-shadow: 0 2px 12px rgba(0,0,0,0.65);">países</p>
+          </div>
+          <div style="width: 1px; height: 28px; background: rgba(255,255,255,0.12); flex-shrink: 0;"></div>
+          <div class="text-center shrink-0">
+            <p class="text-xl font-bold text-white leading-none" style="font-family: var(--font-display); text-shadow: 0 2px 12px rgba(0,0,0,0.65);">2</p>
+            <p style="font-size: 0.68rem; color: rgba(255,255,255,0.5); margin-top: 4px; font-family: var(--font-body); letter-spacing: 0.06em; text-transform: uppercase; text-shadow: 0 2px 12px rgba(0,0,0,0.65);">libros</p>
+          </div>
+        </div>
+
+        <!-- Stats — mobile -->
+        <div class="hero-stats-mobile grid md:hidden grid-cols-5 mb-4 mt-3">
+          <div class="hero-stat text-center">
+            <p class="text-base font-bold text-white leading-none" style="font-family: var(--font-display);">+15</p>
+            <p class="hero-stat-label">años</p>
+          </div>
+          <div class="hero-stat text-center">
+            <p class="text-base font-bold text-white leading-none" style="font-family: var(--font-display);">+15</p>
+            <p class="hero-stat-label">publ. int.</p>
+          </div>
+          <div class="hero-stat text-center">
+            <p class="text-base font-bold text-white leading-none" style="font-family: var(--font-display);">32K+</p>
+            <p class="hero-stat-label">seguidores</p>
+          </div>
+          <div class="hero-stat text-center">
+            <p class="text-base font-bold text-white leading-none" style="font-family: var(--font-display);">+8</p>
+            <p class="hero-stat-label">países</p>
+          </div>
+          <div class="hero-stat text-center">
+            <p class="text-base font-bold text-white leading-none" style="font-family: var(--font-display);">2</p>
+            <p class="hero-stat-label">libros</p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <style>
+    /* Animaciones de entrada escalonadas */
+    .hero-name {
+      opacity: 0;
+      animation: fadeInUp 0.6s ease-out 0.1s both;
+    }
+
+    .hero-description {
+      opacity: 0;
+      animation: fadeInUp 0.6s ease-out 0.3s both;
+    }
+
+    .hero-stats,
+    .hero-stats-mobile {
+      opacity: 0;
+      animation: fadeInUp 0.6s ease-out 0.4s both;
+    }
+
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* Stats mobile: grilla de 5 columnas */
+    @media (max-width: 767px) {
+      .hero-stats-mobile {
+        border-top: 1px solid rgba(255,255,255,0.14);
+        border-bottom: 1px solid rgba(255,255,255,0.14);
+        padding: 10px 0;
+        column-gap: 0.25rem;
+      }
+
+      .hero-stat-label {
+        font-size: 0.55rem;
+        color: rgba(255,255,255,0.58);
+        margin-top: 4px;
+        font-family: var(--font-body);
+        letter-spacing: 0.04em;
+        text-transform: uppercase;
+        line-height: 1.2;
+        text-shadow: 0 1px 3px rgba(0,0,0,0.85), 0 2px 10px rgba(0,0,0,0.55);
+      }
+
+      .hero-stats-mobile .hero-stat p {
+        text-shadow: 0 1px 3px rgba(0,0,0,0.85), 0 2px 10px rgba(0,0,0,0.55);
+      }
+    }
+
+    /* Breakpoint adicional para pantallas muy chicas */
+    @media (max-width: 380px) {
+      .hero-stats-mobile .hero-stat p:first-child {
+        font-size: 0.9rem !important;
+      }
+      .hero-stat-label {
+        font-size: 0.5rem !important;
+      }
+    }
+
+    /* Fade suave hacia la siguiente sección (desktop) */
+    @media (min-width: 768px) {
+      .page-hero::after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        height: 32px;
+        background: linear-gradient(to bottom, transparent, var(--color-neutral-light));
+        z-index: 11;
+        pointer-events: none;
+      }
+    }
+
+    /* Mobile: mantener anclaje abajo */
+    @media (max-width: 767px) {
+      .page-hero {
+        align-items: flex-end !important;
+      }
+    }
+
+  </style>
+
+  <!-- ── BIO + FOTO ── -->
+  <section class="bio-photo-section py-20" style="background: #f8fafc;">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <!-- Parte superior: dos columnas alineadas al tope -->
+      <div class="bio-layout grid grid-cols-1 gap-8 lg:gap-12 items-start mb-10">
+
+        <!-- Columna izquierda: Foto + Caption -->
+        <div class="bio-photo-column order-1">
+          <div class="bio-photo-frame">
+            <img
+              src="/imagenes/perfil/pablo1.webp"
+              alt="Pablo Borrás — Médico Veterinario especialista en infectología"
+              class="bio-photo w-full object-cover object-top"
+              width="560"
+              height="560"
+              loading="eager"
+            />
+          </div>
+          <!-- Caption strip -->
+          <div class="bio-credential">
+            <span
+              style="width: 8px; height: 8px; border-radius: 50%; background: #4ade80; flex-shrink: 0;"
+              aria-hidden="true"
+            ></span>
+            <p class="bio-credential-text">
+              Editor asociado · <em>Parasites &amp; Vectors</em> — Springer Nature
+            </p>
+          </div>
+        </div>
+
+        <!-- Columna derecha: Badge + Título + Párrafos -->
+        <div class="bio-copy-column order-2">
+          <span
+            class="inline-block text-xs font-semibold uppercase tracking-widest px-3 py-1 rounded-full mb-3"
+            style="background: rgba(24,128,201,0.1); color: var(--color-accent); border: 1px solid rgba(24,128,201,0.25);"
+          >
+            Quién es
+          </span>
+
+          <!-- Línea decorativa antes del título -->
+          <div
+            class="bio-title-accent"
+            aria-hidden="true"
+          ></div>
+
+          <h2
+            class="bio-section-title text-3xl md:text-4xl font-bold mb-5"
+            style="font-family: var(--font-display); color: var(--color-text); line-height: 1.2;"
+          >
+            Una trayectoria construida sobre ciencia y compromiso
+          </h2>
+
+          <div class="bio-copy space-y-3 md:space-y-4">
+            <!-- Primer párrafo: destacado con borde izquierdo -->
+            <p style="
+              color: #111827;
+              font-weight: 600;
+              font-size: 14.5px;
+              line-height: 1.75;
+              border-left: 3px solid #1880c9;
+              padding-left: 14px;
+            ">
+              Pablo Borrás es Médico Veterinario egresado de la Universidad de Buenos Aires, Especialista
+              en Enfermedades Infecciosas y Parasitarias (CPHV) y Magíster en Prevención y Control de
+              Zoonosis (UNNOBA–ANLIS). Actualmente cursa el Máster en Medicina Interna de Pequeños
+              Animales en la Universidad Autónoma de Barcelona.
+            </p>
+
+            <!-- Párrafos intermedios: secundarios -->
+            <p class="bio-copy-secondary">
+              A lo largo de más de 15 años de carrera, construyó un perfil único que combina la clínica
+              diaria con la investigación científica, la docencia y la comunicación. Ese cruce entre
+              rigor académico y capacidad de transmitir es lo que define su forma de ejercer y enseñar.
+            </p>
+
+            <p class="bio-copy-secondary">
+              Ha disertado en congresos internacionales en Argentina, Colombia, Ecuador, Uruguay, Brasil,
+              Paraguay, España y Países Bajos. Es colaborador del Servicio de Zoopatología del Hospital
+              Francisco J. Muñiz, editor asociado de <em>Parasites & Vectors</em> (Springer Nature) y
+              <!-- ABCD Cats & Vets Europe e ISCAID: consultar con la clienta si también deben sacarse, igual que TroCCAP -->
+              miembro activo de ABCD Cats & Vets Europe e ISCAID.
+            </p>
+
+            <!-- Último párrafo: chip destacado con emoji -->
+            <div class="bio-award">
+              <p style="color: #1880c9; font-weight: 500; font-size: 13px; line-height: 1.7; margin: 0;">
+                🏆 En 2025, obtuvo el 2° Premio al mejor caso clínico en AVEACA por el primer reporte de
+                <em>Schizophyllum commune</em> en perro en América Latina. Ese mismo año fue speaker
+                oficial del lanzamiento de SNAP Tests IDEXX en Asunción, Paraguay.
+              </p>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Parte inferior: fila completa de 4 stats -->
+      <div class="bio-stats-wrap">
+        <div class="stats-grid grid grid-cols-2 md:grid-cols-4">
+          {[
+            { n: '+15', l: 'Años de experiencia clínica', lMobile: 'Exp. clínica' },
+            { n: '+32K', l: 'Seguidores en Instagram', lMobile: 'Seguidores IG' },
+            { n: '+8', l: 'Países donde disertó', lMobile: 'Países' },
+            { n: '+15', l: 'Publicaciones internacionales', lMobile: 'Publ. internac.' },
+          ].map((s) => (
+            <div
+              class="stat-card"
+            >
+              <p
+                class="stat-number text-3xl font-bold leading-none mb-2"
+                style="font-family: var(--font-display); color: #1880c9;"
+              >
+                {s.n}
+              </p>
+              <p
+                class="stat-label text-xs uppercase tracking-wide"
+                style="color: var(--color-text-muted); font-weight: 500; letter-spacing: 0.05em;"
+              >
+                <span class="hidden md:inline">{s.l}</span>
+                <span class="md:hidden">{s.lMobile}</span>
+              </p>
+            </div>
+          ))}
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <style>
+    .bio-layout {
+      grid-template-columns: 1fr;
+    }
+
+    .bio-photo-frame {
+      aspect-ratio: 1 / 1;
+      overflow: hidden;
+      border: 1px solid #d0dff0;
+      border-radius: 14px;
+      box-shadow: 0 12px 28px rgba(4,13,78,0.10);
+    }
+
+    .bio-photo {
+      height: 100%;
+    }
+
+    .bio-credential {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-top: 10px;
+      padding: 8px 12px;
+      background: rgba(255,255,255,0.6);
+      border: 1px solid #d0dff0;
+      border-radius: 8px;
+    }
+
+    .bio-credential-text {
+      margin: 0;
+      color: var(--color-text-muted);
+      font-family: var(--font-body);
+      font-size: 0.75rem;
+      line-height: 1.4;
+    }
+
+    .bio-title-accent {
+      width: 40px;
+      height: 3px;
+      margin-bottom: 12px;
+      background: var(--color-accent);
+      border-radius: 2px;
+    }
+
+    .bio-copy p {
+      max-width: 40rem;
+    }
+
+    .bio-copy-secondary {
+      color: #3f4a5f;
+      font-weight: 400;
+      font-size: 13px;
+      line-height: 1.75;
+    }
+
+    .bio-award {
+      padding: 10px 14px;
+      background: rgba(24,128,201,0.045);
+      border: 1px solid rgba(24,128,201,0.12);
+      border-radius: 8px;
+    }
+
+    .bio-stats-wrap {
+      border-top: 1px solid #b8cde0;
+      padding-top: 28px;
+    }
+
+    .stats-grid {
+      overflow: hidden;
+      background: #ffffff;
+      border: 1px solid #d0dff0;
+      border-radius: 10px;
+    }
+
+    .stat-card {
+      padding: 18px 14px;
+      text-align: center;
+    }
+
+    .stat-card:nth-child(odd) {
+      border-right: 1px solid rgba(4,13,78,0.07);
+    }
+
+    .stat-card:nth-child(-n+2) {
+      border-bottom: 1px solid rgba(4,13,78,0.07);
+    }
+
+    @media (max-width: 767px) {
+      .bio-photo-section {
+        padding-top: 3.5rem;
+        padding-bottom: 3.5rem;
+      }
+
+      .bio-layout {
+        gap: 1.5rem;
+        margin-bottom: 2rem;
+      }
+
+      .bio-copy-column {
+        margin-top: 0;
+      }
+
+      .bio-stats-wrap {
+        padding-top: 20px;
+      }
+
+      .stat-number {
+        font-size: 1.65rem !important;
+      }
+
+      .stat-label {
+        font-size: 0.7rem !important;
+        line-height: 1.3 !important;
+      }
+
+      .bio-section-title {
+        font-size: 1.6rem !important;
+        line-height: 1.14 !important;
+      }
+    }
+
+    @media (max-width: 389px) {
+      .stat-card {
+        padding: 15px 8px;
+      }
+
+      .stat-label {
+        font-size: 0.68rem !important;
+      }
+
+      .bio-section-title {
+        font-size: 1.5rem !important;
+        line-height: 1.12 !important;
+      }
+    }
+
+    @media (min-width: 768px) {
+      .bio-layout {
+        grid-template-columns: minmax(0, 45fr) minmax(0, 55fr);
+      }
+
+      .stat-card {
+        padding: 20px;
+      }
+
+      .stat-card:nth-child(odd),
+      .stat-card:nth-child(-n+2) {
+        border: 0;
+      }
+
+      .stat-card:not(:last-child) {
+        border-right: 1px solid rgba(4,13,78,0.07);
+      }
+    }
+  </style>
+
+  <!-- ── FORMACIÓN ACADÉMICA ── -->
+  <section style="background: var(--color-neutral-light);" class="py-20">
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-10 md:mb-12">
+        <span
+          class="inline-block text-xs font-semibold uppercase tracking-widest px-3 py-1 rounded-full mb-3"
+          style="background: rgba(24,128,201,0.1); color: var(--color-accent); border: 1px solid rgba(24,128,201,0.25);"
+        >
+          Trayectoria académica
+        </span>
+        <h2
+          class="text-3xl md:text-4xl font-bold"
+          style="font-family: var(--font-display); color: var(--color-text);"
+        >
+          Formación y posgrados
+        </h2>
+      </div>
+
+      <!-- Timeline -->
+      <div style="position: relative;">
+        <!-- Línea vertical con gradiente -->
+        <div
+          class="formacion-line"
+          aria-hidden="true"
+        ></div>
+
+        <div class="space-y-6 md:space-y-8" style="padding-left: 40px;">
+          {formacion.map((item, index) => {
+            const esActivo = item.año.includes('Actualidad');
+            return (
+              <div style="position: relative;">
+                <!-- Punto en la línea -->
+                <div
+                  style={`
+                    position: absolute;
+                    left: -28px;
+                    top: 8px;
+                    width: 12px;
+                    height: 12px;
+                    border-radius: 50%;
+                    background: ${esActivo ? '#1880c9' : 'white'};
+                    border: 2px solid #1880c9;
+                    ${esActivo ? 'box-shadow: 0 0 0 4px rgba(24,128,201,0.2);' : ''}
+                  `}
+                  aria-hidden="true"
+                ></div>
+
+                <!-- Card -->
+                <div
+                  class="formacion-card"
+                  style={`
+                    background: ${esActivo ? 'linear-gradient(135deg, #f0f8ff 0%, #ffffff 60%)' : 'white'};
+                    border: 1px solid rgba(4,13,78,0.08);
+                    border-left: 3px solid ${esActivo ? '#1880c9' : 'rgba(4,13,78,0.10)'};
+                    border-radius: 14px;
+                    padding: 18px 22px;
+                    position: relative;
+                    transition: box-shadow 0.3s ease;
+                  `}
+                >
+                  {esActivo && (
+                    <span
+                      style="
+                        position: absolute;
+                        top: 16px;
+                        right: 20px;
+                        display: inline-flex;
+                        align-items: center;
+                        gap: 4px;
+                        font-size: 0.65rem;
+                        font-weight: 600;
+                        text-transform: uppercase;
+                        letter-spacing: 0.05em;
+                        color: #166534;
+                        background: #dcfce7;
+                        border-radius: 999px;
+                        padding: 4px 10px;
+                      "
+                    >
+                      <span style="width: 5px; height: 5px; border-radius: 50%; background: #166534;"></span>
+                      En curso
+                    </span>
+                  )}
+
+                  <span
+                    style={`
+                      display: inline-flex;
+                      align-items: center;
+                      gap: 6px;
+                      font-family: var(--font-body);
+                      font-size: 0.7rem;
+                      font-weight: 700;
+                      text-transform: uppercase;
+                      letter-spacing: 0.08em;
+                      color: ${esActivo ? 'white' : '#1880c9'};
+                      background: ${esActivo ? '#1880c9' : '#e8f3fb'};
+                      border-radius: 999px;
+                      padding: 5px 12px;
+                      margin-bottom: 8px;
+                    `}
+                  >
+                    {!esActivo && <span style="width: 4px; height: 4px; border-radius: 50%; background: #1880c9;"></span>}
+                    {item.año}
+                  </span>
+
+                  <h3
+                    style="
+                      font-family: var(--font-display);
+                      font-weight: 700;
+                      font-size: 16px;
+                      color: #0a1e55;
+                      margin-bottom: 6px;
+                      line-height: 1.35;
+                    "
+                  >
+                    {item.titulo}
+                  </h3>
+
+                  <p
+                    style="
+                      color: #1880c9;
+                      font-weight: 600;
+                      font-size: 13px;
+                      margin-bottom: 8px;
+                    "
+                  >
+                    {item.institucion}
+                  </p>
+
+                  <p
+                    style="
+                      color: #56606f;
+                      font-weight: 400;
+                      font-size: 13px;
+                      line-height: 1.7;
+                    "
+                  >
+                    {item.descripcion}
+                  </p>
+                </div>
+              </div>
+            );
+          })}
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <style>
+    .formacion-line {
+      position: absolute;
+      left: 17px;
+      top: 0;
+      bottom: 96px;
+      width: 2px;
+      background: linear-gradient(to bottom, #1880c9 0%, #5ba8e0 50%, rgba(91,168,224,0.2) 100%);
+    }
+
+    .formacion-card:hover {
+      box-shadow: 0 4px 16px rgba(4,13,78,0.06);
+    }
+
+    @media (min-width: 768px) {
+      .formacion-line {
+        bottom: 56px;
+      }
+    }
+  </style>
+
+  <!-- ── ACTIVIDAD CIENTÍFICA ── -->
+  <section class="py-20 bg-white">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-10 md:mb-12">
+        <span
+          class="inline-block text-xs font-semibold uppercase tracking-widest px-3 py-1 rounded-full mb-3"
+          style="background: rgba(24,128,201,0.1); color: var(--color-accent); border: 1px solid rgba(24,128,201,0.25);"
+        >
+          Ciencia y reconocimientos
+        </span>
+        <h2
+          class="text-3xl md:text-4xl font-bold"
+          style="font-family: var(--font-display); color: var(--color-text);"
+        >
+          Actividad científica internacional
+        </h2>
+        <p class="mt-4 text-base max-w-xl mx-auto" style="color: var(--color-text-muted);">
+          Publicaciones en revistas indexadas. Actualización permanente con las últimas investigaciones.
+        </p>
+      </div>
+
+      <div class="ciencia-grid">
+        {ciencia.map((item, index) => {
+          // Colores por categoría
+          const colores = [
+            '#1880c9', // Editor asociado
+            '#183b7f', // ABCD Cats & Vets Europe
+            '#5ba8e0', // ISCAID
+            '#183b7f', // Hospital Francisco J. Muñiz
+            '#16a34a', // Premio AVEACA 2025
+          ];
+          const colorCategoria = colores[index];
+          const esPremio = index === 4;
+
+          // Convertir hex a rgba con opacidad para el fondo del ícono
+          const hexToRgba = (hex: string, alpha: number) => {
+            const r = parseInt(hex.slice(1, 3), 16);
+            const g = parseInt(hex.slice(3, 5), 16);
+            const b = parseInt(hex.slice(5, 7), 16);
+            return `rgba(${r}, ${g}, ${b}, ${alpha})`;
+          };
+
+          return (
+            <div
+              class="ciencia-card"
+              style={`border-top: 3px solid ${colorCategoria};`}
+            >
+              {esPremio && (
+                <span class="ciencia-award-badge">
+                  ★ Premio
+                </span>
+              )}
+
+              <div
+                class="ciencia-icon-box"
+                style={`
+                  background: ${hexToRgba(colorCategoria, 0.09)};
+                  border: 1px solid ${hexToRgba(colorCategoria, 0.18)};
+                  color: ${colorCategoria};
+                `}
+              >
+                <div style={`color: ${colorCategoria};`} set:html={item.icono.replace('stroke="currentColor"', `stroke="${colorCategoria}"`)} />
+              </div>
+
+              <p
+                class="font-bold text-base mb-1"
+                style="color: var(--color-text); font-family: var(--font-display);"
+              >
+                {item.titulo}
+              </p>
+
+              <p
+                class="text-xs font-semibold mb-2"
+                style={`
+                  color: ${colorCategoria};
+                  text-transform: uppercase;
+                  letter-spacing: 0.03em;
+                `}
+              >
+                {item.detalle}
+              </p>
+
+              <p
+                class="text-sm leading-relaxed"
+                style="color: #56606f;"
+              >
+                {item.descripcion}
+              </p>
+            </div>
+          );
+        })}
+      </div>
+    </div>
+  </section>
+
+  <style>
+    .ciencia-grid {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 1.5rem;
+    }
+
+    .ciencia-grid > * {
+      flex: 1 1 100%;
+      max-width: 100%;
+    }
+
+    .ciencia-card {
+      background: var(--color-neutral-light);
+      border: 1px solid rgba(4,13,78,0.07);
+      border-radius: 16px;
+      padding: 18px 20px;
+      position: relative;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .ciencia-icon-box {
+      width: 40px;
+      height: 40px;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 10px;
+    }
+
+    .ciencia-award-badge {
+      position: absolute;
+      top: 14px;
+      right: 14px;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      font-size: 0.65rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.03em;
+      color: #166534;
+      background: #dcfce7;
+      border-radius: 999px;
+      padding: 4px 10px;
+    }
+
+    .ciencia-card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 20px rgba(4,13,78,0.07);
+    }
+
+    @media (min-width: 768px) {
+      .ciencia-grid > * {
+        flex: 1 1 calc(50% - 0.75rem);
+        max-width: calc(50% - 0.75rem);
+      }
+
+      .ciencia-card {
+        padding: 22px 24px;
+      }
+
+      .ciencia-icon-box {
+        margin-bottom: 14px;
+      }
+
+      .ciencia-award-badge {
+        top: 18px;
+        right: 18px;
+      }
+    }
+
+    @media (min-width: 1024px) {
+      .ciencia-grid > * {
+        flex: 1 1 calc(33.333% - 1rem);
+        max-width: calc(33.333% - 1rem);
+      }
+    }
+  </style>
+
+  <!-- ── TEMÁTICAS ── -->
+  <section style="background: linear-gradient(160deg, #040d4e 0%, #0d1f6b 50%, #0a1855 100%); position: relative;" class="py-20 expertise-section">
+    <!-- Patrón de puntos decorativo -->
+    <div
+      style="
+        position: absolute;
+        inset: 0;
+        background-image: radial-gradient(rgba(255,255,255,0.04) 1px, transparent 1px);
+        background-size: 28px 28px;
+        pointer-events: none;
+      "
+      aria-hidden="true"
+    ></div>
+
+    <!-- Resplandor sutil detrás del encabezado -->
+    <div
+      style="
+        position: absolute;
+        top: -8%;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 55%;
+        max-width: 620px;
+        aspect-ratio: 1 / 1;
+        background: radial-gradient(circle, rgba(24,128,201,0.13) 0%, rgba(91,168,224,0.05) 42%, transparent 72%);
+        filter: blur(60px);
+        pointer-events: none;
+      "
+      aria-hidden="true"
+    ></div>
+
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8" style="position: relative; z-index: 1;">
+      <div class="text-center mb-8 expertise-header">
+        <span
+          class="inline-block text-xs font-semibold uppercase tracking-widest px-3 py-1 rounded-full mb-3"
+          style="background: rgba(24,128,201,0.18); color: var(--color-accent-light); border: 1px solid rgba(24,128,201,0.35);"
+        >
+          Especialidades
+        </span>
+        <h2
+          class="text-3xl md:text-4xl font-bold text-white"
+          style="font-family: var(--font-display);"
+        >
+          Áreas de expertise
+        </h2>
+        <p class="mt-3 text-white/65 max-w-lg mx-auto">
+          Temáticas en las que Pablo es referente y sobre las cuales da charlas, capacitaciones y atiende interconsultas.
+        </p>
+      </div>
+
+      <ul class="grid grid-cols-1 sm:grid-cols-2 gap-x-4 gap-y-2.5">
+        {tematicas.map((t) => (
+          <li
+            class="expertise-item"
+            style="
+              display: flex;
+              align-items: flex-start;
+              gap: 12px;
+              background: rgba(255,255,255,0.035);
+              border: 0.5px solid rgba(255,255,255,0.08);
+              border-radius: 10px;
+              padding: 12px 16px;
+              box-shadow: inset 0 1px 0 rgba(255,255,255,0.03);
+              transition: transform 0.2s ease, background 0.2s ease, border-color 0.2s ease;
+            "
+          >
+            <!-- Cajita del checkmark -->
+            <div
+              class="expertise-check-box"
+              style="
+                width: 20px;
+                height: 20px;
+                margin-top: 1px;
+                border-radius: 6px;
+                background: rgba(24,128,201,0.16);
+                border: 1px solid rgba(91,168,224,0.25);
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                flex-shrink: 0;
+                transition: background 0.2s ease, border-color 0.2s ease;
+              "
+              aria-hidden="true"
+            >
+              <svg
+                width="13"
+                height="13"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="#5ba8e0"
+                stroke-width="2.5"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <polyline points="20 6 9 17 4 12"/>
+              </svg>
+            </div>
+            <span
+              class="expertise-text"
+              style="
+                font-size: 13.5px;
+                line-height: 1.6;
+                color: rgba(255,255,255,0.88);
+                transition: color 0.2s ease;
+              "
+            >{t}</span>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </section>
+
+  <style>
+    @media (hover: hover) and (pointer: fine) {
+      .expertise-item:hover {
+        background: rgba(255,255,255,0.06);
+        border-color: rgba(91,168,224,0.28);
+        transform: translateY(-2px);
+      }
+
+      .expertise-item:hover .expertise-check-box {
+        background: rgba(24,128,201,0.3);
+        border-color: rgba(91,168,224,0.5);
+      }
+
+      .expertise-item:hover .expertise-text {
+        color: #ffffff;
+      }
+    }
+
+    @media (max-width: 767px) {
+      .expertise-section {
+        padding-top: 3.5rem;
+        padding-bottom: 3.5rem;
+      }
+    }
+  </style>
+
+  <!-- ── GALERÍA CONGRESOS ── -->
+  <section class="py-20 bg-white congresos-section">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-8">
+        <span
+          class="inline-block text-xs font-semibold uppercase tracking-widest px-3 py-1 rounded-full mb-3"
+          style="background: rgba(24,128,201,0.1); color: var(--color-accent); border: 1px solid rgba(24,128,201,0.25);"
+        >
+          TRAYECTORIA INTERNACIONAL
+        </span>
+        <h2
+          class="text-3xl md:text-4xl font-bold"
+          style="font-family: var(--font-display); color: var(--color-text);"
+        >
+          Speaker en +8 países
+        </h2>
+        <p class="mt-3 text-base max-w-lg mx-auto" style="color: var(--color-text-muted);">
+          Argentina, Colombia, Ecuador, Uruguay, Brasil, Paraguay, España y Países Bajos.
+          Una agenda internacional en constante expansión.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-2 lg:grid-cols-4 gap-3">
+        {congresos.map((c) => (
+          <div
+            class="congreso-card"
+            style="
+              position: relative;
+              border-radius: 14px;
+              overflow: hidden;
+              aspect-ratio: 4/3;
+            "
+          >
+            <img
+              src={c.foto}
+              alt={c.nombre}
+              style="width: 100%; height: 100%; object-fit: cover; object-position: center;"
+              loading="lazy"
+              width="300"
+              height="225"
+            />
+            <div
+              style="
+                position: absolute;
+                bottom: 0; left: 0; right: 0;
+                padding: 34px 14px 14px;
+                background: linear-gradient(to top, rgba(4,13,78,0.90) 0%, rgba(4,13,78,0.55) 40%, rgba(4,13,78,0) 78%);
+              "
+            >
+              <p
+                style="
+                  font-family: var(--font-body);
+                  font-size: 0.72rem;
+                  font-weight: 700;
+                  color: white;
+                  text-transform: uppercase;
+                  letter-spacing: 0.03em;
+                  margin: 0;
+                  line-height: 1.35;
+                "
+              >{c.nombre}</p>
+              <p style="font-size: 0.62rem; font-weight: 400; color: rgba(255,255,255,0.62); margin: 4px 0 0; font-family: var(--font-body);">{c.pais}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <style>
+    .congreso-card {
+      box-shadow: var(--shadow);
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    @media (hover: hover) and (pointer: fine) {
+      .congreso-card:hover {
+        transform: translateY(-4px);
+        box-shadow: var(--shadow-lg);
+      }
+    }
+
+    @media (max-width: 767px) {
+      .congresos-section {
+        padding-top: 3.5rem;
+        padding-bottom: 3.5rem;
+      }
+    }
+  </style>
+
+  <!-- ── CTA FINAL ── -->
+  <section style="background: linear-gradient(135deg, #040d4e 0%, #183b7f 60%, #1880c9 100%); position: relative;" class="py-20 cta-section">
+    <!-- Patrón de puntos decorativo -->
+    <div
+      style="
+        position: absolute;
+        inset: 0;
+        background-image: radial-gradient(rgba(255,255,255,0.05) 1px, transparent 1px);
+        background-size: 28px 28px;
+        pointer-events: none;
+      "
+      aria-hidden="true"
+    ></div>
+
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center" style="position: relative; z-index: 1;">
+      <!-- Badge -->
+      <span
+        class="inline-block text-xs font-semibold uppercase tracking-widest px-3 py-1 rounded-full mb-5"
+        style="background: rgba(24,128,201,0.18); color: #5ba8e0; border: 1px solid rgba(91,168,224,0.35);"
+      >
+        ¿Trabajamos juntos?
+      </span>
+
+      <h2
+        class="text-3xl md:text-4xl font-bold mb-4 text-white"
+        style="font-family: var(--font-display);"
+      >
+        ¿Cómo podés trabajar con Pablo?
+      </h2>
+      <p class="text-base mb-8 max-w-xl mx-auto" style="color: rgba(255,255,255,0.65);">
+        Ya sea que seas veterinario buscando formación continua, una empresa o institución que necesita
+        un speaker de excelencia, o simplemente querés ponerte en contacto.
+      </p>
+
+      <!-- Botones: mismo componente, tres variantes cromáticas -->
+      <div class="cta-grid">
+        <!-- Botón 1: Servicios para veterinarios -->
+        <a href="/veterinarios" class="cta-button cta-button-vet">
+          <div class="cta-icon-box cta-icon-box-dark">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M22 12h-4l-3 9L9 3l-3 9H2"/>
+            </svg>
+          </div>
+          <div class="cta-text">
+            <p class="cta-title">Servicios para veterinarios</p>
+            <p class="cta-subtitle">Interconsultas y capacitaciones</p>
+          </div>
+        </a>
+
+        <!-- Botón 2: Charlas para empresas -->
+        <a href="/empresas" class="cta-button cta-button-empresas">
+          <div class="cta-icon-box cta-icon-box-dark">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="3" y="3" width="18" height="18" rx="2" ry="2"/>
+              <line x1="3" y1="9" x2="21" y2="9"/>
+              <line x1="9" y1="21" x2="9" y2="9"/>
+            </svg>
+          </div>
+          <div class="cta-text">
+            <p class="cta-title">Charlas para empresas</p>
+            <p class="cta-subtitle">Capacitaciones y proyectos</p>
+          </div>
+        </a>
+
+        <!-- Botón 3: Contactar -->
+        <a href="/contacto" class="cta-button cta-button-light">
+          <div class="cta-icon-box cta-icon-box-light">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#1880c9" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+              <polyline points="22,6 12,13 2,6"/>
+            </svg>
+          </div>
+          <div class="cta-text">
+            <p class="cta-title cta-title-light">Contactar</p>
+            <p class="cta-subtitle cta-subtitle-light">Escribí tu consulta directamente</p>
+          </div>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <style>
+    /* Grid: 1 columna en mobile, 2+1 centrado en tablet, 3 en fila en desktop */
+    .cta-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 0.85rem;
+      max-width: 380px;
+      margin: 0 auto;
+    }
+
+    @media (min-width: 768px) and (max-width: 1023px) {
+      .cta-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        max-width: 620px;
+        gap: 1rem;
+      }
+      .cta-grid > a:nth-child(3) {
+        grid-column: 1 / -1;
+        justify-self: center;
+        width: 100%;
+        max-width: 300px;
+      }
+    }
+
+    @media (min-width: 1024px) {
+      .cta-grid {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        max-width: 880px;
+        gap: 1.25rem;
+      }
+      .cta-grid > a:nth-child(3) {
+        grid-column: auto;
+        justify-self: stretch;
+        max-width: none;
+      }
+    }
+
+    /* Componente compartido: misma estructura, distinta variante cromática */
+    .cta-button {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      border-radius: var(--radius);
+      padding: 16px 24px;
+      text-decoration: none;
+      transition: transform 0.25s ease, box-shadow 0.25s ease, filter 0.25s ease;
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      width: 100%;
+      box-sizing: border-box;
+      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.12);
+    }
+
+    .cta-button-vet {
+      background: var(--color-accent);
+    }
+
+    .cta-button-empresas {
+      background: var(--color-business);
+    }
+
+    .cta-button-light {
+      background: #ffffff;
+      border-color: rgba(4, 13, 78, 0.1);
+    }
+
+    .cta-icon-box {
+      width: 36px;
+      height: 36px;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .cta-icon-box-dark {
+      background: rgba(255, 255, 255, 0.18);
+    }
+
+    .cta-icon-box-light {
+      background: rgba(24, 128, 201, 0.12);
+    }
+
+    .cta-text {
+      display: flex;
+      flex-direction: column;
+      text-align: left;
+      min-width: 0;
+    }
+
+    .cta-title {
+      margin: 0;
+      font-weight: 700;
+      font-size: 14px;
+      line-height: 1.2;
+      color: #ffffff;
+    }
+
+    .cta-subtitle {
+      margin: 2px 0 0;
+      font-weight: 400;
+      font-size: 12px;
+      line-height: 1.2;
+      color: rgba(255, 255, 255, 0.75);
+    }
+
+    .cta-title-light {
+      color: var(--color-primary);
+    }
+
+    .cta-subtitle-light {
+      color: #5b7a9e;
+    }
+
+    @media (hover: hover) and (pointer: fine) {
+      .cta-button:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 12px 28px rgba(0, 0, 0, 0.22);
+        filter: brightness(1.06);
+      }
+
+      .cta-button-light:hover {
+        box-shadow: 0 12px 28px rgba(24, 128, 201, 0.28);
+        filter: brightness(1.02);
+      }
+    }
+
+    @media (max-width: 767px) {
+      .cta-section {
+        padding-top: 3.5rem;
+        padding-bottom: 3.5rem;
+      }
+
+      .cta-grid {
+        gap: 0.75rem;
+      }
+    }
+  </style>
+
+</Layout>

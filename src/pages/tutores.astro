@@ -1,0 +1,864 @@
+﻿---
+// pages/tutores.astro — Sección exclusiva para tutores de mascotas
+// REGLA: NO incluir LibroTecnico, Interconsultas ni formularios clínicos
+import Layout from '../layouts/Layout.astro';
+import SectionTitle from '../components/ui/SectionTitle.astro';
+---
+
+<Layout
+  title="Información para tutores de mascotas — Pablo Borrás Veterinario"
+  description="Contenido educativo, videos y consejos de salud para dueños de perros y gatos. Por Pablo Borrás, veterinario especialista en enfermedades infecciosas y parasitarias."
+>
+  <!-- Preload imágenes hero responsive -->
+  <link slot="head" rel="preload" as="image" href="/imagenes/heros/paratut1.webp" media="(min-width: 768px)" fetchpriority="high" />
+  <link slot="head" rel="preload" as="image" href="/imagenes/heros/paratut2mob.webp" media="(max-width: 767px)" fetchpriority="high" />
+
+  <!-- Hero emocional — Tutores -->
+  <section
+    class="page-hero py-24 relative overflow-hidden hero-tutores"
+    style="display: flex; align-items: center; background: transparent;"
+  >
+    <!-- Imagen de fondo responsive -->
+    <div
+      class="absolute inset-0 pointer-events-none"
+      style="z-index: 0;"
+      aria-hidden="true"
+    >
+      <!-- Desktop -->
+      <img
+        src="/imagenes/heros/paratut1.webp"
+        alt=""
+        class="hidden md:block w-full h-full object-cover"
+        style="object-position: center top;"
+        loading="eager"
+        fetchpriority="high"
+        aria-hidden="true"
+      />
+      <!-- Mobile -->
+      <img
+        src="/imagenes/heros/paratut2mob.webp"
+        alt=""
+        class="block md:hidden w-full h-full object-cover"
+        style="object-position: center center;"
+        loading="eager"
+        aria-hidden="true"
+      />
+    </div>
+
+    <!-- Oscurecimiento solo detrás del texto — Desktop: solo lado izquierdo -->
+    <div
+      class="hidden md:block absolute top-0 left-0 bottom-0 pointer-events-none"
+      style="
+        width: 50%;
+        background: linear-gradient(to right, rgba(3,13,58,0.68) 0%, rgba(3,13,58,0.38) 40%, rgba(3,13,58,0.12) 70%, rgba(3,13,58,0) 100%);
+        z-index: 1;
+      "
+      aria-hidden="true"
+    ></div>
+
+    <!-- Mobile: degradado vertical — transparente arriba, oscuro abajo -->
+    <div
+      class="block md:hidden absolute inset-0 pointer-events-none"
+      style="
+        background: linear-gradient(to bottom, rgba(3,13,58,0) 0%, rgba(3,13,58,0) 32%, rgba(3,13,58,0.32) 55%, rgba(3,13,58,0.72) 78%, rgba(3,13,58,0.88) 100%);
+        z-index: 1;
+      "
+      aria-hidden="true"
+    ></div>
+
+    <!-- Patrón de puntos sutil -->
+    <div
+      class="dot-pattern absolute inset-0 pointer-events-none"
+      style="opacity: 0.08; z-index: 2;"
+      aria-hidden="true"
+    ></div>
+
+    <div class="max-w-7xl ml-0 px-4 sm:px-6 md:px-12 lg:px-20 py-10 w-full" style="position: relative; z-index: 10;">
+      <div class="max-w-2xl relative">
+        <!-- Degradado radial negro detrás del texto (solo desktop) -->
+        <div
+          class="hidden md:block absolute pointer-events-none"
+          style="
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 125%;
+            height: 125%;
+            background: radial-gradient(ellipse 75% 80% at 35% 50%, rgba(0,0,0,0.48) 0%, rgba(0,0,0,0.26) 40%, rgba(0,0,0,0.10) 65%, transparent 80%);
+            z-index: -1;
+            filter: blur(6px);
+          "
+          aria-hidden="true"
+        ></div>
+
+        <!-- Badge con corazón animado -->
+        <div class="inline-block mb-6" style="opacity: 0; animation: fadeUp 0.6s ease-out both;">
+          <span
+            class="hero-badge inline-flex items-center gap-2 text-xs font-bold uppercase px-5 py-2.5 rounded-xl backdrop-blur-md"
+            style="background: rgba(255,255,255,0.15); color: white; letter-spacing: 0.1em; border: 1px solid rgba(255,255,255,0.25); text-shadow: 0 2px 12px rgba(0,0,0,0.65);"
+          >
+            <svg class="heart-pulse" width="13" height="13" viewBox="0 0 24 24" fill="white">
+              <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
+            </svg>
+            Para tutores de mascotas
+          </span>
+        </div>
+
+        <!-- Título con barra vertical -->
+        <div class="flex items-start gap-4 mb-4" style="filter: drop-shadow(0 1px 6px rgba(0,0,0,0.35));">
+          <div
+            class="w-1 self-stretch rounded-full mt-1 shrink-0"
+            style="background: linear-gradient(to bottom, #1880c9, #5ba8e0); min-height: 48px;"
+            aria-hidden="true"
+          ></div>
+          <h1
+            class="hero-title text-4xl md:text-5xl font-bold text-white"
+            style="font-family: var(--font-display); line-height: 1.2; opacity: 0; animation: fadeUp 0.6s ease-out 0.1s both; text-align: left;"
+          >
+            Tu mascota merece lo mejor<br/>
+            <span
+              class="hero-title-highlight"
+              style="
+                background: linear-gradient(135deg, #5ba8e0 0%, #1880c9 55%, #183b7f 100%);
+                -webkit-background-clip: text;
+                -webkit-text-fill-color: transparent;
+                background-clip: text;
+              "
+            >Vos también merecés entenderlo</span>
+          </h1>
+        </div>
+
+        <!-- Descripción -->
+        <p 
+          class="hero-description text-lg max-w-xl mb-8"
+          style="color: rgba(255,255,255,0.85); opacity: 0; animation: fadeUp 0.6s ease-out 0.3s both; text-shadow: 0 1px 6px rgba(0,0,0,0.4); text-align: left;"
+        >
+          Videos, divulgación y consejos pensados por un veterinario para quienes comparten su vida con un animal.
+        </p>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Bloque 3 columnas emocional -->
+  <section class="py-16 md:py-20" style="background: linear-gradient(135deg, #f0f9ff 0%, #f8fafc 100%);">
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-6 lg:gap-7">
+        {[
+          {
+            icon: 'camera',
+            titulo: 'Consultas presenciales',
+            desc: 'Atendemos en cuatro centros veterinarios en CABA. Consultá disponibilidad y reservá tu turno.',
+            color: '#1880c9',
+          },
+          {
+            icon: 'stethoscope',
+            titulo: 'Interconsultas con tu veterinario',
+            desc: 'Si tu veterinario de cabecera necesita una segunda opinión especializada, puede derivarte a Pablo para una interconsulta online.',
+            color: '#183b7f',
+          },
+          {
+            icon: 'heart',
+            titulo: 'Aprendizaje continuo',
+            desc: 'Contenido de divulgación basado en evidencia para entender mejor la salud de tu mascota.',
+            color: '#5ba8e0',
+          },
+        ].map((item, index) => (
+          <div
+            class={`reveal feature-card text-center bg-white rounded-2xl p-6 sm:p-7${index === 2 ? ' sm:col-span-2 sm:max-w-sm sm:mx-auto lg:col-span-1 lg:max-w-none' : ''}`}
+            style={`border: 1px solid rgba(4,13,78,0.07); border-top: 2px solid ${item.color}; border-radius: 16px; box-shadow: 0 1px 3px rgba(4,13,78,0.05), 0 6px 20px rgba(4,13,78,0.05); transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease; transition-delay: ${index * 0.1}s; position: relative; overflow: hidden;`}
+          >
+            <!-- Gradiente sutil de fondo -->
+            <div style={`position: absolute; inset: 0; background: linear-gradient(135deg, ${item.color}08 0%, transparent 55%); pointer-events: none;`} aria-hidden="true"></div>
+            
+            <div style="position: relative; z-index: 1;">
+              <div
+                class="mx-auto mb-4 flex items-center justify-center"
+                style={`width: 56px; height: 56px; border-radius: 16px; background: ${item.color}14;`}
+              >
+                {item.icon === 'camera' && (
+                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke={item.color} stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/>
+                    <circle cx="12" cy="13" r="3.5"/>
+                  </svg>
+                )}
+                {item.icon === 'stethoscope' && (
+                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke={item.color} stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <path d="M4.5 3v6a4.5 4.5 0 0 0 9 0V3"/>
+                    <path d="M9 13.5V16a5 5 0 0 0 10 0v-2.5"/>
+                    <circle cx="19.5" cy="12.5" r="1.75"/>
+                    <circle cx="4.5" cy="3" r="1"/>
+                    <circle cx="9" cy="3" r="1"/>
+                  </svg>
+                )}
+                {item.icon === 'heart' && (
+                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke={item.color} stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
+                  </svg>
+                )}
+              </div>
+              <h3
+                class="text-lg md:text-xl font-bold mb-2"
+                style="font-family: var(--font-display); color: var(--color-text); line-height: 1.3;"
+              >
+                {item.titulo}
+              </h3>
+              <p class="text-sm leading-relaxed max-w-xs mx-auto" style="color: var(--color-text-muted);">
+                {item.desc}
+              </p>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Sección: ¿Dónde consultar con Pablo? -->
+  <section class="py-14 md:py-20 relative overflow-hidden">
+    <!-- Fondo fotográfico responsive: Pablo con perro, distinto encuadre por breakpoint -->
+    <div class="absolute inset-0 pointer-events-none" aria-hidden="true">
+      <img
+        src="/imagenes/fondos/fondoveterinariasdesktop.png"
+        alt=""
+        class="hidden md:block w-full h-full object-cover"
+        style="object-position: 80% 15%;"
+        loading="lazy"
+      />
+      <img
+        src="/imagenes/fondos/fondoveterinariasmob.png"
+        alt=""
+        class="block md:hidden w-full h-full object-cover"
+        style="object-position: center 15%;"
+        loading="lazy"
+      />
+    </div>
+
+    <!-- Degradado navy progresivo — desktop: la foto acompaña, el overlay domina -->
+    <div
+      class="hidden md:block absolute inset-0 pointer-events-none"
+      style="background: linear-gradient(to bottom, rgba(4,13,78,0.60) 0%, rgba(4,13,78,0.78) 45%, rgba(4,13,78,0.88) 100%); z-index: 1;"
+      aria-hidden="true"
+    ></div>
+
+    <!-- Degradado navy progresivo — mobile: más intenso para que domine el contenido -->
+    <div
+      class="block md:hidden absolute inset-0 pointer-events-none"
+      style="background: linear-gradient(to bottom, rgba(4,13,78,0.68) 0px, rgba(4,13,78,0.88) 320px, rgba(4,13,78,0.94) 480px, rgba(4,13,78,0.95) 100%); z-index: 1;"
+      aria-hidden="true"
+    ></div>
+
+    <!-- Oscurecimiento adicional detrás del encabezado -->
+    <div
+      class="absolute top-0 left-0 right-0 pointer-events-none"
+      style="height: 320px; background: radial-gradient(ellipse 80% 60% at 50% 0%, rgba(0,0,0,0.38) 0%, transparent 70%); z-index: 1;"
+      aria-hidden="true"
+    ></div>
+
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8" style="position: relative; z-index: 2;">
+
+      <div class="text-center mb-10 md:mb-12 reveal">
+        <p class="text-xs font-semibold uppercase tracking-widest mb-2" style="color: rgba(255,255,255,0.85); text-shadow: 0 1px 4px rgba(0,0,0,0.5);">Atención presencial · CABA</p>
+        <h2 class="text-3xl font-bold text-white" style="font-family: var(--font-display); text-shadow: 0 2px 14px rgba(0,0,0,0.5);">
+          ¿Dónde atendemos a tu mascota?
+        </h2>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-5 md:gap-6">
+        {[
+          {
+            nombre: 'Veterinaria Guayaquil',
+            direccion: 'Guayaquil 650, CABA',
+            dias: 'Todos los miércoles + Jueves por la tarde cada 15 días',
+            principal: true,
+            imagen: '/imagenes/veterinarias/guayaquil.webp',
+          },
+          {
+            nombre: 'Veterinaria Merli',
+            direccion: 'Cnel. Apolinario Figueroa 299, CABA',
+            dias: 'Martes cada 15 días',
+            principal: false,
+            imagen: '/imagenes/veterinarias/merli.webp',
+          },
+          {
+            nombre: 'Clínica Veterinaria Panda',
+            direccion: 'Nahuel Huapi 5185, CABA (suc. Nahuel Huapi)',
+            dias: 'Un martes por mes',
+            principal: false,
+            imagen: '/imagenes/veterinarias/panda.webp',
+          },
+          {
+            nombre: 'Clínica Veterinaria Wellvet',
+            direccion: 'Lavalle 4090, CABA',
+            dias: 'Un viernes por mes',
+            principal: false,
+            imagen: '/imagenes/veterinarias/wellvet.webp',
+          },
+        ].map((c, i) => (
+          <div
+            class="vet-card reveal flex flex-col bg-white"
+            style={`border-radius: 14px; box-shadow: ${c.principal ? '0 6px 24px rgba(24,128,201,0.22)' : '0 4px 16px rgba(4,13,78,0.16)'}; transition: all 0.3s ease; transition-delay: ${i * 0.1}s; border: ${c.principal ? '2px solid var(--color-accent)' : '1px solid rgba(255,255,255,0.25)'}; position: relative; overflow: hidden;`}
+          >
+            {c.principal && (
+              <div style="position: absolute; inset: 0; background: linear-gradient(135deg, rgba(24,128,201,0.03) 0%, transparent 100%); pointer-events: none; z-index: 0;" aria-hidden="true"></div>
+            )}
+            <!-- Imagen de portada (proporción panorámica 2:1) -->
+            <div class="aspect-2/1 overflow-hidden">
+              <img
+                src={c.imagen}
+                alt={c.nombre}
+                loading="lazy"
+                class="vet-image"
+                style={`width: 100%; height: 100%; object-fit: cover; object-position: ${c.nombre === 'Veterinaria Guayaquil' || c.nombre === 'Clínica Veterinaria Panda' ? 'center 35%' : 'center'}; transition: transform 0.4s ease;`}
+              />
+            </div>
+            <!-- Contenido -->
+            <div style="padding: 16px 18px; position: relative; z-index: 1;">
+              <div class="flex gap-4">
+                <!-- Ícono pin -->
+                <div
+                  class="shrink-0 mt-0.5 w-10 h-10 rounded-xl flex items-center justify-center"
+                  style={`background: ${c.principal ? 'linear-gradient(135deg, var(--color-accent) 0%, #0d5fa3 100%)' : 'rgba(24,128,201,0.10)'}; box-shadow: ${c.principal ? '0 4px 12px rgba(24,128,201,0.25)' : 'none'};`}
+                >
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke={c.principal ? '#fff' : 'var(--color-accent)'} stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M21 10c0 7-9 13-9 13S3 17 3 10a9 9 0 0 1 18 0z"/>
+                    <circle cx="12" cy="10" r="3"/>
+                  </svg>
+                </div>
+                <div class="flex-1">
+                  <div class="flex items-center gap-2 flex-wrap">
+                    <h3 class="font-bold text-base" style="font-family: var(--font-display); color: var(--color-text);">
+                      {c.nombre}
+                    </h3>
+                    {c.principal && (
+                      <span class="inline-block text-xs font-bold px-2 py-0.5 rounded-full" style="background: var(--color-accent); color: #fff;">Principal</span>
+                    )}
+                  </div>
+                  <p class="text-sm mt-0.5" style="color: var(--color-text-muted);">{c.direccion}</p>
+                  <div class="flex items-center gap-2 mt-1.5">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--color-accent)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="shrink-0">
+                      <circle cx="12" cy="12" r="10"/>
+                      <polyline points="12 6 12 12 16 14"/>
+                    </svg>
+                    <p class="text-sm font-medium" style="color: var(--color-accent);">{c.dias}</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+
+      <!-- CTA turnos -->
+      <div class="mt-10 text-center reveal">
+        <a
+          href="mailto:consultas.borras@gmail.com"
+          class="turno-btn inline-flex items-center gap-2 px-7 py-3.5 font-bold text-sm md:text-base"
+          style="background: linear-gradient(135deg, #ffffff 0%, #f0f9ff 100%); color: #040d4e; border-radius: 12px; text-decoration: none; box-shadow: 0 6px 20px rgba(0,0,0,0.25); transition: all 0.3s ease; border: 2px solid rgba(255,255,255,0.3);"
+        >
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
+            <line x1="16" y1="2" x2="16" y2="6"/>
+            <line x1="8" y1="2" x2="8" y2="6"/>
+            <line x1="3" y1="10" x2="21" y2="10"/>
+          </svg>
+          Solicitar turno
+        </a>
+      </div>
+
+      <!-- Aviso final — información editorial, no alerta -->
+      <div class="max-w-xl mx-auto px-4 sm:px-6 lg:px-8 mt-12">
+        <div
+          class="flex items-start gap-4 p-6 md:p-7 rounded-2xl"
+          style="background: linear-gradient(135deg, #ffffff 0%, #f0f9ff 100%); box-shadow: 0 2px 8px rgba(4,13,78,0.06), 0 8px 20px rgba(4,13,78,0.06); color: var(--color-text); border-radius: 16px; border-left: 4px solid var(--color-accent);"
+        >
+          <div
+            class="shrink-0 w-10 h-10 rounded-full flex items-center justify-center"
+            style="background: rgba(24,128,201,0.12);"
+            aria-hidden="true"
+          >
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--color-accent)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
+            </svg>
+          </div>
+          <p class="text-base font-medium leading-relaxed">
+            ¿Tenés dudas sobre la salud de tu mascota? <a href="/veterinarios/interconsultas" style="color: inherit; text-decoration: underline;"><strong>Consultá a tu veterinario de confianza.</strong></a> Ellos son los indicados para evaluar a tu animal de manera personalizada.
+          </p>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Sección de videos verticales (Cortos) -->
+  <section class="py-14 md:py-16 bg-white">
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+      <!-- Encabezado -->
+      <div class="mb-10 max-w-2xl mx-auto text-center">
+        <p class="text-xs font-semibold uppercase tracking-widest mb-3" style="color: var(--color-accent); letter-spacing: 0.12em;">
+          Videos educativos
+        </p>
+        <h2 class="text-3xl md:text-4xl font-bold mb-4" style="font-family: var(--font-display); color: var(--color-text); line-height: 1.2;">
+          Cortos de Pablo
+        </h2>
+        <p class="text-base md:text-lg max-w-xl mx-auto" style="color: var(--color-text-muted); line-height: 1.6;">
+          Videos breves sobre salud animal para tutores de mascotas.
+        </p>
+      </div>
+
+      <!-- Grid de videos verticales -->
+      <div class="flex flex-wrap justify-center gap-5 md:gap-8 mx-auto max-w-3xl">
+        {[
+          {
+            videoSrc: '/videos/moquillo.mp4',
+            posterSrc: '/imagenes/postermoquillo.webp',
+            duracion: '1:00',
+            titulo: '5 cosas que todo tutor debe saber sobre el moquillo',
+            descripcion: 'Lo que necesitás saber para proteger a tu perro.',
+          },
+          {
+            videoSrc: '/videos/canidos-silvestres.mp4',
+            posterSrc: '/imagenes/postercandidos.webp',
+            duracion: '1:20',
+            titulo: 'Perros domésticos y cánidos silvestres',
+            descripcion: 'Lo que tienen en común y por qué importa saberlo.',
+          },
+        ].map((video, index) => (
+          <div
+            class="vertical-video-card bg-white rounded-2xl overflow-hidden"
+            style="border-radius: 16px; border: 1px solid #d1e0f0; box-shadow: 0 4px 20px rgba(0,0,0,0.08); transition: all 0.3s ease; width: 100%;"
+          >
+            <!-- Zona del video con facade -->
+            <div
+              class="video-facade-container"
+              data-video-src={video.videoSrc}
+              data-poster={video.posterSrc}
+              style="position: relative; aspect-ratio: 9/16; width: 100%; cursor: pointer; overflow: hidden; background: #000;"
+            >
+              <!-- Imagen poster como preview -->
+              <img
+                src={video.posterSrc}
+                alt={video.titulo}
+                class="video-poster-preview"
+                style="
+                  position: absolute;
+                  inset: 0;
+                  width: 100%;
+                  height: 100%;
+                  object-fit: cover;
+                  z-index: 1;
+                "
+                loading="lazy"
+              />
+              <!-- Botón play central -->
+              <div
+                class="play-button-overlay"
+                style="
+                  position: absolute;
+                  inset: 0;
+                  display: flex;
+                  align-items: center;
+                  justify-content: center;
+                  background: rgba(4,13,78,0.3);
+                  transition: background 0.3s ease;
+                  z-index: 2;
+                "
+              >
+                <div
+                  style="
+                    width: 60px;
+                    height: 60px;
+                    border-radius: 50%;
+                    background: white;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    box-shadow: 0 6px 20px rgba(0,0,0,0.25);
+                    transition: transform 0.3s ease;
+                  "
+                >
+                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                    <path d="M8 5v14l11-7z" fill="var(--color-accent)" stroke="none"/>
+                  </svg>
+                </div>
+              </div>
+              <!-- Badge de duración -->
+              <div
+                style="
+                  position: absolute;
+                  bottom: 12px;
+                  right: 12px;
+                  background: rgba(0,0,0,0.85);
+                  color: white;
+                  padding: 5px 10px;
+                  border-radius: 8px;
+                  font-size: 12px;
+                  font-weight: 700;
+                  font-family: var(--font-body);
+                  backdrop-filter: blur(4px);
+                  letter-spacing: 0.02em;
+                  z-index: 2;
+                "
+              >
+                {video.duracion}
+              </div>
+            </div>
+
+            <!-- Info del video -->
+            <div style="padding: 14px 16px 16px;">
+              <span
+                class="inline-block text-xs font-semibold px-3 py-1.5 rounded-full mb-2"
+                style="background: rgba(24,128,201,0.12); color: var(--color-accent); border: 1px solid rgba(24,128,201,0.2);"
+              >
+                Educativo
+              </span>
+              <h3
+                class="font-bold mb-2"
+                style="font-family: var(--font-body); font-size: 15px; line-height: 1.4; color: var(--color-text);"
+              >
+                {video.titulo}
+              </h3>
+              <p
+                style="font-size: 13px; line-height: 1.5; color: var(--color-text-muted);"
+              >
+                {video.descripcion}
+              </p>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Apariciones en medios -->
+  <section class="py-10 md:py-14 lg:py-16 bg-white">
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-6">
+        <span class="inline-block text-xs font-semibold uppercase tracking-widest px-3 py-1 rounded-full mb-3" style="background: rgba(24,128,201,0.1); color: var(--color-accent); border: 1px solid rgba(24,128,201,0.25);">Prensa</span>
+        <p class="text-lg font-bold" style="color: var(--color-text); font-family: var(--font-display);">Apariciones en medios</p>
+      </div>
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 md:gap-8">
+        <a
+          href="https://www.infobae.com/perros-y-gatos/2026/03/20/el-75-de-los-duenos-de-mascotas-pide-mejores-recomendaciones-para-evitar-parasitos/"
+          target="_blank" rel="noopener noreferrer"
+          class="media-card flex items-center gap-4 p-7 bg-white rounded-xl"
+          style="border-radius: 14px; box-shadow: 0 2px 12px rgba(0,0,0,0.06); text-decoration: none; border-left: 4px solid #DC2626; transition: all 0.3s ease;"
+        >
+          <div class="shrink-0 w-16 h-16 rounded-xl flex items-center justify-center p-2.5" style="background: #ffffff; box-shadow: 0 2px 8px rgba(0,0,0,0.08);">
+            <img src="/imagenes/logo/infobaelogo.webp" alt="Infobae" class="w-full h-full object-contain" loading="lazy" />
+          </div>
+          <div>
+            <p class="text-xs font-bold mb-1" style="color: #DC2626;">Infobae · 2026</p>
+            <p class="text-sm font-semibold leading-snug" style="color: var(--color-text);">Nota de salud animal en Infobae</p>
+          </div>
+        </a>
+        <a
+          href="https://www.tiktok.com/@lanacioncom/video/7578953045355072824"
+          target="_blank" rel="noopener noreferrer"
+          class="media-card flex items-center gap-4 p-7 bg-white rounded-xl"
+          style="border-radius: 14px; box-shadow: 0 2px 12px rgba(0,0,0,0.06); text-decoration: none; border-left: 4px solid #040d4e; transition: all 0.3s ease;"
+        >
+          <div class="shrink-0 w-16 h-16 rounded-xl flex items-center justify-center p-2.5" style="background: #ffffff; box-shadow: 0 2px 8px rgba(0,0,0,0.08);">
+            <img src="/imagenes/logo/lanacion.webp" alt="La Nación" class="w-full h-full object-contain" loading="lazy" />
+          </div>
+          <div>
+            <p class="text-xs font-bold mb-1" style="color: var(--color-primary);">La Nación · TikTok · 2025</p>
+            <p class="text-sm font-semibold leading-snug" style="color: var(--color-text);">Consejo viral sobre parásitos en mascotas</p>
+          </div>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Redes sociales -->
+  <section class="py-14 md:py-16" style="background: linear-gradient(135deg, #f0f9ff 0%, #f8fafc 100%);">
+    <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      <div class="mb-8">
+        <span class="inline-block text-xs font-semibold uppercase tracking-widest px-3 py-1 rounded-full mb-3" style="background: rgba(24,128,201,0.1); color: var(--color-accent); border: 1px solid rgba(24,128,201,0.25);">Conectá con Pablo</span>
+        <h2 class="text-2xl md:text-3xl font-bold mb-3" style="font-family: var(--font-display); color: var(--color-text);">Seguilo en redes sociales</h2>
+        <p class="text-sm md:text-base max-w-lg mx-auto" style="color: var(--color-text-muted);">
+          Consejos sobre salud animal, detrás de escena de sus conferencias, respuestas a dudas frecuentes y mucho más.
+        </p>
+      </div>
+
+      <!-- Links a redes -->
+      <div class="flex justify-center gap-4 md:gap-6 flex-wrap">
+        <a
+          href="https://www.instagram.com/pablojborras"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="social-btn flex items-center gap-2 px-5 sm:px-6 py-3 rounded-xl font-semibold text-sm"
+          style="background: linear-gradient(135deg, #E4405F 0%, #d81f4a 100%); color: #fff; border-radius: 12px; text-decoration: none; box-shadow: 0 4px 14px rgba(228,64,95,0.22); transition: all 0.3s ease;"
+          aria-label="Instagram de Pablo Borrás"
+        >
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
+            <circle cx="12" cy="12" r="4"/>
+            <circle cx="17.5" cy="6.5" r="0.5" fill="currentColor"/>
+          </svg>
+          <span class="hidden sm:inline">@pablojborras</span>
+          <span class="sm:hidden">Instagram</span>
+        </a>
+        <a
+          href="https://www.youtube.com"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="social-btn flex items-center gap-2 px-5 sm:px-6 py-3 rounded-xl font-semibold text-sm"
+          style="background: linear-gradient(135deg, #FF0000 0%, #cc0000 100%); color: #fff; border-radius: 12px; text-decoration: none; box-shadow: 0 4px 14px rgba(255,0,0,0.22); transition: all 0.3s ease;"
+          aria-label="Canal de YouTube de Pablo Borrás"
+        >
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M22.54 6.42a2.78 2.78 0 0 0-1.95-1.97C18.88 4 12 4 12 4s-6.88 0-8.59.45A2.78 2.78 0 0 0 1.46 6.42 29 29 0 0 0 1 12a29 29 0 0 0 .46 5.58A2.78 2.78 0 0 0 3.41 19.6C5.12 20 12 20 12 20s6.88 0 8.59-.4a2.78 2.78 0 0 0 1.95-1.97A29 29 0 0 0 23 12a29 29 0 0 0-.46-5.58z"/>
+            <polygon points="9.75 15.02 15.5 12 9.75 8.98 9.75 15.02" fill="currentColor" stroke="none"/>
+          </svg>
+          YouTube
+        </a>
+      </div>
+    </div>
+  </section>
+
+</Layout>
+
+<style>
+  /* Animación fadeUp */
+  @keyframes fadeUp {
+    from {
+      opacity: 0;
+      transform: translateY(18px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  /* Animación del corazón */
+  .heart-pulse {
+    animation: heartPulse 2s ease-in-out infinite;
+  }
+
+  @keyframes heartPulse {
+    0%, 100% {
+      transform: scale(1);
+    }
+    50% {
+      transform: scale(1.08);
+    }
+  }
+
+  /* Efectos hover mejorados */
+  .feature-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 4px 8px rgba(4,13,78,0.05), 0 10px 26px rgba(4,13,78,0.08) !important;
+    border-color: rgba(24,128,201,0.22) !important;
+  }
+
+  .vertical-video-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 8px 28px rgba(0,0,0,0.14) !important;
+  }
+
+  .vertical-video-card:hover .play-button-overlay > div {
+    transform: scale(1.1);
+  }
+
+  .media-card:hover {
+    transform: translateY(-4px) scale(1.02);
+    box-shadow: 0 8px 24px rgba(0,0,0,0.12) !important;
+  }
+
+  .social-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 24px rgba(0,0,0,0.2) !important;
+  }
+
+  .vet-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 32px rgba(24,128,201,0.2) !important;
+  }
+
+  .vet-card:hover .vet-image {
+    transform: scale(1.05);
+  }
+
+  .turno-btn:hover {
+    transform: translateY(-4px) scale(1.02);
+    box-shadow: 0 10px 32px rgba(0,0,0,0.3) !important;
+  }
+
+  .vertical-video-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 24px rgba(24,128,201,0.15) !important;
+  }
+
+  .video-facade-container:hover .play-button-overlay {
+    background: rgba(4,13,78,0.5);
+  }
+
+  .video-facade-container:hover .play-button-overlay > div {
+    transform: scale(1.1);
+  }
+
+  /* Fade suave hacia la siguiente sección (desktop) */
+  @media (min-width: 768px) {
+    .page-hero::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 32px;
+      background: linear-gradient(to bottom, transparent, var(--color-neutral-light));
+      z-index: 11;
+      pointer-events: none;
+    }
+  }
+
+  /* Mobile: anclar abajo y alinear a izquierda */
+  @media (max-width: 767px) {
+    .hero-tutores {
+      align-items: flex-end !important;
+      padding-top: 1.75rem !important;
+      padding-bottom: 2rem !important;
+    }
+    
+    .page-hero .max-w-7xl {
+      margin-left: 0 !important;
+      margin-right: auto !important;
+    }
+    
+    .page-hero .hero-title,
+    .page-hero .hero-description,
+    .page-hero .hero-badge {
+      text-align: left !important;
+    }
+    
+    /* Título: escalado continuo entre 370px y 430px, sin saltos entre breakpoints */
+    .page-hero .hero-title {
+      font-size: clamp(1.65rem, 8vw, 2.1rem) !important;
+      line-height: 1.22 !important;
+    }
+    
+    /* Descripción: escalado continuo, legible desde 370px */
+    .page-hero .hero-description {
+      font-size: clamp(0.9rem, 3.8vw, 1rem) !important;
+      line-height: 1.6 !important;
+    }
+    
+    /* Badge más pequeño */
+    .page-hero .hero-badge {
+      font-size: 0.65rem !important;
+      padding: 0.4rem 0.85rem !important;
+      letter-spacing: 0.08em !important;
+    }
+    
+    /* Sombras necesarias sobre la foto, sin halo pesado */
+    .page-hero .hero-title,
+    .page-hero .hero-description,
+    .page-hero .hero-badge {
+      text-shadow: 0 1px 2px rgba(0,0,0,0.8), 0 2px 10px rgba(0,0,0,0.5) !important;
+    }
+    
+    /* Drop-shadow del contenedor del título */
+    .page-hero .flex.items-start {
+      filter: drop-shadow(0 2px 10px rgba(0,0,0,0.55)) !important;
+    }
+    
+    /* Segundo renglón del título en blanco sólido (sin gradiente) */
+    .hero-title-highlight {
+      background: none !important;
+      -webkit-background-clip: initial !important;
+      background-clip: initial !important;
+      -webkit-text-fill-color: white !important;
+      text-shadow: 0 1px 2px rgba(0,0,0,0.8), 0 2px 10px rgba(0,0,0,0.5) !important;
+    }
+  }
+
+  /* Cortos de Pablo: escala más contenida en tablet/desktop, casi ancho completo en mobile */
+  .vertical-video-card {
+    max-width: 340px;
+  }
+  @media (min-width: 640px) {
+    .vertical-video-card {
+      max-width: 300px;
+    }
+  }
+
+  /* Responsive mejorado */
+  @media (max-width: 640px) {
+    .feature-card {
+      padding: 1.5rem !important;
+    }
+    
+    .media-card {
+      padding: 1rem !important;
+    }
+
+    .turno-btn {
+      width: 100%;
+      justify-content: center;
+    }
+  }
+
+  /* Animación reveal al hacer scroll */
+  .reveal {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+  }
+
+  .reveal.active {
+    opacity: 1;
+    transform: translateY(0);
+  }
+</style>
+
+<script>
+  // Animación reveal on scroll
+  const reveals = document.querySelectorAll('.reveal');
+  
+  const revealOnScroll = () => {
+    reveals.forEach(element => {
+      const elementTop = element.getBoundingClientRect().top;
+      const windowHeight = window.innerHeight;
+      
+      if (elementTop < windowHeight - 80) {
+        element.classList.add('active');
+      }
+    });
+  };
+
+  // Initial check
+  revealOnScroll();
+  
+  // On scroll
+  window.addEventListener('scroll', revealOnScroll);
+
+  // Manejo de videos verticales con facade
+  const videoFacades = document.querySelectorAll('.video-facade-container');
+  
+  videoFacades.forEach((facade) => {
+    facade.addEventListener('click', function(this: HTMLElement) {
+      const videoSrc = this.getAttribute('data-video-src');
+      const posterSrc = this.getAttribute('data-poster');
+      
+      // Crear elemento video
+      const videoElement = document.createElement('video');
+      videoElement.src = videoSrc || '';
+      if (posterSrc) {
+        videoElement.poster = posterSrc;
+      }
+      videoElement.controls = true;
+      videoElement.autoplay = true;
+      videoElement.playsInline = true;
+      videoElement.preload = 'auto';
+      videoElement.style.width = '100%';
+      videoElement.style.height = '100%';
+      videoElement.style.objectFit = 'cover';
+      
+      // Reemplazar el facade por el video
+      this.innerHTML = '';
+      this.appendChild(videoElement);
+      this.style.cursor = 'default';
+    });
+  });
+</script>

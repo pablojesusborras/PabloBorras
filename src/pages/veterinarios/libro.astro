@@ -1,0 +1,517 @@
+---
+// pages/veterinarios/libro.astro — Página del libro técnico con FAQ acordeón
+import Layout from '../../layouts/Layout.astro';
+import LibroTecnico from '../../components/veterinarios/LibroTecnico.astro';
+
+const heroDesktop = '/imagenes/heros/libroherodesktop.webp';
+const heroMobile = '/imagenes/heros/libroheromobile.webp';
+---
+
+<Layout
+  title="Manual Práctico de Enfermedades Infecciosas y Parasitarias en el Perro — Pablo Borrás"
+  description="Libro técnico veterinario sobre enfermedades infecciosas y parasitarias en el perro. Autor: Pablo Borrás. Publicado por Multimedica Ediciones Veterinarias. Disponible online."
+>
+  <link slot="head" rel="preload" as="image" href={heroDesktop} media="(min-width: 768px)" fetchpriority="high" />
+  <link slot="head" rel="preload" as="image" href={heroMobile} media="(max-width: 767px)" fetchpriority="high" />
+
+  <section class="page-hero lb-hero relative overflow-hidden">
+    <div class="lb-hero-media pointer-events-none" aria-hidden="true">
+      <picture>
+        <source media="(min-width: 768px)" srcset={heroDesktop} type="image/webp" width="1600" height="900" />
+        <img
+          src={heroMobile}
+          alt=""
+          class="lb-hero-photo"
+          width="900"
+          height="1600"
+          loading="eager"
+          fetchpriority="high"
+          aria-hidden="true"
+        />
+      </picture>
+      <div class="lb-hero-overlay-desktop hidden md:block"></div>
+      <div class="lb-hero-overlay-mobile block md:hidden"></div>
+      <div class="dot-pattern lb-hero-dots"></div>
+    </div>
+
+    <div class="lb-hero-inner max-w-7xl ml-0 px-4 sm:px-6 md:px-12 lg:px-20 w-full min-w-0 relative z-10">
+      <div class="lb-hero-copy relative min-w-0">
+        <div class="lb-hero-radial hidden md:block absolute pointer-events-none" aria-hidden="true"></div>
+
+        <nav class="lb-hero-breadcrumb flex items-center gap-2" aria-label="Breadcrumb">
+          <a href="/veterinarios" class="inline-flex items-center gap-1 transition-colors lb-hero-crumb-link">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M19 12H5M12 19l-7-7 7-7"/>
+            </svg>
+            Para veterinarios
+          </a>
+          <span class="text-white/40">/</span>
+          <span class="text-white/80 font-medium">Libro técnico</span>
+        </nav>
+
+        <div class="hero-badge inline-flex items-center gap-1.5 font-bold uppercase rounded-xl">
+          📚 Exclusivo para profesionales veterinarios
+        </div>
+
+        <div class="lb-hero-title-wrap min-w-0">
+          <div class="lb-hero-bar" aria-hidden="true"></div>
+          <h1 class="hero-title text-white min-w-0">
+            Manual Práctico de Enfermedades Infecciosas y Parasitarias en el Perro
+          </h1>
+        </div>
+
+        <p class="hero-description text-white/90 leading-relaxed">
+          Publicado por Multimedica Ediciones Veterinarias. Herramientas, conocimientos y actualizaciones sobre diferentes enfermedades producidas por virus, bacterias, hongos, protozoarios y helmintos.
+        </p>
+
+        <div class="hero-chips">
+          <span class="hero-chip">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/>
+              <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/>
+            </svg>
+            <span>
+              <span class="hero-chip-label">Enfoque</span>
+              <span class="hero-chip-value">América Latina y Europa</span>
+            </span>
+          </span>
+          <span class="hero-chip">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+              <polyline points="14 2 14 8 20 8"/>
+              <line x1="16" y1="13" x2="8" y2="13"/>
+              <line x1="16" y1="17" x2="8" y2="17"/>
+              <polyline points="10 9 9 9 8 9"/>
+            </svg>
+            <span>
+              <span class="hero-chip-label">Contenido</span>
+              <span class="hero-chip-value">Casos clínicos reales</span>
+            </span>
+          </span>
+          <span class="hero-chip">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/>
+            </svg>
+            <span>
+              <span class="hero-chip-label">Base</span>
+              <span class="hero-chip-value">Evidencia científica</span>
+            </span>
+          </span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <LibroTecnico />
+
+  <section class="lb-faq">
+    <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center lb-faq-heading">
+        <p class="text-xs font-semibold uppercase tracking-widest mb-3" style="color: var(--color-accent); letter-spacing: 0.12em;">
+          ¿Tenés dudas?
+        </p>
+        <h2
+          class="text-3xl md:text-4xl font-bold mb-4"
+          style="font-family: var(--font-display); color: var(--color-text); line-height: 1.2;"
+        >
+          Preguntas frecuentes
+        </h2>
+        <div class="w-20 h-1 mx-auto rounded-full" style="background: linear-gradient(90deg, #1880c9 0%, #0d9488 100%);"></div>
+      </div>
+
+      <div class="space-y-3 md:space-y-4">
+        {[
+          {
+            pregunta: '¿El libro es adecuado para residentes o recién egresados?',
+            respuesta: 'El libro está pensado principalmente para veterinarios en ejercicio que enfrentan casos complejos a diario. Sin embargo, residentes y profesionales en formación de posgrado también encontrarán un material muy valioso para complementar su formación teórica con casos reales y protocolos aplicables.',
+            accent: '#1880c9',
+            wash: 'rgba(24,128,201,0.12)',
+          },
+          {
+            pregunta: '¿Está disponible en formato digital (PDF o eBook)?',
+            respuesta: 'Actualmente el libro se comercializa en una edición impresa de alta calidad. Estamos evaluando una edición digital accesible. Podés dejarnos tu email para recibir novedades sobre disponibilidad.',
+            accent: '#183b7f',
+            wash: 'rgba(24,59,127,0.12)',
+          },
+        ].map((faq) => (
+          <details
+            class="group rounded-2xl overflow-hidden bg-white transition-all lb-faq-item"
+            style={`border-left: 4px solid ${faq.accent};`}
+          >
+            <summary
+              class="flex items-center justify-between px-5 py-4 md:px-6 md:py-5 cursor-pointer font-bold text-sm md:text-base select-none"
+              style="color: var(--color-text); list-style: none;"
+            >
+              <span class="flex-1 pr-4">{faq.pregunta}</span>
+              <div
+                class="w-8 h-8 rounded-full flex items-center justify-center shrink-0"
+                style={`background: ${faq.wash}; color: ${faq.accent};`}
+                aria-hidden="true"
+              >
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="group-open:rotate-45 transition-transform duration-300">
+                  <line x1="12" y1="5" x2="12" y2="19"/>
+                  <line x1="5" y1="12" x2="19" y2="12"/>
+                </svg>
+              </div>
+            </summary>
+            <div
+              class="px-5 py-4 md:px-6 md:py-5 text-sm md:text-base leading-relaxed"
+              style="background: linear-gradient(135deg, rgba(248,250,252,0.5) 0%, white 100%); color: var(--color-text-muted); border-top: 1px solid rgba(0,0,0,0.06);"
+            >
+              {faq.respuesta}
+            </div>
+          </details>
+        ))}
+      </div>
+    </div>
+  </section>
+
+</Layout>
+
+<style>
+  .lb-hero {
+    background: transparent;
+    display: flex;
+    align-items: center;
+    min-height: 62vh;
+    overflow-x: clip;
+  }
+
+  .lb-hero-media {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+  }
+
+  .lb-hero-photo {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: 74% 22%;
+  }
+
+  .lb-hero-overlay-desktop {
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    width: 56%;
+    background: linear-gradient(to right, rgba(3,13,58,0.72) 0%, rgba(3,13,58,0.46) 40%, rgba(3,13,58,0.14) 74%, rgba(3,13,58,0) 100%);
+    z-index: 1;
+  }
+
+  .lb-hero-overlay-mobile {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to bottom, rgba(3,13,58,0) 0%, rgba(3,13,58,0.12) 42%, rgba(3,13,58,0.72) 78%, rgba(3,13,58,0.94) 100%);
+    z-index: 1;
+  }
+
+  .lb-hero-dots {
+    position: absolute;
+    inset: 0;
+    opacity: 0.08;
+    z-index: 2;
+  }
+
+  .lb-hero-copy {
+    max-width: 36rem;
+    width: 100%;
+  }
+
+  .lb-hero-radial {
+    top: 48%;
+    left: 38%;
+    transform: translate(-50%, -50%);
+    width: 130%;
+    height: 130%;
+    background: radial-gradient(ellipse 72% 78% at 32% 50%, rgba(0,0,0,0.48) 0%, rgba(0,0,0,0.22) 46%, transparent 78%);
+    z-index: -1;
+    filter: blur(10px);
+  }
+
+  .lb-hero-inner {
+    padding-top: 3.5rem;
+    padding-bottom: 3.5rem;
+    flex: 1 1 0%;
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+  }
+
+  .lb-hero-copy,
+  .hero-title,
+  .hero-description {
+    overflow-wrap: break-word;
+  }
+
+  .lb-hero-breadcrumb {
+    margin-bottom: 0.85rem;
+    font-size: 0.78rem;
+  }
+
+  .lb-hero-crumb-link {
+    color: #a8d8f0;
+    text-decoration: none;
+    font-weight: 500;
+  }
+
+  .hero-badge {
+    background: rgba(255,255,255,0.15);
+    color: white;
+    border: 1px solid rgba(255,255,255,0.25);
+    letter-spacing: 0.1em;
+    font-size: 0.75rem;
+    line-height: 1.3;
+    padding: 0.625rem 1.25rem;
+    backdrop-filter: blur(12px);
+    text-shadow: 0 2px 12px rgba(0,0,0,0.65);
+    margin-bottom: 0.8rem;
+  }
+
+  .lb-hero-title-wrap {
+    display: grid !important;
+    grid-template-columns: 3px minmax(0px, 1fr);
+    column-gap: 0.85rem;
+    align-items: stretch;
+    width: 100%;
+    margin-bottom: 0.9rem;
+    filter: drop-shadow(0 2px 10px rgba(0,0,0,0.5));
+  }
+
+  .lb-hero-bar {
+    width: 3px;
+    border-radius: 999px;
+    background: linear-gradient(to bottom, #1880c9, #5ba8e0);
+    min-height: 100%;
+  }
+
+  .hero-title {
+    font-family: var(--font-display);
+    font-size: clamp(1.75rem, 2.1vw, 2.35rem);
+    font-weight: 700;
+    line-height: 1.24;
+    text-align: left;
+    color: #fff;
+    width: 100%;
+    max-width: 100%;
+    white-space: normal;
+  }
+
+  .hero-description {
+    max-width: 27.5rem;
+    font-size: 0.98rem;
+    line-height: 1.6;
+    margin-bottom: 1.15rem;
+    text-shadow: 0 2px 10px rgba(0,0,0,0.55);
+    text-align: left;
+  }
+
+  .hero-chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    align-items: stretch;
+  }
+
+  .hero-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    padding: 0.42rem 0.8rem;
+    border-radius: 999px;
+    background: rgba(3,13,58,0.68);
+    color: white;
+    border: 1px solid rgba(255,255,255,0.16);
+    backdrop-filter: blur(6px);
+    box-shadow: 0 2px 10px rgba(0,0,0,0.35);
+  }
+
+  .hero-chip svg {
+    flex-shrink: 0;
+    opacity: 0.85;
+  }
+
+  .hero-chip-label {
+    display: inline;
+    font-size: 0.58rem;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.82);
+    line-height: 1.2;
+  }
+
+  .hero-chip-label::after {
+    content: ' · ';
+    font-weight: 500;
+    letter-spacing: 0;
+    text-transform: none;
+    color: rgba(255,255,255,0.45);
+  }
+
+  .hero-chip-value {
+    display: inline;
+    font-size: 0.72rem;
+    font-weight: 600;
+    line-height: 1.25;
+  }
+
+  .lb-faq {
+    background: linear-gradient(135deg, #f0f9ff 0%, #f8fafc 100%);
+    padding: 3rem 0 3.25rem;
+  }
+
+  .lb-faq-heading {
+    margin-bottom: 1.75rem;
+  }
+
+  .lb-faq-item {
+    box-shadow: 0 3px 16px rgba(0,0,0,0.06);
+  }
+
+  .lb-faq-item[open] {
+    box-shadow: 0 6px 22px rgba(24,59,127,0.10);
+  }
+
+  .lb-faq-item summary {
+    list-style: none;
+  }
+
+  .lb-faq-item summary::-webkit-details-marker {
+    display: none;
+  }
+
+  @media (min-width: 768px) {
+    .page-hero::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 32px;
+      background: linear-gradient(to bottom, transparent, white);
+      z-index: 11;
+      pointer-events: none;
+    }
+
+    .hero-chips {
+      flex-wrap: nowrap;
+    }
+
+    .hero-chip {
+      flex: 1 1 0;
+      min-width: 0;
+      min-height: 2.75rem;
+    }
+
+    .lb-faq {
+      padding: 3.75rem 0 4.25rem;
+    }
+
+    .lb-faq-heading {
+      margin-bottom: 1.85rem;
+    }
+  }
+
+  @media (max-width: 767px) {
+    .lb-hero {
+      align-items: flex-end;
+      min-height: 0;
+      height: auto;
+      padding-bottom: 2rem;
+    }
+
+    .lb-hero-photo {
+      object-position: center 10%;
+    }
+
+    .lb-hero-overlay-mobile {
+      background: linear-gradient(to bottom, rgba(3,13,58,0) 0%, rgba(3,13,58,0) 28%, rgba(3,13,58,0.50) 50%, rgba(3,13,58,0.80) 75%, rgba(3,13,58,0.90) 100%);
+    }
+
+    .lb-hero-inner {
+      margin-left: 0;
+      margin-right: auto;
+      padding-top: 5rem;
+      padding-bottom: 0.5rem;
+    }
+
+    .lb-hero-copy {
+      max-width: 100%;
+    }
+
+    .lb-hero-breadcrumb {
+      font-size: 0.68rem;
+      margin-bottom: 0.55rem;
+      flex-wrap: wrap;
+      white-space: normal;
+    }
+
+    .hero-badge {
+      font-size: 0.65rem;
+      padding: 0.4rem 0.85rem;
+      letter-spacing: 0.08em;
+      line-height: 1.3;
+      margin-bottom: 0.55rem;
+      max-width: 100%;
+    }
+
+    .lb-hero-title-wrap {
+      column-gap: 0.6rem;
+      margin-bottom: 0.7rem;
+      filter: none;
+    }
+
+    .hero-title {
+      font-size: clamp(1.22rem, 5.4vw, 1.5rem);
+      line-height: 1.28;
+      overflow-wrap: break-word;
+    }
+
+    .hero-description {
+      max-width: 100%;
+      font-size: clamp(0.84rem, 3.5vw, 0.94rem);
+      line-height: 1.55;
+      margin-bottom: 0.85rem;
+      text-shadow: none;
+    }
+
+    .hero-chips {
+      flex-direction: row;
+      flex-wrap: wrap;
+      align-items: flex-start;
+      justify-content: flex-start;
+      gap: 0.4rem;
+    }
+
+    .hero-chip {
+      width: auto;
+      padding: 0.28rem 0.6rem;
+      gap: 0.35rem;
+      border-radius: 999px;
+    }
+
+    .hero-chip svg {
+      width: 10px;
+      height: 10px;
+    }
+
+    .hero-chip-label {
+      font-size: 0.5rem;
+    }
+
+    .hero-chip-value {
+      font-size: 0.64rem;
+    }
+
+    .hero-title,
+    .hero-description,
+    .hero-badge {
+      text-shadow: none;
+    }
+  }
+</style>

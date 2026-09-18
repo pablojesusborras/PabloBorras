@@ -1,0 +1,231 @@
+﻿---
+// GaleriaCongresos.astro — Galería de fotos con overlay hover
+import SectionTitle from '../ui/SectionTitle.astro';
+
+const congresos = [
+  {
+    foto: '/imagenes/congresos/ecvim-maastricht-2025.webp',
+    evento: 'ECVIM-CA 35th Annual Congress',
+    lugar: 'Maastricht, Países Bajos',
+    año: '2025',
+    rol: 'Póster científico',
+    rolColor: 'blue',
+  },
+  {
+    foto: '/imagenes/congresos/waavp-curitiba-2025.webp',
+    evento: 'WAAVP 2025',
+    lugar: 'Curitiba, Brasil',
+    año: '2025',
+    rol: 'Presentación científica',
+    rolColor: 'blue',
+  },
+  {
+    foto: '/imagenes/congresos/aveaca-buenos-aires-2025.webp',
+    evento: 'Congreso AVEACA 2025',
+    lugar: 'Buenos Aires, Argentina',
+    año: '2025',
+    rol: '2° Premio mejor caso clínico',
+    rolColor: 'gold',
+  },
+  {
+    foto: '/imagenes/congresos/cvdl-guayaquil-2025.webp',
+    evento: 'Congreso Veterinario de León — Guayaquil',
+    lugar: 'Guayaquil, Ecuador',
+    año: '2025',
+    rol: 'Ponente',
+    rolColor: 'blue',
+  },
+  {
+    foto: '/imagenes/congresos/civi-iguazu-2025.webp',
+    evento: 'CIVI Congreso Veterinario',
+    lugar: 'Iguazú, Argentina',
+    año: '2025',
+    rol: 'Ponente invitado',
+    rolColor: 'blue',
+  },
+  {
+    foto: '/imagenes/congresos/idexx-asuncion-2025.webp',
+    evento: 'Lanzamiento SNAP Tests IDEXX',
+    lugar: 'Asunción, Paraguay',
+    año: '2025',
+    rol: 'Speaker oficial',
+    rolColor: 'blue',
+  },
+  {
+    foto: '/imagenes/congresos/hospital-muniz-2025.webp',
+    evento: 'X Congreso Hospital Muñiz',
+    lugar: 'Buenos Aires, Argentina',
+    año: '2025',
+    rol: 'Disertante',
+    rolColor: 'blue',
+  },
+  {
+    foto: '/imagenes/congresos/medellin-colombia-2025.webp',
+    evento: 'Jornada de Infectología — Universidad Cooperativa',
+    lugar: 'Medellín, Colombia',
+    año: '2025',
+    rol: 'Ponente',
+    rolColor: 'blue',
+  },
+  {
+    foto: '/imagenes/congresos/mendoza-2025.webp',
+    evento: 'Taller Enfermedades Vectoriales — ForVet',
+    lugar: 'Mendoza, Argentina',
+    año: '2025',
+    rol: 'Docente',
+    rolColor: 'blue',
+  },
+];
+
+const rolChipStyle = {
+  blue: 'background: rgba(24,128,201,0.35); color: #5ba8e0; border: 1px solid rgba(24,128,201,0.45);',
+  gold: 'background: rgba(252,211,77,0.20); color: #FCD34D; border: 1px solid rgba(252,211,77,0.40);',
+};
+---
+
+<section class="py-16 md:py-20 bg-white">
+  <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+
+    <SectionTitle
+      title="Presencia internacional"
+      subtitle="Congresos y eventos"
+    />
+
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+      {congresos.map((congreso, i) => (
+        <div
+          class="congreso-card reveal"
+          style={`transition-delay: ${(i % 3) * 0.1}s;`}
+        >
+          <!-- Imagen fullsize -->
+          <img
+            src={congreso.foto}
+            alt={`${congreso.evento} — ${congreso.lugar}`}
+            class="congreso-img"
+            loading="lazy"
+            decoding="async"
+            width="400"
+            height="300"
+          />
+
+          <!-- Badge año — siempre visible -->
+          <span class="year-badge">{congreso.año}</span>
+
+          <!-- Overlay con info — aparece al hover -->
+          <div class="congreso-overlay-info">
+            <p class="congreso-overlay-title">{congreso.evento}</p>
+            <p class="congreso-overlay-lugar">📍 {congreso.lugar}</p>
+            <span
+              class="congreso-rol-chip"
+              style={rolChipStyle[congreso.rolColor] || rolChipStyle.blue}
+            >
+              {congreso.rol}
+            </span>
+          </div>
+        </div>
+      ))}
+    </div>
+
+  </div>
+</section>
+
+<style>
+  /* ── Card contenedor ── */
+  .congreso-card {
+    position: relative;
+    border-radius: 14px;
+    overflow: hidden;
+    aspect-ratio: 4 / 3;
+    background: var(--color-primary);
+    box-shadow: 0 2px 16px rgba(0, 0, 0, 0.10);
+    transition: box-shadow 0.3s ease;
+  }
+  .congreso-card:hover {
+    box-shadow: 0 16px 48px rgba(0, 0, 0, 0.20);
+  }
+
+  /* ── Imagen ── */
+  .congreso-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.45s ease;
+  }
+  .congreso-card:hover .congreso-img {
+    transform: scale(1.07);
+  }
+
+  /* ── Badge año ── */
+  .year-badge {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: rgba(4, 13, 78, 0.82);
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+    color: #fff;
+    font-size: 10px;
+    font-weight: 700;
+    padding: 3px 10px;
+    border-radius: 20px;
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    letter-spacing: 0.04em;
+  }
+
+  /* ── Overlay info — slide desde abajo ── */
+  .congreso-overlay-info {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 28px 16px 16px;
+    background: linear-gradient(
+      to top,
+      rgba(2, 6, 35, 0.94) 0%,
+      rgba(2, 6, 35, 0.65) 55%,
+      transparent 100%
+    );
+    transform: translateY(30px);
+    opacity: 0;
+    transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1),
+                opacity 0.35s ease;
+  }
+  .congreso-card:hover .congreso-overlay-info {
+    transform: translateY(0);
+    opacity: 1;
+  }
+
+  /* ── Textos del overlay ── */
+  .congreso-overlay-title {
+    font-size: 13px;
+    font-weight: 700;
+    color: #fff;
+    margin: 0 0 4px;
+    line-height: 1.3;
+    font-family: var(--font-display);
+  }
+  .congreso-overlay-lugar {
+    font-size: 11px;
+    color: rgba(255, 255, 255, 0.65);
+    margin: 0 0 10px;
+  }
+
+  /* ── Chip de rol ── */
+  .congreso-rol-chip {
+    display: inline-block;
+    padding: 3px 10px;
+    border-radius: 6px;
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+  }
+
+  /* ── Mobile: overlay siempre visible (no hay hover en touch) ── */
+  @media (max-width: 768px) {
+    .congreso-overlay-info {
+      transform: translateY(0);
+      opacity: 1;
+    }
+  }
+</style>
