@@ -3,6 +3,7 @@
 import Header from '../components/layout/Header.astro';
 import Footer from '../components/layout/Footer.astro';
 import '../styles/global.css';
+import { SITE_CONFIG } from '../config/site';
 
 interface Props {
   title: string;
@@ -22,15 +23,26 @@ const {
   heroImage,
 } = Astro.props;
 
-const SITE_URL = 'https://demo-pablo-borras.vercel.app';
-const canonicalURL = new URL(Astro.url.pathname, SITE_URL).href;
-const ogImage = new URL(image, SITE_URL).href;
+const SITE_URL = SITE_CONFIG.url;
+// Canonical sin barra final (excepto la home que es solo /)
+const pathname = Astro.url.pathname === '/' ? '/' : Astro.url.pathname.replace(/\/$/, '');
+const canonicalURL = `${SITE_URL}${pathname}`;
+
+const ogImage = `${SITE_URL}${image}`;
 const fullTitle = title.includes('Pablo Borrás') ? title : `${title} | Pablo Borrás`;
 
 // Solo precargar imágenes del Hero en páginas que lo usan
-const currentPath = Astro.url.pathname;
+const currentPath = Astro.url.pathname.replace(/\/$/, '') || '/';
 const hasHero = currentPath === '/';
 const hasSobrePabloHero = currentPath === '/sobre-pablo';
+
+// Identificador único de la entidad Person para el grafo JSON-LD
+const personId = `${SITE_URL}#pablo-borras`;
+
+// Determinar qué schema renderizar según la página
+const isHomePage = currentPath === '/';
+const isSobrePabloPage = currentPath === '/sobre-pablo';
+const isLibroPage = currentPath === '/veterinarios/libro';
 ---
 
 <!DOCTYPE html>
@@ -42,7 +54,7 @@ const hasSobrePabloHero = currentPath === '/sobre-pablo';
     <!-- SEO básico -->
     <title>{fullTitle}</title>
     <meta name="description" content={description} />
-    <meta name="author" content="Pablo Jesús Borrás" />
+    <meta name="author" content={SITE_CONFIG.fullName} />
     <meta name="robots" content={noindex ? 'noindex, nofollow' : 'index, follow'} />
     <link rel="canonical" href={canonicalURL} />
 
@@ -64,8 +76,6 @@ const hasSobrePabloHero = currentPath === '/sobre-pablo';
 
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:site" content="@pablojborras" />
-    <meta name="twitter:creator" content="@pablojborras" />
     <meta name="twitter:title" content={fullTitle} />
     <meta name="twitter:description" content={description} />
     <meta name="twitter:image" content={ogImage} />
@@ -103,93 +113,101 @@ const hasSobrePabloHero = currentPath === '/sobre-pablo';
     )}
     {heroImage && <link rel="preload" as="image" href={heroImage} fetchpriority="high" />}
 
-    {/* TODO: crear imagen OG 1200x630px en /public/og/og-pablo-borras.jpg
-        Debe incluir: foto de Pablo + nombre + título profesional + fondo oscuro con acento verde.
-        Herramienta sugerida: Canva o cualquier editor de imágenes. */}
+    <!-- Google Search Console Verification (solo si está configurado) -->
+    {import.meta.env.PUBLIC_GSC_VERIFICATION && (
+      <meta name="google-site-verification" content={import.meta.env.PUBLIC_GSC_VERIFICATION} />
+    )}
 
-    <!-- Google Analytics 4 — TODO: reemplazar G-XXXXXXXXXX con el ID real -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-      gtag('config', 'G-XXXXXXXXXX');
-    </script>
+    <!-- Google Analytics 4 (solo si está configurado) -->
+    {import.meta.env.PUBLIC_GA4_ID && (
+      <>
+        <script async src={`https://www.googletagmanager.com/gtag/js?id=${import.meta.env.PUBLIC_GA4_ID}`}></script>
+        <script define:vars={{ ga4Id: import.meta.env.PUBLIC_GA4_ID }}>
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+          gtag('config', ga4Id);
+        </script>
+      </>
+    )}
 
-    <!-- JSON-LD — Schema.org Person -->
-    <script type="application/ld+json">
-    {
+    <!-- JSON-LD — Schema.org -->
+    <script type="application/ld+json" set:html={JSON.stringify({
       "@context": "https://schema.org",
-      "@type": "Person",
-      "name": "Pablo Jesús Borrás",
-      "alternateName": "Pablo Borrás",
-      "jobTitle": "Médico Veterinario, Especialista en Enfermedades Infecciosas y Parasitarias",
-      "description": "Especialista en enfermedades infecciosas y parasitarias de perros y gatos. Magíster en Prevención y Control de Zoonosis (UNNOBA-ANLIS). Editor asociado de Parasites and Vectors (Springer Nature). Speaker internacional y autor. Buenos Aires, Argentina.",
-      "url": "https://www.pabloborras.com",
-      "image": "https://www.pabloborras.com/imagenes/perfil/pablo1.jpg",
-      "sameAs": [
-        "https://www.instagram.com/pablojborras",
-        "https://www.linkedin.com/in/pablojborras",
-        "https://www.youtube.com",
-        "https://www.troccap.com",
-        "https://www.abcdcatsvets.org",
-        "https://www.iscaid.org",
-        "https://link.springer.com/journal/13071"
-      ],
-      "address": {
-        "@type": "PostalAddress",
-        "addressLocality": "Buenos Aires",
-        "addressCountry": "AR"
-      },
-      "alumniOf": [
+      "@graph": [
+        // WebSite - En todas las páginas
         {
-          "@type": "CollegeOrUniversity",
-          "name": "Universidad de Buenos Aires",
-          "address": { "@type": "PostalAddress", "addressCountry": "AR" }
+          "@type": "WebSite",
+          "@id": `${SITE_URL}#website`,
+          "url": SITE_URL,
+          "name": SITE_CONFIG.name,
+          "inLanguage": "es-AR",
+          "publisher": { "@id": personId },
         },
+        // Person - Entidad principal en todas las páginas
         {
-          "@type": "CollegeOrUniversity",
-          "name": "UNNOBA - ANLIS",
-          "address": { "@type": "PostalAddress", "addressCountry": "AR" }
+          "@type": "Person",
+          "@id": personId,
+          "name": SITE_CONFIG.fullName,
+          "alternateName": SITE_CONFIG.alternateNames,
+          "url": SITE_URL,
+          "image": `${SITE_URL}${SITE_CONFIG.profileImage}`,
+          "jobTitle": SITE_CONFIG.jobTitle,
+          "description": SITE_CONFIG.description,
+          "nationality": {
+            "@type": "Country",
+            "name": SITE_CONFIG.location.country,
+          },
+          "workLocation": {
+            "@type": "Place",
+            "address": {
+              "@type": "PostalAddress",
+              "addressLocality": SITE_CONFIG.location.city,
+              "addressCountry": SITE_CONFIG.location.countryCode,
+            },
+          },
+          "sameAs": SITE_CONFIG.socialProfiles,
+          "alumniOf": SITE_CONFIG.alumniOf.map(school => ({
+            "@type": "CollegeOrUniversity",
+            "name": school.name,
+            "address": { "@type": "PostalAddress", "addressCountry": school.country },
+          })),
+          "memberOf": SITE_CONFIG.memberOf.map(org => ({
+            "@type": "Organization",
+            "name": org.name,
+            "url": org.url,
+          })),
+          "knowsAbout": SITE_CONFIG.expertise,
+          "hasOccupation": {
+            "@type": "Occupation",
+            "name": "Médico Veterinario Especialista",
+          },
         },
-        {
-          "@type": "CollegeOrUniversity",
-          "name": "Universidad Autónoma de Barcelona",
-          "address": { "@type": "PostalAddress", "addressCountry": "ES" }
-        }
+        // ProfilePage - Solo en /sobre-pablo
+        ...(isSobrePabloPage ? [{
+          "@type": "ProfilePage",
+          "@id": `${SITE_URL}/sobre-pablo#profilepage`,
+          "mainEntity": { "@id": personId },
+          "url": `${SITE_URL}/sobre-pablo`,
+          "name": `Sobre ${SITE_CONFIG.fullName}`,
+          "inLanguage": "es-AR",
+          "isPartOf": { "@id": `${SITE_URL}#website` },
+        }] : []),
+        // Book - Solo en /veterinarios/libro
+        ...(isLibroPage ? SITE_CONFIG.books.map((book, index) => ({
+          "@type": "Book",
+          "@id": `${SITE_URL}#book-${index}`,
+          "name": book.name,
+          "author": { "@id": personId },
+          "publisher": {
+            "@type": "Organization",
+            "name": book.publisher,
+          },
+          "url": book.urls[0],
+          ...(book.urls.length > 1 && { "sameAs": book.urls.slice(1) }),
+        })) : []),
       ],
-      "memberOf": [
-        { "@type": "Organization", "name": "TroCCAP", "url": "https://www.troccap.com" },
-        { "@type": "Organization", "name": "ISCAID", "url": "https://www.iscaid.org" },
-        { "@type": "Organization", "name": "ABCD cats & vets Europe", "url": "https://www.abcdcatsvets.org" }
-      ],
-      "knowsAbout": [
-        "Enfermedades infecciosas en perros y gatos",
-        "Parasitología veterinaria",
-        "Infectología canina y felina",
-        "Enfermedades vectoriales",
-        "Zoonosis",
-        "Medicina interna veterinaria"
-      ],
-      "hasOccupation": {
-        "@type": "Occupation",
-        "name": "Médico Veterinario Especialista",
-        "occupationLocation": {
-          "@type": "Country",
-          "name": "Argentina"
-        }
-      },
-      "author": {
-        "@type": "Book",
-        "name": "Manual Práctico de Enfermedades Infecciosas y Parasitarias en el Perro",
-        "url": "https://libros-veterinaria.multimedica.es/parasitologia/472-manual-practico-de-enfermedades-infecciosas-y-parasitarias-del-perro.html",
-        "publisher": {
-          "@type": "Organization",
-          "name": "Multimedica Ediciones Veterinarias"
-        }
-      }
-    }
-    </script>
+    })} />
 
     <!-- Slot para preloads y meta tags adicionales desde páginas específicas -->
     <slot name="head" />

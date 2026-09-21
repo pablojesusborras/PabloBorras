@@ -1,8 +1,11 @@
 // src/pages/sitemap.xml.ts
-const SITE_URL = 'https://demo-pablo-borras.vercel.app';
+import { SITE_CONFIG } from '../config/site';
+
+const SITE_URL = SITE_CONFIG.url;
 
 const pages = [
   { url: '/',                            priority: '1.0', changefreq: 'weekly'  },
+  { url: '/sobre-pablo',                 priority: '0.9', changefreq: 'monthly' },
   { url: '/tutores',                     priority: '0.8', changefreq: 'monthly' },
   { url: '/veterinarios',                priority: '0.9', changefreq: 'monthly' },
   { url: '/veterinarios/interconsultas', priority: '0.8', changefreq: 'monthly' },
@@ -12,6 +15,8 @@ const pages = [
   { url: '/eventos',                     priority: '0.8', changefreq: 'weekly'  },
   { url: '/videos',                      priority: '0.6', changefreq: 'weekly'  },
   { url: '/contacto',                    priority: '0.6', changefreq: 'monthly' },
+  { url: '/terminos',                    priority: '0.3', changefreq: 'yearly'  },
+  { url: '/privacidad',                  priority: '0.3', changefreq: 'yearly'  },
 ];
 
 export async function GET() {

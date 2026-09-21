@@ -14,4 +14,4 @@ Allow: /
 User-agent: WhatsApp
 Allow: /
 
-Sitemap: https://demo-pablo-borras.vercel.app/sitemap.xml
+Sitemap: https://www.pablojborras.com/sitemap.xml

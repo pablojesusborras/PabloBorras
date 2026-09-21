@@ -1,7 +1,7 @@
 # Pablo Borrás — Sitio web profesional
 
 Stack: **Astro 4.x + Tailwind CSS + React Islands**  
-Deploy: Vercel — [demo-pablo-borras.vercel.app](https://demo-pablo-borras.vercel.app)
+Deploy: Vercel — [www.pablojborras.com](https://www.pablojborras.com)
 
 ## 🧞 Comandos
 
@@ -28,7 +28,6 @@ Todos los comandos se ejecutan desde la raíz del proyecto:
 
 ### 🟡 Configuración de deploy
 - [ ] Configurar dominio personalizado en Vercel
-- [ ] Actualizar `SITE_URL` en `src/layouts/Layout.astro` con dominio real
 - [ ] Conectar Sanity CMS para eventos dinámicos (ver [sanity/INSTRUCCIONES-SANITY.md](sanity/INSTRUCCIONES-SANITY.md))
 
 ## 🎨 Configurar Sanity CMS (Opcional pero recomendado)
