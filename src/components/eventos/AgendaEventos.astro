@@ -1,9 +1,12 @@
 ---
 // AgendaEventos.astro — Agenda completa con timeline vertical y separación por estado
-import { eventos } from '../../data/eventos.js';
+import { getEventos } from '../../lib/sanity.client.js';
 import SectionTitle from '../ui/SectionTitle.astro';
 import Badge from '../ui/Badge.astro';
 import Button from '../ui/Button.astro';
+
+// Obtener todos los eventos
+const todosEventos = await getEventos();
 
 // Colores por tipo de evento
 const tipoColor = {
@@ -15,7 +18,7 @@ const tipoColor = {
 
 // Ordenar por fecha ascendente
 const hoy = new Date();
-const sorted = [...eventos].sort((a, b) => new Date(a.fecha) - new Date(b.fecha));
+const sorted = [...todosEventos].sort((a, b) => new Date(a.fecha) - new Date(b.fecha));
 
 // Separar próximos vs pasados
 const proximos = sorted.filter(e => new Date(e.fecha + 'T12:00:00') >= hoy);

@@ -1,16 +1,17 @@
 ﻿---
 // EventosDestacados.astro — Próximos 2 eventos más cercanos destacados en home
-import { eventos } from '../../data/eventos.js';
+import { getEventos } from '../../lib/sanity.client.js';
 import SectionTitle from '../ui/SectionTitle.astro';
 import Badge from '../ui/Badge.astro';
 import Button from '../ui/Button.astro';
 
-// Ordenar por fecha y tomar los 2 próximos eventos futuros (o más recientes si todos son pasados)
+// Obtener todos los eventos y ordenar por fecha
+const todosEventos = await getEventos();
 const hoy = new Date();
-const sorted = [...eventos].sort((a, b) => new Date(a.fecha) - new Date(b.fecha));
+const sorted = [...todosEventos].sort((a, b) => new Date(a.fecha) - new Date(b.fecha));
 const proximos = sorted.filter(e => new Date(e.fecha) >= hoy).slice(0, 2);
 const hayFuturos = proximos.length > 0;
-const destacados = hayFuturos ? proximos : [...eventos].sort((a, b) => new Date(b.fecha) - new Date(a.fecha)).slice(0, 2);
+const destacados = hayFuturos ? proximos : [...todosEventos].sort((a, b) => new Date(b.fecha) - new Date(a.fecha)).slice(0, 2);
 const tituloSeccion = 'Próximos eventos';
 const subtituloSeccion = 'Próximos eventos';
 

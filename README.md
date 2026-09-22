@@ -17,7 +17,7 @@ Todos los comandos se ejecutan desde la raíz del proyecto:
 ## ✅ Checklist antes de salir a producción
 
 ### 🔴 Requiere datos del cliente
-- [ ] Reemplazar `REEMPLAZAR_CON_API_KEY_WEB3FORMS` en `src/components/contacto/FormularioContacto.jsx`
+- [ ] Configurar `PUBLIC_WEB3FORMS_ACCESS_KEY` en `.env` y en variables de Vercel
 - [ ] Reemplazar `REEMPLAZAR_VIDEO_1/2/3` con IDs reales de YouTube en `src/data/videos.js`
 - [ ] Subir `/public/imagenes/libro/tapa-libro.jpg` (portada real del libro)
 - [ ] Subir `/public/og/og-pablo-borras.jpg` (1200x630px para compartir en redes)

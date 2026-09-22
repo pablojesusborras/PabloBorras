@@ -9,8 +9,8 @@ const TABS = [
   { id: 'empresas',       label: 'Empresas'         },
 ];
 
-// TODO: reemplazar con la API Key real de Web3Forms
-const ACCESS_KEY = 'REEMPLAZAR_CON_API_KEY_WEB3FORMS';
+// Access Key de Web3Forms desde variable de entorno
+const ACCESS_KEY = import.meta.env.PUBLIC_WEB3FORMS_ACCESS_KEY;
 
 // ─── Estilos comunes ──────────────────────────────────────────────────────────
 const inputStyle = {
