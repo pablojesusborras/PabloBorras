@@ -134,33 +134,33 @@ function FormInterconsultas() {
 
       <div className="form-grid-2">
         <Field label="Nombre completo" required>
-          <Input name="nombre" required placeholder="Dra. María González" />
+          <Input name="from_name" required placeholder="Dra. María González" />
         </Field>
         <Field label="Email profesional" required>
-          <Input type="email" name="email" required placeholder="hola@clinica.com" />
+          <Input type="email" name="reply_to" required placeholder="hola@clinica.com" />
         </Field>
       </div>
 
       <div className="form-grid-2">
         <Field label="Teléfono">
-          <Input type="tel" name="telefono" placeholder="+54 11 0000-0000" />
+          <Input type="tel" name="Teléfono" placeholder="+54 11 0000-0000" />
         </Field>
         <Field label="Especie del paciente">
-          <Select name="especie" options={['Perro', 'Gato', 'Ave', 'Exótico', 'Otro']} />
+          <Select name="Especie del paciente" options={['Perro', 'Gato', 'Ave', 'Exótico', 'Otro']} />
         </Field>
       </div>
 
       <div className="form-grid-2">
         <Field label="Área clínica">
-          <Select name="tipo_caso" options={['Enfermedades vectoriales','Infectología canina','Infectología felina','Zoonosis','Parasitología con diagnóstico molecular','Casos complejos sin diagnóstico','Otro']} />
+          <Select name="Área clínica" options={['Enfermedades vectoriales','Infectología canina','Infectología felina','Zoonosis','Parasitología con diagnóstico molecular','Casos complejos sin diagnóstico','Otro']} />
         </Field>
         <Field label="Urgencia">
-          <Select name="urgencia" options={['Rutina','Moderada','Alta']} />
+          <Select name="Urgencia" options={['Rutina','Moderada','Alta']} />
         </Field>
       </div>
 
       <Field label="Descripción del caso" required>
-        <Textarea name="motivo" required placeholder="Describirme el caso clínico con el mayor detalle posible: signos, evolución, estudios previos..." rows={5} />
+        <Textarea name="Descripción del caso" required placeholder="Describirme el caso clínico con el mayor detalle posible: signos, evolución, estudios previos..." rows={5} />
       </Field>
     </>
   );
@@ -171,28 +171,28 @@ function FormCapacitaciones() {
     <>
       <div className="form-grid-2">
         <Field label="Nombre completo" required>
-          <Input name="nombre" required placeholder="Dr. Juan Pérez" />
+          <Input name="from_name" required placeholder="Dr. Juan Pérez" />
         </Field>
         <Field label="Email" required>
-          <Input type="email" name="email" required placeholder="juan@clinica.com" />
+          <Input type="email" name="reply_to" required placeholder="juan@clinica.com" />
         </Field>
       </div>
 
       <Field label="Institución u organización">
-        <Input name="institucion" placeholder="Clínica / Universidad / Empresa" />
+        <Input name="Institución u organización" placeholder="Clínica / Universidad / Empresa" />
       </Field>
 
       <div className="form-grid-2">
         <Field label="Tipo de capacitación">
-          <Select name="tipo_capacitacion" options={['Charla','Workshop','Jornada','Congreso','Online','A definir']} />
+          <Select name="Tipo de capacitación" options={['Charla','Workshop','Jornada','Congreso','Online','A definir']} />
         </Field>
         <Field label="Cantidad de personas">
-          <Select name="cantidad_personas" options={['1-10','10-30','30-100','+100']} />
+          <Select name="Cantidad de personas" options={['1-10','10-30','30-100','+100']} />
         </Field>
       </div>
 
       <Field label="Mensaje adicional">
-        <Textarea name="mensaje" placeholder="Contame más sobre lo que necesitás, fechas tentativas, temática..." />
+        <Textarea name="Mensaje adicional" placeholder="Contame más sobre lo que necesitás, fechas tentativas, temática..." />
       </Field>
     </>
   );
@@ -203,32 +203,32 @@ function FormEventos() {
     <>
       <div className="form-grid-2">
         <Field label="Nombre completo" required>
-          <Input name="nombre" required placeholder="Lic. Ana Torres" />
+          <Input name="from_name" required placeholder="Lic. Ana Torres" />
         </Field>
         <Field label="Email" required>
-          <Input type="email" name="email" required placeholder="ana@congreso.com" />
+          <Input type="email" name="reply_to" required placeholder="ana@congreso.com" />
         </Field>
       </div>
 
       <Field label="Institución u organizador" required>
-        <Input name="institucion" required placeholder="Asociación / Congreso / Empresa" />
+        <Input name="Institución u organizador" required placeholder="Asociación / Congreso / Empresa" />
       </Field>
 
       <div className="form-grid-2">
         <Field label="Tipo de evento">
-          <Select name="tipo_evento" options={['Congreso','Simposio','Jornada','Charla corporativa','Otro']} />
+          <Select name="Tipo de evento" options={['Congreso','Simposio','Jornada','Charla corporativa','Otro']} />
         </Field>
         <Field label="Fecha tentativa">
-          <Input type="date" name="fecha_tentativa" />
+          <Input type="date" name="Fecha tentativa" />
         </Field>
       </div>
 
       <Field label="Ciudad">
-        <Input name="ciudad" placeholder="Buenos Aires, Córdoba, Rosario..." />
+        <Input name="Ciudad" placeholder="Buenos Aires, Córdoba, Rosario..." />
       </Field>
 
       <Field label="Mensaje o detalles del evento">
-        <Textarea name="mensaje" placeholder="Contame sobre el evento, número de asistentes, temática..." />
+        <Textarea name="Mensaje o detalles del evento" placeholder="Contame sobre el evento, número de asistentes, temática..." />
       </Field>
     </>
   );
@@ -239,28 +239,28 @@ function FormEmpresas() {
     <>
       <div className="form-grid-2">
         <Field label="Nombre completo" required>
-          <Input name="nombre" required placeholder="Martín García" />
+          <Input name="from_name" required placeholder="Martín García" />
         </Field>
         <Field label="Email" required>
-          <Input type="email" name="email" required placeholder="martin@empresa.com" />
+          <Input type="email" name="reply_to" required placeholder="martin@empresa.com" />
         </Field>
       </div>
 
       <div className="form-grid-2">
         <Field label="Empresa" required>
-          <Input name="empresa" required placeholder="Nombre de la empresa" />
+          <Input name="Empresa" required placeholder="Nombre de la empresa" />
         </Field>
         <Field label="Cargo / Rol">
-          <Input name="cargo" placeholder="Gerente de Marketing, Director..." />
+          <Input name="Cargo / Rol" placeholder="Gerente de Marketing, Director..." />
         </Field>
       </div>
 
       <Field label="Tipo de proyecto">
-        <Select name="tipo_proyecto" options={['Capacitación','Contenido','Consultoría','Colaboración','Otro']} />
+        <Select name="Tipo de proyecto" options={['Capacitación','Contenido','Consultoría','Colaboración','Otro']} />
       </Field>
 
       <Field label="Mensaje" required>
-        <Textarea name="mensaje" required placeholder="Describime brevemente tu proyecto y cómo podría colaborar Pablo..." rows={5} />
+        <Textarea name="Mensaje" required placeholder="Describime brevemente tu proyecto y cómo podría colaborar Pablo..." rows={5} />
       </Field>
     </>
   );
@@ -304,8 +304,14 @@ export default function FormularioContacto({ initialTab = 'interconsultas' } = {
     setStatus('loading');
 
     const formData = new FormData(e.target);
+    
+    // Construir subject con label legible y nombre del remitente
+    const tabLabel = TABS.find(t => t.id === activeTab)?.label || activeTab;
+    const fromName = formData.get('from_name') || 'Sin nombre';
+    const firstName = fromName.split(' ')[0]; // Primer nombre para el subject
+    
     formData.append('access_key', ACCESS_KEY);
-    formData.append('subject', `[PabloBorras.com] Consulta: ${activeTab}`);
+    formData.append('subject', `[pablojborras.com] ${tabLabel} — ${firstName}`);
 
     try {
       const res = await fetch('https://api.web3forms.com/submit', {
@@ -395,7 +401,7 @@ export default function FormularioContacto({ initialTab = 'interconsultas' } = {
             background: '#FEE2E2', color: '#991B1B',
             marginBottom: '20px', fontSize: '14px', fontWeight: 500,
           }}>
-            ❌ Hubo un error. Intentá nuevamente.
+            ❌ Hubo un error al enviar el formulario. Intentá nuevamente o escribí directamente a consultas.borras@gmail.com
           </div>
         )}
 
