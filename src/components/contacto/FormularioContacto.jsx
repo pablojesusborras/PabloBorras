@@ -45,13 +45,16 @@ function Field({ label, required, children }) {
   );
 }
 
-function Input({ type = 'text', name, required, placeholder }) {
+function Input({ type = 'text', name, required, placeholder, pattern, title, min }) {
   return (
     <input
       type={type}
       name={name}
       required={required}
       placeholder={placeholder}
+      pattern={pattern}
+      title={title}
+      min={min}
       style={inputStyle}
       onFocus={e => (e.target.style.borderColor = 'var(--color-accent)')}
       onBlur={e => (e.target.style.borderColor = '#E5E7EB')}
@@ -77,7 +80,7 @@ function Select({ name, required, options }) {
         onFocus={e => (e.target.style.borderColor = 'var(--color-accent)')}
         onBlur={e => (e.target.style.borderColor = '#E5E7EB')}
       >
-        <option value="" style={{ color: '#9CA3AF' }}>Seleccioná una opción</option>
+        <option value="" disabled selected style={{ color: '#9CA3AF' }}>Seleccioná una opción</option>
         {options.map(opt => (
           <option key={opt} value={opt}>{opt}</option>
         ))}
@@ -106,13 +109,15 @@ function Select({ name, required, options }) {
   );
 }
 
-function Textarea({ name, required, placeholder, rows = 4 }) {
+function Textarea({ name, required, placeholder, rows = 4, minLength, title }) {
   return (
     <textarea
       name={name}
       required={required}
       placeholder={placeholder}
       rows={rows}
+      minLength={minLength}
+      title={title}
       style={{ ...inputStyle, resize: 'vertical', lineHeight: '1.5' }}
       onFocus={e => (e.target.style.borderColor = 'var(--color-accent)')}
       onBlur={e => (e.target.style.borderColor = '#E5E7EB')}
@@ -143,7 +148,13 @@ function FormInterconsultas() {
 
       <div className="form-grid-2">
         <Field label="Teléfono">
-          <Input type="tel" name="Teléfono" placeholder="+54 11 0000-0000" />
+          <Input 
+            type="tel" 
+            name="Teléfono" 
+            placeholder="+54 11 0000-0000"
+            pattern="[0-9\s\-\(\)\+]{8,}"
+            title="Ingresá un número de teléfono válido (mínimo 8 caracteres, solo números, espacios, guiones, paréntesis y +)"
+          />
         </Field>
         <Field label="Especie del paciente">
           <Select name="Especie del paciente" options={['Perro', 'Gato', 'Ave', 'Exótico', 'Otro']} />
@@ -160,7 +171,14 @@ function FormInterconsultas() {
       </div>
 
       <Field label="Descripción del caso" required>
-        <Textarea name="Descripción del caso" required placeholder="Describirme el caso clínico con el mayor detalle posible: signos, evolución, estudios previos..." rows={5} />
+        <Textarea 
+          name="Descripción del caso" 
+          required 
+          placeholder="Describirme el caso clínico con el mayor detalle posible: signos, evolución, estudios previos..." 
+          rows={5}
+          minLength={20}
+          title="Contame un poco más sobre el caso"
+        />
       </Field>
     </>
   );
@@ -199,6 +217,9 @@ function FormCapacitaciones() {
 }
 
 function FormEventos() {
+  // Calcular fecha mínima (hoy) en formato YYYY-MM-DD
+  const today = new Date().toISOString().split('T')[0];
+  
   return (
     <>
       <div className="form-grid-2">
@@ -219,7 +240,12 @@ function FormEventos() {
           <Select name="Tipo de evento" options={['Congreso','Simposio','Jornada','Charla corporativa','Otro']} />
         </Field>
         <Field label="Fecha tentativa">
-          <Input type="date" name="Fecha tentativa" />
+          <Input 
+            type="date" 
+            name="Fecha tentativa"
+            min={today}
+            title="La fecha del evento no puede ser anterior a hoy"
+          />
         </Field>
       </div>
 
@@ -260,7 +286,14 @@ function FormEmpresas() {
       </Field>
 
       <Field label="Mensaje" required>
-        <Textarea name="Mensaje" required placeholder="Describime brevemente tu proyecto y cómo podría colaborar Pablo..." rows={5} />
+        <Textarea 
+          name="Mensaje" 
+          required 
+          placeholder="Describime brevemente tu proyecto y cómo podría colaborar Pablo..." 
+          rows={5}
+          minLength={15}
+          title="Contame un poco más sobre tu proyecto"
+        />
       </Field>
     </>
   );
@@ -405,7 +438,7 @@ export default function FormularioContacto({ initialTab = 'interconsultas' } = {
           </div>
         )}
 
-        <form onSubmit={handleSubmit} noValidate>
+        <form onSubmit={handleSubmit}>
           {/* Campos ocultos */}
           <input type="hidden" name="tab" value={activeTab} />
           <input type="checkbox" name="botcheck" style={{ display: 'none' }} />
