@@ -13,7 +13,6 @@ const pages = [
   { url: '/veterinarios/libro',          priority: '0.7', changefreq: 'monthly' },
   { url: '/empresas',                    priority: '0.7', changefreq: 'monthly' },
   { url: '/eventos',                     priority: '0.8', changefreq: 'weekly'  },
-  { url: '/videos',                      priority: '0.6', changefreq: 'weekly'  },
   { url: '/contacto',                    priority: '0.6', changefreq: 'monthly' },
   { url: '/terminos',                    priority: '0.3', changefreq: 'yearly'  },
   { url: '/privacidad',                  priority: '0.3', changefreq: 'yearly'  },

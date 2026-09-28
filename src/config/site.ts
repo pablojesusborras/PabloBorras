@@ -33,6 +33,7 @@ export const SITE_CONFIG = {
     'https://www.linkedin.com/in/pablo-jes%C3%BAs-borr%C3%A1s-b9aa3856/',
     'https://www.researchgate.net/profile/Pablo-Borras-2',
     'https://linktr.ee/pablojesusborras',
+    'https://www.youtube.com/channel/UCylU28ojU4g0wo_a2MTELBw',
   ],
   
   // Foto de perfil
