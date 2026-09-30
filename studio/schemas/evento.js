@@ -57,23 +57,6 @@ export default {
       rows: 4,
     },
     {
-      name: 'imagen',
-      title: 'Imagen del Evento',
-      type: 'image',
-      description: 'Imagen representativa del evento (opcional, se puede subir luego)',
-      options: {
-        hotspot: true,
-      },
-      fields: [
-        {
-          name: 'alt',
-          title: 'Texto Alternativo',
-          type: 'string',
-          description: 'Descripción de la imagen para accesibilidad',
-        },
-      ],
-    },
-    {
       name: 'enlace',
       title: 'Enlace al Evento',
       type: 'url',
@@ -97,14 +80,12 @@ export default {
       subtitle: 'fecha',
       ciudad: 'ciudad',
       tipo: 'tipo',
-      media: 'imagen',
     },
     prepare(selection) {
       const { title, subtitle, ciudad, tipo } = selection
       return {
         title: title,
         subtitle: `${tipo} · ${ciudad} · ${subtitle}`,
-        media: selection.media,
       }
     },
   },

@@ -40,8 +40,7 @@ function transformarEvento(eventoSanity) {
     fecha: eventoSanity.fecha,
     tipo: eventoSanity.tipo,
     descripcion: eventoSanity.descripcion,
-    // Campos opcionales (por ahora no se usan en los componentes)
-    imagen: eventoSanity.imagen,
+    // Campos opcionales
     enlace: eventoSanity.enlace,
     destacado: eventoSanity.destacado,
   };
@@ -68,7 +67,6 @@ export async function getEventos(soloFuturos = false) {
           fecha,
           tipo,
           descripcion,
-          imagen,
           enlace,
           destacado
         }`
@@ -79,7 +77,6 @@ export async function getEventos(soloFuturos = false) {
           fecha,
           tipo,
           descripcion,
-          imagen,
           enlace,
           destacado
         }`;
@@ -115,7 +112,6 @@ export async function getEventosDestacados() {
       fecha,
       tipo,
       descripcion,
-      imagen,
       enlace,
       destacado
     }`;
@@ -144,7 +140,6 @@ export async function getEventoPorId(id) {
       fecha,
       tipo,
       descripcion,
-      imagen,
       enlace,
       destacado
     }`;
