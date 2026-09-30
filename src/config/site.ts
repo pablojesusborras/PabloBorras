@@ -55,7 +55,6 @@ export const SITE_CONFIG = {
   memberOf: [
     { name: 'TroCCAP', url: 'https://www.troccap.com' },
     { name: 'ISCAID', url: 'https://www.iscaid.org' },
-    { name: 'ABCD cats & vets Europe', url: 'https://www.abcdcatsvets.org' },
   ],
   
   // Áreas de conocimiento

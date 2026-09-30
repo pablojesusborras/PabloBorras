@@ -38,12 +38,6 @@ const ciencia = [
     descripcion: 'Revista científica internacional de referencia en parasitología y enfermedades vectoriales.',
   },
   {
-    icono: `<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>`,
-    titulo: 'ABCD Cats & Vets Europe',
-    detalle: 'Colaborador científico',
-    descripcion: 'Plataforma europea de guías de vacunación y manejo de enfermedades infecciosas felinas basadas en evidencia.',
-  },
-  {
     icono: `<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M9 9h6"/><path d="M9 12h6"/><path d="M9 15h4"/></svg>`,
     titulo: 'ISCAID',
     detalle: 'Miembro activo',
@@ -451,8 +445,7 @@ const tematicas = [
               Ha disertado en congresos internacionales en Argentina, Colombia, Ecuador, Uruguay, Brasil,
               Paraguay, España y Países Bajos. Es colaborador del Servicio de Zoopatología del Hospital
               Francisco J. Muñiz, editor asociado de <em>Parasites & Vectors</em> (Springer Nature) y
-              <!-- ABCD Cats & Vets Europe e ISCAID: consultar con la clienta si también deben sacarse, igual que TroCCAP -->
-              miembro activo de ABCD Cats & Vets Europe e ISCAID.
+              miembro activo de ISCAID.
             </p>
 
             <!-- Último párrafo: chip destacado con emoji -->
@@ -852,13 +845,12 @@ const tematicas = [
           // Colores por categoría
           const colores = [
             '#1880c9', // Editor asociado
-            '#183b7f', // ABCD Cats & Vets Europe
             '#5ba8e0', // ISCAID
             '#183b7f', // Hospital Francisco J. Muñiz
             '#16a34a', // Premio AVEACA 2025
           ];
           const colorCategoria = colores[index];
-          const esPremio = index === 4;
+          const esPremio = index === 3;
 
           // Convertir hex a rgba con opacidad para el fondo del ícono
           const hexToRgba = (hex: string, alpha: number) => {
